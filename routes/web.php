@@ -48,6 +48,7 @@ Route::group(
     Route::get('/clients/show', 'UserController@Client_show')->name('clients.show');
     Route::get('/clients/edit', 'UserController@Client_edit')->name('clients.edit');
     Route::delete('/clients/destroy', 'UserController@Client_destroy')->name('clients.destroy');
+    Route::put('/clients/update','UserController@Client_update')->name('clients.update');
     //==============================Coupons============================
     Route::resource('coupons', 'CouponController');
     

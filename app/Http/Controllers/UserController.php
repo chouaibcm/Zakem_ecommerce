@@ -13,6 +13,8 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware(['permission:read_users'])->only('index');
+        $this->middleware(['permission:update_clients'])->only('client_edit');
+        $this->middleware(['permission:read_clients'])->only('client_index');
     }
     public function index()
     {
@@ -136,10 +138,58 @@ class UserController extends Controller
         $user= User::findOrFail($request->id);
         return view('backend/clients/edit', compact('user','main_sidebar'));
     }
+    public function client_update(Request $request)
+    {
+        $request->validate( [
+            'name' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'country' => 'required',
+            'mobile' => 'required',
+        ]);
+
+        $user=User::findOrFail($request->id);
+
+        if ($request->image) {
+            if($user->image != 'default.png'){
+                $path=public_path('uploads/user_img/' . $user->image);
+                    unlink($path);  
+            }
+        if($request->image){            
+            Image::make($request->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('uploads/user_img/' . $request->image->hashName()));
+        }
+        }
+        $user->update([
+            $user->name = $request->name,
+            $user->email= $request->email,
+            $user->address= $request->address,
+            $user->city= $request->city,
+            $user->state= $request->state,
+            $user->country= $request->country,
+            $user->mobile= $request->mobile,
+            $user->pincode= $request->pincode,
+          ]);
+          if($request->image){ 
+            $user->update([
+            $user->image = $request->image->hashName(),
+            ]);    
+         }
+         toastr()->success(trans('messages.Update'));
+         return back();
+
+    }
     public function client_destroy(Request $request)
     {
         $main_sidebar=5;
         $user= User::findOrFail($request->id);
+        if($user->image != 'default.png'){
+            $path=public_path('uploads/user_img/' . $user->image);
+                unlink($path);  
+        }
         $user->delete();
 
         toastr()->error(trans('messages.Delete'));
