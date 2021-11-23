@@ -37,10 +37,10 @@
                                 </div>
                             @endif
                             <div class="text-muted small fx-bold text-uppercase px-3">
-                                {{ trans('coupons_trans.about_coupon') }}
+                                {{ trans('products_trans.about_product') }}
                             </div>
                             <hr class="dropdown-divider mb-2" />
-                            <form action="{{ route('coupons.store') }}" method="POST">
+                            <form action="{{ route('products.store') }}" method="POST">
                                 @csrf
                                 <!-- name and title of product-->
                                 <div class="row mb-2">
