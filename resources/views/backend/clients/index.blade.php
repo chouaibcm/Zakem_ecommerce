@@ -59,60 +59,28 @@
                                                 class="img-thumbnail" alt=""></td>
                                             <td>{{ $user->name }}</td>   
                                             <td>{{ $user->address }}</td>  
-                                            <td>{{ $user->mobile }}</td>                                      
-                                            {{-- <td>
-                                                <!--show client-->
-                                                @if (auth()->user()->hasPermission('read_clients'))  
-                                                 <form action="{{ route('clients.show') }}" method="GET">
-                                                     <input type="hidden" name="id" value="{{ $user->id }}">
-                                                <button type="submit" class="btn btn-info btn-sm"
-                                                title="{{ trans('clients_trans.show') }}"><i class="bi bi-eye text-white"></i></button>
-                                                 </form>                                           
-                                                @else
-                                                <button class="btn btn-info btn-sm" title="{{ trans('clients_trans.show') }}" disabled>
-                                                    <i class="bi bi-eye"></i></button>
-                                                @endif
-                                                <!--update client-->
-                                                @if (auth()->user()->hasPermission('update_clients'))
-                                                <button type="button" class="btn btn-primary btn-sm"
-                                                    title="{{ trans('clients_trans.Edit') }}"><i
-                                                        class="fa fa-edit"></i></button>
-                                                @else
-                                                <button class="btn btn-primary btn-sm" title="{{ trans('clients_trans.Edit') }}" disabled><i
-                                                    class="fa fa-edit"></i></button>
-                                                @endif
-                                                <!--Delete client-->
-                                                @if (auth()->user()->hasPermission('delete_clients'))
-                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#delete{{ $user->id }}"
-                                                title="{{ trans('clients_trans.Delete') }}"><i
-                                                    class="fa fa-trash"></i></button>
-                                                @else
-                                                <button type="button" class="btn btn-danger btn-sm" title="{{ trans('clients_trans.Delete') }}" disabled><i
-                                                    class="fa fa-trash"></i></button>
-                                                @endif
-                                            </td> --}}
+                                            <td>{{ $user->mobile }}</td>    
                                             <td>
-                                                    <div class="nav-item dropdown">
-                                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-display="static"
-                                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="bi bi-three-dots"></i>
+                                                    <div class="dropdown d-flex justify-content-center">
+                                                        <a class="dropdown-toggle btn btn-primary btn-sm" href="#" id="navbarDropdown" role="button" data-bs-display="static"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <span><i class="bi bi-three-dots"></i></span>
                                                         </a>
-                                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                                             @if (auth()->user()->hasPermission('read_clients')) 
-                                                              <a class="dropdown-item" href="{{ route('clients.show') }}" onclick="event.preventDefault();
+                                                              <li><a class="dropdown-item" href="{{ route('clients.show') }}" onclick="event.preventDefault();
                                                               document.getElementById('show_clients').submit();"
-                                                              ><i class="bi bi-eye me-2"></i>{{ trans('clients_trans.show') }}</a>
+                                                              ><i class="bi bi-eye me-2"></i>{{ trans('clients_trans.show') }}</a></li>
                                                             @endif
                                                             @if (auth()->user()->hasPermission('update_clients')) 
-                                                            <a class="dropdown-item" href="{{ route('clients.edit') }}" onclick="event.preventDefault();
+                                                            <li><a class="dropdown-item" href="{{ route('clients.edit') }}" onclick="event.preventDefault();
                                                             document.getElementById('edit_clients').submit();">
-                                                                <i class="fa fa-edit me-2"></i>{{ trans('clients_trans.edit_client') }}</a>
+                                                                <i class="fa fa-edit me-2"></i>{{ trans('clients_trans.edit_client') }}</a></li>
                                                             @endif
                                                             @if (auth()->user()->hasPermission('delete_clients')) 
-                                                            <a class="dropdown-item" href=""  data-bs-toggle="modal"
+                                                            <li><a class="dropdown-item" href=""  data-bs-toggle="modal"
                                                             data-bs-target="#delete{{ $user->id }}">
-                                                                <i class="fa fa-trash me-2"></i>{{ trans('clients_trans.delete_client') }}</a>
+                                                                <i class="fa fa-trash me-2"></i>{{ trans('clients_trans.delete_client') }}</a></li>
                                                             @endif
 
                                                             <!--forms-->
@@ -122,7 +90,7 @@
                                                             <form id="edit_clients" action="{{route('clients.edit')}}">
                                                                 <input type="hidden" name="id" value="{{ $user->id }}">
                                                             </form>
-                                                        </div>
+                                                        </ul>
                                                     </div>
                                             </td>
                                         </tr>
