@@ -1,0 +1,24 @@
+main {
+    margin-top: 75px; }
+.navbar {
+    box-shadow: 2px 2px 5px #3292a6;
+    opacity: 0.9;
+    background: #fff; }
+    .navbar .nav-item {
+      font-size: 1.4rem;
+      padding-right: 1.4rem; }
+
+      .carousel-item {
+        height: 450px;
+    }      
+.carousel-image-1 {
+    background-size: cover;
+}
+
+.carousel-image-2 {
+    background-size: cover;
+}
+
+.carousel-image-3 {
+    background-size: cover;
+}
