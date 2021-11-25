@@ -24,18 +24,13 @@
 <body>
     
    <!-- START HERE -->
-  <nav class="navbar navbar-expand-md navbar-light fixed-top py-4" id="main-nav">
+  <nav class="navbar navbar-expand-sm navbar-light fixed-top py-4" id="main-nav">
     <div class="container">
       <a href="#home" class="navbar-brand">
         {{-- <img src="img/mlogo.png" width="50" height="50" alt=""> --}}
         <h3 class="d-inline align-middle">Mizuxe</h3>
       </a>
-      <div class="navbar-toggler ms-auto">
-        <a href="#home" class="nav-link"><i class="bi bi-cart3">
-            <span class="position-absolute top-20 start-25 translate-middle badge rounded-pill bg-danger" style="font-size: 12px">
-            9
-          </span></i></a>
-      </div>
+      
       <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </div>
@@ -45,22 +40,50 @@
             <a href="#home" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#about" class="nav-link">About</a>
+            <a href="#about" class="nav-link">Shop</a>
           </li>
           <li class="nav-item">
-            <a href="#authors" class="nav-link">Meet The Authors</a>
+            <a href="#authors" class="nav-link">About</a>
           </li>
           <li class="nav-item">
             <a href="#contact" class="nav-link">contact</a>
           </li>
         </ul>
-        <ul class="navbar-nav ms-5">
-            <li class="nav-item">
-                <a href="#home" class="nav-link"><i class="bi bi-cart3">
-                    <span class="position-absolute top-20 start-25 translate-middle badge rounded-pill bg-danger" style="font-size: 12px">
-                    9
-                  </span></i></a>
-            </li>
+      </div>
+      {{-- button ta carte li nhato fiha les produit --}}
+      
+      <a class="nav-item cartcho" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+        <i class="bi bi-cart3">
+        <span class="position-absolute top-20 start-25 translate-middle badge rounded-pill bg-danger" style="font-size: 12px">
+          9
+        </span></i>
+      </a>
+      
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div>
+            Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+          </div>
+          <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      {{-- end of button carte --}}
+
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <a href="#home" class="nav-link">Login</a>
             </li>
@@ -71,10 +94,39 @@
       </div>
     </div>
   </nav>
-  <main class="py-4">
+  <main class="">
     @yield('content')
   </main>
-
+  <footer id="main-footer" class="p-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h4>Contact Us</h4>
+          <hr class="dropdown-divider" />
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+          <span><i class="bi bi-geo-alt-fill">  abed brahim hammam debagh</i></span><br>
+          <span><i class="bi bi-telephone-fill">  +213 7 94 02 42 89</i></span><br>
+          <span><i class="bi bi-send-fill">  Chochouaib@gmail.com</i></span>
+        </div>
+        <div class="col-md-2">
+          <h4>Follow Us</h4>
+          <hr class="dropdown-divider" />
+          <a href="#"><i class="bi bi-facebook">  facebook</i></a><br>
+          <a href="#"><i class="bi bi-instagram">  instagram</i></a><br>
+          <a href="#"><i class="bi bi-google">  Google+</i></a><br>
+          <a href="#"><i class="bi bi-twitter">  Twitter</i></a><br>
+          <a href="#"><i class="bi bi-pinterest">  Pinterest</i></a><br>
+          <a href="#"><i class="bi bi-youtube">  Youtube</i></a><br>
+        </div>
+        <div class="col-md-2">
+          <p>Copyright &copy; <span id="year"></span> ZAKEM</p>
+        </div>
+        <div class="col-md-4">
+          <p>Copyright &copy; <span id="year"></span> ZAKEM</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -89,6 +141,10 @@
     @toastr_js
     @toastr_render
     <script>
+      $('.carousel'), carousel({
+      interval: 6000,
+      pause: 'hover'
+    });
         // Get the current year for the copyright
         $('#year').text(new Date().getFullYear());
         $(document).ready(function () {

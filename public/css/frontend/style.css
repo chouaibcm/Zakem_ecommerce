@@ -1,6 +1,7 @@
 main {
-    margin-top: 75px; }
+    margin-top: 95px; }
 .navbar {
+    position: relative;
     box-shadow: 2px 2px 5px #3292a6;
     opacity: 0.9;
     background: #fff; }
@@ -12,6 +13,7 @@ main {
         height: 450px;
     }      
 .carousel-image-1 {
+    position: relative;
     background-size: cover;
 }
 
@@ -21,4 +23,22 @@ main {
 
 .carousel-image-3 {
     background-size: cover;
+}
+.cartcho{
+    position: absolute;
+    left: 73%;
+}
+
+#main-footer {
+    background: #000;
+    color: #fff;
+}
+#main-footer a {
+    text-decoration: none;
+    color: #fff;    
+}
+
+/* mouse over link */
+#main-footer a:hover {
+    color: gainsboro;
 }
