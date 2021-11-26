@@ -7,7 +7,7 @@ main {
     background: #fff; }
     .navbar .nav-item {
       font-size: 1.2rem;
-      padding-right: 1rem; }
+      padding-left: 1rem; }
 
       .carousel-item {
         height: 450px;
@@ -25,7 +25,7 @@ main {
 }
 .cartcho{
     position: absolute;
-    left: 73%;
+    right: 73%;
     top: 25%;
     display: inline-flex;
 }

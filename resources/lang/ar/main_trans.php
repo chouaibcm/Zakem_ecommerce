@@ -4,6 +4,9 @@ return [
 
     'Dashboard'=>'الرئيسية',
     'dashboards'=>'الرئيسية',
+    'shop'=>'المتجر',
+    'about'=>'معلومات عنا',
+    'contact'=>'اتصل بنا',
     'Dashboard_page'=>'لوحة التحكم',
     'categories'=>'الفئات',
     'products'=>'المنتجات',
@@ -23,6 +26,8 @@ return [
     'last_three_month'=>'الأشهر الثلاثة الماضية ',
     'last_six_month'=>'الأشهر الستة الماضية',
     'to'=>'الى',
+    'logout'=>'تسجيل الخروج',
+    'home'=>'الرئيسية',
 
 
     'Copyright' => 'جميع الحقوق محفوظة ',

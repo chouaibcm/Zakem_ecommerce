@@ -13,7 +13,7 @@
           <div class="card-header">Categories</div>
           <div class="card-body">
             <h5 class="card-title">Primary card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae, dolore!</p>
           </div>
         </div>
       </div>

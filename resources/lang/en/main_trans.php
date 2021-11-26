@@ -3,6 +3,9 @@
 return [
     'Dashboard'=>'Dashboard',
     'dashboards'=>'Dashboard',
+    'shop'=>'Shop',
+    'about'=>'About Us',
+    'contact'=>'Contact Us',
     'Dashboard_page'=>'Dashboard',
     'interface'=>'Interface',
     'categories'=>'Categories',
@@ -23,5 +26,6 @@ return [
     'last_three_month'=>'الأشهر الثلاثة الماضية ',
     'last_six_month'=>'الأشهر الستة الماضية',
     'to'=>'الى',
-
+    'logout'=>'Logout',
+    'home'=>'Home',
 ];

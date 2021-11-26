@@ -145,52 +145,13 @@
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <label class="control-label">{{trans('categories_trans.category_level') }}</label>
-                                                                    <select name="parent_id" id="parent_id" class="form-select mb-2"
-                                                                        aria-label="Default select example">
+                                                                    <select class="form-select" name="parent_id" id="" aria-label="Default select example">
                                                                         <option value="0">{{trans('categories_trans.main_category') }}</option>
                                                                         @foreach ($cate_levels as $cat)
-                                                                            @if (App::getLocale() == 'ar')                                            
-                                                                            <option value="{{$cat->id}}" {{ $category->id == $cat->id ? 'selected' : '' }}>{{ $cat->getTranslation('name', 'ar') }}</option>
-                                                                            @else
-                                                                            <option value="{{$cat->id}}" {{ $category->id == $cat->id ? 'selected' : '' }}>{{ $cat->getTranslation('name', 'en') }}</option>
-                                                                            @endif
-                                                                            <!-- for arabic and english language-->
-                                                                            @if (App::getLocale() == 'ar')                                            
-                                                                            <?php
-                                                                            if ($cat->id != 0) {
-                                                                                $subCategory = App\Category::select('id', 'name')
-                                                                                    ->where('parent_id', $cat->id)
-                                                                                    ->get();
-                                                                                if (count($subCategory) > 0) {
-                                                                                    foreach ($subCategory as $subCate) {
-                                                                                        if ($subCate->id == $category->id) {
-                                                                                            echo '<option value="' . $subCate->id . '" selected>--  ' . $subCate->getTranslation('name', 'ar') . '&nbsp;&nbsp;</option>';
-                                                                                        }else{
-                                                                                            echo '<option value="' . $subCate->id . '">--  ' . $subCate->getTranslation('name', 'ar') . '&nbsp;&nbsp;</option>';
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                            ?>
-                                                                            @else
-                                                                            <?php
-                                                                            if ($cat->id != 0) {
-                                                                                $subCategory = App\Category::select('id', 'name')
-                                                                                    ->where('parent_id', $cat->id)
-                                                                                    ->get();
-                                                                                if (count($subCategory) > 0) {
-                                                                                    foreach ($subCategory as $subCate) {
-                                                                                        if ($subCate->id == $category->id) {
-                                                                                            echo '<option value="' . $subCate->id . '" selected >&nbsp;&nbsp;--' . $subCate->getTranslation('name', 'en') . '</option>';
-                                                                                        } else {
-                                                                                            echo '<option value="' . $subCate->id . '">&nbsp;&nbsp;--' . $subCate->getTranslation('name', 'en') . '</option>';
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                            ?>
-                                                                            @endif
-                                                                            
+                                                                            <option value="{{ $cat->id }}" {{ $category->id == $cat->id ? 'selected' : '' }}>{{ $category->name }}</option>                                                    
+                                                                            @if (count($cat->childs) > 0)
+                                                                                @include('backend.categories.editcategory', ['subcategories' => $cat->childs, 'parent' => $cat->name,'category' => $category])
+                                                                            @endif                                                    
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
@@ -284,44 +245,15 @@
                         <div class="row">
                             <div class="col">
                                 <label class="control-label">{{trans('categories_trans.category_level') }}</label>
-                                <select name="parent_id" id="parent_id" class="form-select mb-2"
-                                    aria-label="Default select example">
-                                    <option value="0">{{trans('categories_trans.main_category') }}</option>
-                                    @foreach ($cate_levels as $cat)
-                                        @if (App::getLocale() == 'ar')                                            
-                                        <option value="{{$cat->id}}">{{ $cat->getTranslation('name', 'ar') }}</option>
-                                        @else
-                                        <option value="{{$cat->id}}">{{ $cat->getTranslation('name', 'en') }}</option>
-                                        @endif
-                                        <!-- for arabic and english language-->
-                                        @if (App::getLocale() == 'ar')                                            
-                                        <?php
-                                        if ($cat->id != 0) {
-                                            $subCategory = App\Category::select('id', 'name')
-                                                ->where('parent_id', $cat->id)
-                                                ->get();
-                                            if (count($subCategory) > 0) {
-                                                foreach ($subCategory as $subCate) {
-                                                    echo '<option value="' . $subCate->id . '">&nbsp;&nbsp;--' . $subCate->getTranslation('name', 'ar') . '</option>';
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                        @else
-                                        <?php
-                                        if ($cat->id != 0) {
-                                            $subCategory = App\Category::select('id', 'name')
-                                                ->where('parent_id', $cat->id)
-                                                ->get();
-                                            if (count($subCategory) > 0) {
-                                                foreach ($subCategory as $subCate) {
-                                                    echo '<option value="' . $subCate->id . '">&nbsp;&nbsp;--' . $subCate->getTranslation('name', 'ar') . '</option>';
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                        @endif
-                                        
+                                
+                                
+                                <select class="form-select" name="parent_id" id="" aria-label="Default select example">
+                                    <option value="0">{{trans('categories_trans.main_category') }}</option>     
+                                    @foreach ($cate_levels as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>                                                    
+                                        @if (count($category->childs) > 0)
+                                            @include('backend.products.createsubcategories', ['subcategories' => $category->childs, 'parent' => $category->name])
+                                        @endif                                                    
                                     @endforeach
                                 </select>
                             </div>

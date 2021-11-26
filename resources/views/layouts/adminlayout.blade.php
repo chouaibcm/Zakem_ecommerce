@@ -69,10 +69,10 @@
                         <i class="bi bi-person-fill me-2"></i>{{ auth()->user()->name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('home') }}">Home</a>
+                        <a class="dropdown-item" href="{{ route('home') }}">{{ trans('main_trans.home') }}</a>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
+                            {{ trans('main_trans.logout') }}
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
