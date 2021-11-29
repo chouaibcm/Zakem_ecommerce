@@ -51,6 +51,8 @@ Route::group(
     Route::put('/clients/update','UserController@Client_update')->name('clients.update');
     //==============================Coupons============================
     Route::resource('coupons', 'CouponController');
+    //==============================First slider============================
+    Route::resource('settings', 'FirstSliderController');
     
     });
 });

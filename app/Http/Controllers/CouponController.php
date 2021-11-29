@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware(['permission:read_coupons'])->only('index');
+    }
     public function index()
     {
         $main_sidebar=6;

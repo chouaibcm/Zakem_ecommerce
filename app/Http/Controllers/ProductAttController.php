@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ProductAttController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:update_products'])->only('edit');
+    }
     public function index()
     {
         //

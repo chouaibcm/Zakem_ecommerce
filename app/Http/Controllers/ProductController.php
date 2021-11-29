@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:create_products'])->only('create');
+        $this->middleware(['permission:read_products'])->only('index');
+        $this->middleware(['permission:update_products'])->only('edit');
+    }
     public function index(Request $request)
     {
         $main_sidebar=3;        

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\FirstSlider;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,10 +26,12 @@ class HomeController extends Controller
     public function index()
     {
         $main_nav=1;
+
         $products=Product::where('status',1)
         ->orderBy('created_at','desc')
         ->take(8)
         ->get();
-        return view('home',compact('main_nav','products'));
+        $sliders= FirstSlider::all();
+        return view('home',compact('main_nav','products','sliders'));
     }
 }

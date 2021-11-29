@@ -9,9 +9,9 @@ main {
       font-size: 1.2rem;
       padding-right: 1rem; }
 
-      .carousel-item {
-        height: 450px;
-    }      
+.carousel-item {
+    height: 450px;
+}      
 .carousel-image-1 {
     background-size: cover;
 }
@@ -45,5 +45,5 @@ main {
 }
 
 #products_s .card:hover {
-    background: #111111;
+    background: #1b768d;
     color: rgb(219, 213, 213); }

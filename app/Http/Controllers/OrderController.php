@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware(['permission:read_orders'])->only('index');
+        $this->middleware(['permission:update_orders'])->only('edit');
+    }
     public function index()
     {
         $main_sidebar=4;

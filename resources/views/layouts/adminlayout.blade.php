@@ -124,15 +124,15 @@
                     @endif
                     <!-- Products -->
                     <li>
-                        <a class="nav-link px-3 sidebar-link  {{ $main_sidebar == 3 ? 'active' : '' }}" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                            aria-expanded="false" aria-controls="collapseExample">
+                        <a class="nav-link px-3 sidebar-link  {{ $main_sidebar == 3 ? 'active' : '' }}" data-bs-toggle="collapse" href="#collapseproduct" role="button"
+                            aria-expanded="false" aria-controls="collapseproduct">
                             <span class="me-2">
                                 <i class="bi bi-shop"></i>
                             </span>
                             <span>{{ trans('main_trans.products') }}</span>
                             <span class="right-icon ms-auto"><i class="bi bi-chevron-down"></i></span>
                         </a>
-                        <div class="collapse" id="collapseExample">
+                        <div class="collapse" id="collapseproduct">
                              <div>
                                  <ul class="navbar-nav ps-3">
                                     <a href="{{ route('products.create') }}" class="nav-link px-3">
@@ -209,14 +209,37 @@
                         <div class="text-muted small fx-bold text-uppercase px-3">{{ trans('main_trans.setting') }}
                         </div>
                     </li>
+                    
+                    {{--  --}}
                     <li>
-                        <a class="nav-link px-3" href="">
+                        <a class="nav-link px-3 sidebar-link  {{ $main_sidebar == 8 ? 'active' : '' }}" data-bs-toggle="collapse" href="#collapsesetting" role="button"
+                            aria-expanded="false" aria-controls="collapsesetting">
                             <span class="me-2">
                                 <i class="bi bi-gear"></i>
                             </span>
                             <span>{{ trans('main_trans.setting') }}</span>
+                            <span class="right-icon ms-auto"><i class="bi bi-chevron-down"></i></span>
                         </a>
+                        <div class="collapse" id="collapsesetting">
+                             <div>
+                                 <ul class="navbar-nav ps-3">
+                                    <a href="{{route('settings.index')}}" class="nav-link px-3  {{ $main_sidebar == 8 ? 'active' : '' }}">
+                                        <span class="me-2">
+                                            <i class="bi bi-tv"></i>
+                                        </span>
+                                        <span>Front Slider</span>
+                                     </a>
+                                     <a href="" class="nav-link px-3">
+                                        <span class="me-2">
+                                            <i class="bi bi-link"></i>
+                                        </span>
+                                        <span>Social Media Links</span>
+                                     </a>
+                                 </ul>
+                             </div>
+                        </div>
                     </li>
+                    {{--  --}}
                 </ul>
             </nav>
         </div>
