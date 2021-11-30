@@ -116,8 +116,7 @@
                                         <div class="form-floating">
                                             <textarea class="form-control" name="description"
                                                 placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                            <label
-                                                for="floatingTextarea">{{ trans('products_trans.description') }}</label>
+                                            <label for="floatingTextarea">{{ trans('products_trans.description') }}</label>
                                         </div>
                                     </div>
                                 </div>

@@ -10,6 +10,7 @@ return [
             'orders' => 'c,r,u,d',
             'clients' => 'c,r,u,d',
             'coupons' => 'c,r,u,d',
+            'settings' => 'c,r,u,d',
         ],
         'admin' => [],
     ],

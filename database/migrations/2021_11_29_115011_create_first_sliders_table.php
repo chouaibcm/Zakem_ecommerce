@@ -17,7 +17,8 @@ class CreateFirstSlidersTable extends Migration
             $table->id();
             $table->string('heading');
             $table->text('description');
-            $table->string('image');
+            $table->string('image')->default('default.png');
+            $table->string('position');
             $table->timestamps();
         });
     }

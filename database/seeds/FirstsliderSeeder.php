@@ -13,19 +13,22 @@ class FirstsliderSeeder extends Seeder
     public function run()
     {
         $first= FirstSlider::create([
-            'heading'=> 'Heading one',
-            'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, quas?',
+            'heading'=> ['ar'=>'العنوان الاول','en'=>'Heading one'],
+            'description'=>['ar'=>'الوصف الاول','en'=>'description one'],
             'image'=> 'image1.jpg',
+            'position'=> 'text-end',
         ]);
         $first2= FirstSlider::create([
-            'heading'=> 'Heading two',
-            'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, quas?',
+            'heading'=> ['ar'=>'العنوان الثاني','en'=>'Heading two'],
+            'description'=>['ar'=>'الوصف الثاني','en'=>'description two'],
             'image'=> 'image2.jpg',
+            'position'=> 'text-start',
         ]);
-        $first2= FirstSlider::create([
-            'heading'=> 'Heading three',
-            'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, quas?',
-            'image'=> 'image3.jpg',
+        $first3= FirstSlider::create([
+            'heading'=> ['ar'=>'العنوان الثالث','en'=>'Heading one'],
+            'description'=>['ar'=>'الوصف الثالث','en'=>'description one'],
+            'image'=> 'image3.jpg',            
+            'position'=> '',
         ]);
     }
 }

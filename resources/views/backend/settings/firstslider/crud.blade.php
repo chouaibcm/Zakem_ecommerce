@@ -11,8 +11,9 @@
                                 <li class="breadcrumb-item"><span class="me-2"><i
                                             class="bi bi-speedometer2"></i></span><a
                                         href="{{ route('dashboard') }}">{{ trans('main_trans.Dashboard') }}</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">{{ trans('settings_trans.title_page') }}
-                                        </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ trans('settings_trans.title_page') }}
+                                </li>
                             </ol>
                         </nav>
                     </div>
@@ -42,13 +43,13 @@
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-end">
                                     <!-- add coupon button-->
-                                    @if (auth()->user()->hasPermission('create_coupons'))
-                                        <a href="{{ Route('coupons.create') }}" class="btn btn-primary"
+                                    @if (auth()->user()->hasPermission('create_settings'))
+                                        <a href="{{ Route('settings.create') }}" class="btn btn-primary"
                                             data-bs-toggle="modal" data-bs-target="#couponModal"><i
-                                                class="fa fa-plus"></i>{{ trans('coupons_trans.add_coupon') }}</a>
+                                                class="fa fa-plus"></i>{{ trans('settings_trans.add_slider') }}</a>
                                     @else
                                         <button class="btn btn-primary" disabled><i
-                                                class="fa fa-plus"></i>{{ trans('coupons_trans.add_coupon') }}</button>
+                                                class="fa fa-plus"></i>{{ trans('settings_trans.add_slider') }}</button>
                                     @endif
                                 </div>
                             </div>
@@ -71,7 +72,7 @@
                                             <?php $i++; ?>
                                             <td>{{ $i }}</td>
                                             <td><img src="{{ $slider->image_path }}" style="width: 150px;"
-                                                class="img-thumbnail" alt=""></td>
+                                                    class="img-thumbnail" alt=""></td>
                                             <td>{{ $slider->heading }}</td>
                                             <td>{{ $slider->description }}</td>
                                             <td>
@@ -102,69 +103,123 @@
                                         <!--Edit coupon-->
                                         <div class="modal fade" id="edit{{ $slider->id }}" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
+                                            <div class="modal-dialog modal-xl">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">
-                                                            {{ trans('coupons_trans.edit_coupon') }}</h5>
+                                                            {{ trans('settings_trans.slider_info') }}</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
-                                                    <form action="{{ route('coupons.update', 'test') }}" method="POST">
+                                                    <form action="{{ route('settings.update', 'test') }}" method="POST" enctype="multipart/form-data">
                                                         {{ method_field('patch') }}
                                                         @csrf
                                                         <div class="modal-body">
                                                             <!-- add_form -->
+                                                            <div class="row">
+                                                                {{-- english info --}}
+                                                                <div class="col">
+                                                                    <div
+                                                                        class="text-muted small fx-bold text-uppercase px-3">
+                                                                        {{ trans('settings_trans.slider_info_en') }}
+                                                                    </div>
+                                                                    <hr class="dropdown-divider mb-2" />
+
+                                                                    <label for="name_ar"
+                                                                        class="mr-sm-2">{{ trans('settings_trans.heading_en') }}:</label>
+                                                                    <input id="name_ar" type="text" name="heading_en"
+                                                                        value="{{ $slider->getTranslation('heading', 'en') }}"
+                                                                        class="form-control mb-2">
+                                                                    <div class="form-floating mb-2">
+                                                                        <textarea class="form-control"
+                                                                            name="description_en"
+                                                                            placeholder="Leave a comment here"
+                                                                            id="floatingTextarea">{{ $slider->getTranslation('description', 'en') }}</textarea>
+                                                                        <label
+                                                                            for="floatingTextarea">{{ trans('settings_trans.description_en') }}</label>
+                                                                    </div>
+                                                                </div>
+                                                                {{-- arabic info --}}
+                                                                <div class="col">
+                                                                    <div
+                                                                        class="text-muted small fx-bold text-uppercase px-3">
+                                                                        {{ trans('settings_trans.slider_info_ar') }}
+                                                                    </div>
+                                                                    <hr class="dropdown-divider mb-2" />
+
+                                                                    <label for="name_ar"
+                                                                        class="mr-sm-2">{{ trans('settings_trans.heading_ar') }}:</label>
+                                                                    <input id="name_ar" type="text" name="heading_ar"
+                                                                        value="{{ $slider->getTranslation('heading', 'ar') }}"
+                                                                        class="form-control mb-2">
+                                                                    <div class="form-floating mb-2">
+                                                                        <textarea class="form-control"
+                                                                            name="description_ar"
+                                                                            placeholder="Leave a comment here"
+                                                                            id="floatingTextarea">{{ $slider->getTranslation('description', 'ar') }}</textarea>
+                                                                        <label
+                                                                            for="floatingTextarea">{{ trans('settings_trans.description_ar') }}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {{-- slider position --}}
+                                                            <hr class="dropdown-divider mb-2" />
+                                                            <div class="row mb-2">
+                                                                <div class="col">
+                                                                    <label
+                                                                        class="control-label">{{ trans('settings_trans.position') }}
+                                                                        :</label>
+                                                                    <br>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" value="text-start"
+                                                                            type="radio" name="position"
+                                                                            id="flexRadioDefault1">
+                                                                        <label class="form-check-label"
+                                                                            for="flexRadioDefault1">
+                                                                            {{ trans('settings_trans.left') }}
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" value="text-center"
+                                                                            type="radio" name="position"
+                                                                            id="flexRadioDefault2" checked>
+                                                                        <label class="form-check-label"
+                                                                            for="flexRadioDefault2">
+                                                                            {{ trans('settings_trans.center') }}
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" value="text-end"
+                                                                            type="radio" name="position"
+                                                                            id="flexRadioDefault2">
+                                                                        <label class="form-check-label"
+                                                                            for="flexRadioDefault2">
+                                                                            {{ trans('settings_trans.right') }}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- slider image-->
                                                             <div class="text-muted small fx-bold text-uppercase px-3">
-                                                                {{ trans('coupons_trans.about_coupon') }}
+                                                                {{ trans('settings_trans.image') }}
                                                             </div>
                                                             <hr class="dropdown-divider mb-2" />
                                                             <div class="row mb-2">
                                                                 <div class="col">
-                                                                    <label for="name_ar"
-                                                                        class="mr-sm-2">{{ trans('coupons_trans.nb_coupon') }}
-                                                                        :</label>
-                                                                    <input id="name_ar" type="text" name="nb_coupon"
-                                                                        class="form-control" value="{{$slider->nb_coupon}}">
-                                                                </div>
-                                                                <div class="col">
-                                                                    <label for="name_en"
-                                                                        class="mr-sm-2">{{ trans('coupons_trans.discount') }}
-                                                                        :</label>
-                                                                    <input type="number" class="form-control"
-                                                                        name="discount" step="any"  value="{{$slider->discount}}" style="width: 100%">
+                                                                    <div class="mb-3">
+                                                                        <label for="formFile"
+                                                                            class="form-label">{{ trans('products_trans.import') }}:</label>
+                                                                        <input class="form-control image" name="image"
+                                                                            type="file" id="formFile">
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row mb-2">
                                                                 <div class="col">
-                                                                    <label for="name_ar"
-                                                                        class="mr-sm-2">{{ trans('coupons_trans.min_discount') }}
-                                                                        :</label>
-                                                                    <input type="number" name="min_price" step="any" 
-                                                                     value="{{$slider->min_price}}" class="form-control">
-                                                                </div>
-                                                                <div class="col">
-                                                                    <label
-                                                                        class="control-label">{{ trans('categories_trans.status') }}
-                                                                        :</label>
-                                                                    <br>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" value="1"
-                                                                            type="radio" name="status"
-                                                                            id="flexRadioDefault1"  {{$slider->status==1 ? 'checked':''}}>
-                                                                        <label class="form-check-label"
-                                                                            for="flexRadioDefault1">
-                                                                            {{ trans('coupons_trans.active') }}
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" value="0"
-                                                                            type="radio" name="status"
-                                                                            id="flexRadioDefault2" {{$slider->status==0 ? 'checked':''}}>
-                                                                        <label class="form-check-label"
-                                                                            for="flexRadioDefault2">
-                                                                            {{ trans('coupons_trans.desactive') }}
-                                                                        </label>
+                                                                    <div class="mb-3">
+                                                                        <img src="{{ $slider->image_path }}"
+                                                                            style="width: 300px;"
+                                                                            class="img-thumbnail image-preview" alt="">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -221,54 +276,98 @@
     </div>
     <!-- couponModal add model -->
     <div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-lg">
+        <div class="modal-dialog  modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ trans('coupons_trans.add_coupon') }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ trans('settings_trans.slider_info_en') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('coupons.store') }}" method="POST">
+                <form action="{{ route('settings.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <!-- add_form -->
+                        <div class="row">
+                            {{-- english info --}}
+                            <div class="col">
+                                <div class="text-muted small fx-bold text-uppercase px-3">
+                                    {{ trans('settings_trans.slider_info_en') }}
+                                </div>
+                                <hr class="dropdown-divider mb-2" />
+
+                                <label for="name_ar"
+                                    class="mr-sm-2">{{ trans('settings_trans.heading_en') }}:</label>
+                                <input id="name_ar" type="text" name="heading_en" class="form-control mb-2">
+                                <div class="form-floating mb-2">
+                                    <textarea class="form-control" name="description_en"
+                                        placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">{{ trans('settings_trans.description_en') }}</label>
+                                </div>
+                            </div>
+                            {{-- arabic info --}}
+                            <div class="col">
+                                <div class="text-muted small fx-bold text-uppercase px-3">
+                                    {{ trans('settings_trans.slider_info_ar') }}
+                                </div>
+                                <hr class="dropdown-divider mb-2" />
+
+                                <label for="name_ar"
+                                    class="mr-sm-2">{{ trans('settings_trans.heading_ar') }}:</label>
+                                <input id="name_ar" type="text" name="heading_ar" class="form-control mb-2">
+                                <div class="form-floating mb-2">
+                                    <textarea class="form-control" name="description_ar"
+                                        placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">{{ trans('settings_trans.description_ar') }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- slider position --}}
+                        <hr class="dropdown-divider mb-2" />
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label class="control-label">{{ trans('settings_trans.position') }} :</label>
+                                <br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" value="text-start" type="radio" name="position"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        {{ trans('settings_trans.left') }}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" value="text-center" type="radio" name="position"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        {{ trans('settings_trans.center') }}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" value="text-end" type="radio" name="position"
+                                        id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        {{ trans('settings_trans.right') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- slider image-->
                         <div class="text-muted small fx-bold text-uppercase px-3">
-                            {{ trans('coupons_trans.about_coupon') }}
+                            {{ trans('settings_trans.image') }}
                         </div>
                         <hr class="dropdown-divider mb-2" />
                         <div class="row mb-2">
                             <div class="col">
-                                <label for="name_ar" class="mr-sm-2">{{ trans('coupons_trans.nb_coupon') }}
-                                    :</label>
-                                <input id="name_ar" type="text" name="nb_coupon" class="form-control">
-                            </div>
-                            <div class="col">
-                                <label for="name_en" class="mr-sm-2">{{ trans('coupons_trans.discount') }}
-                                    :</label>
-                                <input type="number" class="form-control" name="discount">
+                                <div class="mb-3">
+                                    <label for="formFile"
+                                        class="form-label">{{ trans('products_trans.import') }}:</label>
+                                    <input class="form-control image" name="image" type="file" id="formFile">
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col">
-                                <label for="name_ar" class="mr-sm-2">{{ trans('coupons_trans.min_discount') }}
-                                    :</label>
-                                <input id="name_ar" type="number" name="min_price" class="form-control">
-                            </div>
-                            <div class="col">
-                                <label class="control-label">{{ trans('categories_trans.status') }} :</label>
-                                <br>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" value="1" type="radio" name="status"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        {{ trans('coupons_trans.active') }}
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" value="0" type="radio" name="status"
-                                        id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        {{ trans('coupons_trans.desactive') }}
-                                    </label>
+                                <div class="mb-3">
+                                    <img src="{{ asset('uploads/carousel/default.png') }}" style="width: 300px;"
+                                        class="img-thumbnail image-preview" alt="">
                                 </div>
                             </div>
                         </div>
