@@ -26,6 +26,18 @@ return [
     'right'=>'اليمين',
     'left'=>'اليسار',
     'center'=>'المنتصف',
+    'delete_slider'=>'حذف شريط التمرير',
+
+
+    
+    'facebook'=>'Facebook',
+    'instagram'=>'Instagram',
+    'google'=>'Google',
+    'twitter'=>'Twitter',
+    'pinterest'=>'Pinterest',
+    'youtube'=>'Youtube',
+    'socialmedia'=>'وسائل التواصل الاجتماعي',
+    'link'=>'الرابط',
 
 
 

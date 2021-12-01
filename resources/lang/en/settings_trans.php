@@ -28,6 +28,18 @@ return [
     'right'=>'Right',
     'left'=>'Left',
     'center'=>'Center',
+    'delete_slider'=>'Delete Slider',
+
+    // social media
+    
+    'facebook'=>'Facebook',
+    'instagram'=>'Instagram',
+    'google'=>'Google',
+    'twitter'=>'Twitter',
+    'pinterest'=>'Pinterest',
+    'youtube'=>'Youtube',
+    'socialmedia'=>'Social Media',
+    'link'=>'Link',
 
 
 ];

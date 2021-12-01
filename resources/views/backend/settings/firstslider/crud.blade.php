@@ -44,9 +44,14 @@
                                 <div class="d-flex justify-content-end">
                                     <!-- add coupon button-->
                                     @if (auth()->user()->hasPermission('create_settings'))
+                                    @if ($sliders->count() < 10)
                                         <a href="{{ Route('settings.create') }}" class="btn btn-primary"
-                                            data-bs-toggle="modal" data-bs-target="#couponModal"><i
-                                                class="fa fa-plus"></i>{{ trans('settings_trans.add_slider') }}</a>
+                                    data-bs-toggle="modal" data-bs-target="#couponModal"><i
+                                        class="fa fa-plus"></i>{{ trans('settings_trans.add_slider') }}</a>
+                                    @else
+                                    <button class="btn btn-primary" disabled><i
+                                        class="fa fa-plus"></i>{{ trans('settings_trans.add_slider') }}</button>
+                                    @endif
                                     @else
                                         <button class="btn btn-primary" disabled><i
                                                 class="fa fa-plus"></i>{{ trans('settings_trans.add_slider') }}</button>
@@ -62,6 +67,7 @@
                                         <th>{{ trans('settings_trans.image') }}</th>
                                         <th>{{ trans('settings_trans.heading') }}</th>
                                         <th>{{ trans('settings_trans.description') }}</th>
+                                        <th>{{ trans('settings_trans.position') }}</th>
                                         <th>{{ trans('coupons_trans.Processes') }}</th>
                                     </tr>
                                 </thead>
@@ -75,9 +81,10 @@
                                                     class="img-thumbnail" alt=""></td>
                                             <td>{{ $slider->heading }}</td>
                                             <td>{{ $slider->description }}</td>
+                                            <td>{{ $slider->position }}</td>
                                             <td>
                                                 <!--update coupon-->
-                                                @if (auth()->user()->hasPermission('update_coupons'))
+                                                @if (auth()->user()->hasPermission('update_settings'))
                                                     <button type="button" class="btn btn-primary btn-sm"
                                                         data-bs-toggle="modal" data-bs-target="#edit{{ $slider->id }}"
                                                         title="{{ trans('coupons_trans.Edit') }}"><i
@@ -88,7 +95,7 @@
                                                             class="fa fa-edit"></i></button>
                                                 @endif
                                                 <!--Delete coupon-->
-                                                @if (auth()->user()->hasPermission('delete_coupons'))
+                                                @if (auth()->user()->hasPermission('delete_settings'))
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" data-bs-target="#delete{{ $slider->id }}"
                                                         title="{{ trans('coupons_trans.Delete') }}"><i
@@ -243,11 +250,11 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">
-                                                            {{ trans('coupons_trans.delete_coupon') }}</h5>
+                                                            {{ trans('settings_trans.delete_slider') }}</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
-                                                    <form action="{{ route('coupons.destroy', 'test') }}" method="post">
+                                                    <form action="{{ route('settings.destroy', 'test') }}" method="post">
                                                         {{ method_field('Delete') }}
                                                         @csrf
                                                         <div class="modal-body">

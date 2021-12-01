@@ -53,6 +53,8 @@ Route::group(
     Route::resource('coupons', 'CouponController');
     //==============================First slider============================
     Route::resource('settings', 'FirstSliderController');
+    //==============================Social Media============================
+    Route::resource('socialmedia', 'SocialmediaController');
     
     });
 });

@@ -76,16 +76,18 @@
                                             <?php $i++; ?>
                                         @endforeach
                                     </div>
-                                    <div class="carousel-inner">
+                                    <div class="carousel-inner bg-cho">
                                         {{--  --}}
                                         <?php $i = 0; ?>
                                         @foreach ($sliders as $slider)
-                                            <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
+                                            <div class="carousel-item {{ $i == 0 ? 'active' : '' }} ">
                                                 <img src="{{ $slider->image_path }}" class="img-fluid" alt="">
-                                                <div class="carousel-caption d-none d-md-block bg-cho {{$slider->position}}">
+                                                @if ($slider->heading && $slider->description)
+                                                <div class="carousel-caption d-none d-md-block {{$slider->position}}">
                                                     <h1 class="display-3">{{ $slider->heading }}</h1>
                                                     <p>{{ $slider->description }}</p>
-                                                </div>
+                                                </div>                                                    
+                                                @endif
                                             </div>
                                             <?php $i++; ?>
                                         @endforeach

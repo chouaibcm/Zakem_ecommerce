@@ -223,13 +223,13 @@
                         <div class="collapse" id="collapsesetting">
                              <div>
                                  <ul class="navbar-nav ps-3">
-                                    <a href="{{route('settings.index')}}" class="nav-link px-3  {{ $main_sidebar == 8 ? 'active' : '' }}">
+                                    <a href="{{route('settings.index')}}" class="nav-link px-3">
                                         <span class="me-2">
                                             <i class="bi bi-tv"></i>
                                         </span>
                                         <span>Front Slider</span>
                                      </a>
-                                     <a href="" class="nav-link px-3">
+                                     <a href="{{route('socialmedia.index')}}" class="nav-link px-3">
                                         <span class="me-2">
                                             <i class="bi bi-link"></i>
                                         </span>
