@@ -96,16 +96,17 @@ class ProductController extends Controller
             'description' => 'required',
         ]);
         $product = Product::findOrFail($request->id);
-        if ($request->image) {
+        if ($request->image){
             if($product->image != 'default.png'){
                 $path=public_path('uploads/product_img/' . $product->image);
                     unlink($path);  
-            }
-        if($request->image){            
+            }        
             Image::make($request->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path('uploads/product_img/' . $request->image->hashName()));
-        }
+            $product->update([
+                $product->image = $request->image->hashName(),
+                ]); 
         }
 
         $product->update([
@@ -117,11 +118,6 @@ class ProductController extends Controller
             $product->description = $request->description,
             $product->status = $request->status,
         ]);
-        if($request->image){ 
-            $product->update([
-            $product->image = $request->image->hashName(),
-            ]);    
-         }
 
         toastr()->success(trans('messages.Update'));
         return redirect()->route('products.index');

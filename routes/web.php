@@ -55,6 +55,8 @@ Route::group(
     Route::resource('settings', 'FirstSliderController');
     //==============================Social Media============================
     Route::resource('socialmedia', 'SocialmediaController');
+    //==============================Contact info============================
+    Route::resource('contact', 'ContactinfController');
     
     });
 });

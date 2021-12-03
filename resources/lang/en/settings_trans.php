@@ -39,7 +39,22 @@ return [
     'pinterest'=>'Pinterest',
     'youtube'=>'Youtube',
     'socialmedia'=>'Social Media',
+    'socialmedialinks'=>'Social Media Links',
+    'social_info'=>'Social media links information',
     'link'=>'Link',
+    'edit_link'=>'Edit Links',
+
+    'logo_image'=>'Logo Image',
+    'address'=>'Address',
+    'phone'=>'Phone',
+    'email'=>'Email',
+    'logo_image'=>'Logo Image',
+    'logo1'=>'Logo in the navbar',
+    'logo2'=>'Logo in the footer',
+    'contactinf'=>'Contact',
+    'information'=>'Information',
+    'contactinformation'=>'Business Information',
+    
 
 
 ];

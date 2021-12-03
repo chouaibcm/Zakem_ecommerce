@@ -200,29 +200,54 @@
     </main>
     <footer id="main-footer" class="p-4">
         <div class="container">
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col-md-4">
                     <h4>Contact Us</h4>
                     <hr class="dropdown-divider" />
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-                    <span><i class="bi bi-geo-alt-fill"> abed brahim hammam debagh</i></span><br>
-                    <span><i class="bi bi-telephone-fill"> +213 7 94 02 42 89</i></span><br>
-                    <span><i class="bi bi-send-fill"> Chochouaib@gmail.com</i></span>
+                    <span><i class="bi bi-geo-alt-fill"> {{$contactinf->address}}</i></span><br>
+                    <span><i class="bi bi-telephone-fill"> {{$contactinf->phone}}</i></span><br>
+                    <span><i class="bi bi-send-fill"> {{$contactinf->email}}</i></span><br>
                 </div>
-                <div class="col-md-2">
+                @if ($socialmedia->facebook or
+                $socialmedia->instagram or
+                $socialmedia->google or
+                $socialmedia->twitter or
+                $socialmedia->pinterest or
+                $socialmedia->youtube)
+                <div class="col">
                     <h4>Follow Us</h4>
                     <hr class="dropdown-divider" />
-                    <a href="#"><i class="bi bi-facebook"> facebook</i></a><br>
-                    <a href="#"><i class="bi bi-instagram"> instagram</i></a><br>
-                    <a href="#"><i class="bi bi-google"> Google+</i></a><br>
-                    <a href="#"><i class="bi bi-twitter"> Twitter</i></a><br>
-                    <a href="#"><i class="bi bi-pinterest"> Pinterest</i></a><br>
-                    <a href="#"><i class="bi bi-youtube"> Youtube</i></a><br>
+                    @if ($socialmedia->facebook)
+                    <a href="#"><i class="bi bi-facebook"> facebook</i></a><br>                        
+                    @endif
+                    @if ($socialmedia->instagram)
+                    <a href="#"><i class="bi bi-instagram"> instagram</i></a><br>                        
+                    @endif
+                    @if ($socialmedia->google)
+                    <a href="#"><i class="bi bi-google"> Google+</i></a><br>                        
+                    @endif
+                    @if ($socialmedia->twitter)
+                    <a href="#"><i class="bi bi-twitter"> Twitter</i></a><br>                        
+                    @endif
+                    @if ($socialmedia->pinterest)
+                    <a href="#"><i class="bi bi-pinterest"> Pinterest</i></a><br>                        
+                    @endif
+                    @if ($socialmedia->youtube)
+                    <a href="#"><i class="bi bi-youtube"> Youtube</i></a><br>                        
+                    @endif
+                </div>                    
+                @endif
+                <div class="col">
+                    
                 </div>
-                <div class="col-md-2">
-                    <p>Copyright &copy; <span id="year"></span> ZAKEM</p>
+                <div class="col d-flex justify-content-end">
+                    <div>
+                    <img src="{{ asset('uploads/logo/logo1.png') }}" style="width: 200px;" alt=""></div>
                 </div>
-                <div class="col-md-4">
+            </div>
+            <div class="row">
+                <div class="col d-flex justify-content-center">
                     <p>Copyright &copy; <span id="year"></span> ZAKEM</p>
                 </div>
             </div>

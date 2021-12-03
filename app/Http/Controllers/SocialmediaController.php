@@ -34,12 +34,22 @@ class SocialmediaController extends Controller
         //
     }
 
-    public function update(Request $request, Socialmedia $socialmedia)
+    public function update(Request $request)
     {
-        //
+        $socialmedia=Socialmedia::first();
+        $socialmedia->update([
+            $socialmedia->facebook=$request->facebook,
+            $socialmedia->instagram=$request->instagram,
+            $socialmedia->google=$request->google,
+            $socialmedia->twitter=$request->twitter,
+            $socialmedia->pinterest=$request->pinterest,
+            $socialmedia->youtube=$request->youtube,
+        ]);
+        toastr()->success(trans('messages.Update'));
+        return redirect()->route('socialmedia.index');
     }
 
-    public function destroy(Socialmedia $socialmedia)
+    public function destroy()
     {
         //
     }

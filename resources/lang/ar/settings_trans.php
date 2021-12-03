@@ -37,8 +37,23 @@ return [
     'pinterest'=>'Pinterest',
     'youtube'=>'Youtube',
     'socialmedia'=>'وسائل التواصل الاجتماعي',
+    'socialmedialinks'=>'روابط وسائل التواصل الاجتماعي',
     'link'=>'الرابط',
+    'edit_link'=>'تعدبل الروابط',
+    'social_info'=>'معلومات روابط وسائل التواصل الاجتماعي',
 
+    
+    'logo_image'=>'صورة الشعار',
+    'address'=>'العنوان',
+    'phone'=>'الهاتف',
+    'email'=>'البريد الالكتروني',
+    'logo1'=>'الشعار الذي في الشريط العلوي',
+    'logo2'=>'الشعار الذي في الشريط السفلي',
+    'contactinf'=>'جهات الاتصال',
+    'information'=>'المعلونات',
+    'contactinformation'=>'معلونات جهات الاتصال',
+
+    
 
 
 

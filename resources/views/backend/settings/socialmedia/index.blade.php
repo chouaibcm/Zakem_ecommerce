@@ -12,7 +12,7 @@
                                             class="bi bi-speedometer2"></i></span><a
                                         href="{{ route('dashboard') }}">{{ trans('main_trans.Dashboard') }}</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ trans('settings_trans.title_page') }}
+                                    {{ trans('settings_trans.socialmedia') }}
                                 </li>
                             </ol>
                         </nav>
@@ -42,20 +42,19 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-end">
-                                    <!-- add coupon button-->
                                     @if (auth()->user()->hasPermission('create_settings'))
                                         <a href="{{ Route('settings.create') }}" class="btn btn-primary"
-                                    data-bs-toggle="modal" data-bs-target="#couponModal"><i
-                                        class="fa fa-plus"></i>{{ trans('settings_trans.add_slider') }}</a>
+                                            data-bs-toggle="modal" data-bs-target="#socialModal"><i
+                                                class="fa fa-plus"></i>{{ trans('settings_trans.edit_link') }}</a>
                                     @else
                                         <button class="btn btn-primary" disabled><i
-                                                class="fa fa-plus"></i>{{ trans('settings_trans.add_slider') }}</button>
+                                                class="fa fa-plus"></i>{{ trans('settings_trans.edit_link') }}</button>
                                     @endif
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table data-table">
+                            <table class="table">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>#</th>
@@ -64,36 +63,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <tr>
-                                            <td class="d-flex justify-content-center"><i class="bi bi-facebook"></i></td>
-                                            <td>{{ trans('settings_trans.facebook') }}</td>
-                                            <td><a href="{{ $socialmedia->facebook }}">{{ $socialmedia->facebook }}</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="d-flex justify-content-center"><i class="bi bi-instagram"></i></td>
-                                            <td>{{ trans('settings_trans.instagram') }}</td>
-                                            <td><a href="{{ $socialmedia->instagram }}">{{ $socialmedia->instagram }}</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="d-flex justify-content-center"><i class="bi bi-google"></i></td>
-                                            <td>{{ trans('settings_trans.google') }}</td>
-                                            <td><a href="{{ $socialmedia->google }}">{{ $socialmedia->google }}</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="d-flex justify-content-center"><i class="bi bi-twitter"></i></td>
-                                            <td>{{ trans('settings_trans.twitter') }}</td>
-                                            <td><a href="{{ $socialmedia->twitter }}">{{ $socialmedia->twitter }}</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="d-flex justify-content-center"><i class="bi bi-pinterest"></i></td>
-                                            <td>{{ trans('settings_trans.pinterest') }}</td>
-                                            <td><a href="{{ $socialmedia->pinterest }}">{{ $socialmedia->pinterest }}</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="d-flex justify-content-center"><i class="bi bi-youtube"></i></td>
-                                            <td>{{ trans('settings_trans.youtube') }}</td>
-                                            <td><a href="{{ $socialmedia->youtube }}">{{ $socialmedia->youtube }}</a></td>
-                                        </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-center"><i class="bi bi-facebook"></i></td>
+                                        <td>{{ trans('settings_trans.facebook') }}</td>
+                                        <td><a target="_blank" href="{{ $socialmedia->facebook }}">{{ $socialmedia->facebook }}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-center"><i class="bi bi-instagram"></i></td>
+                                        <td>{{ trans('settings_trans.instagram') }}</td>
+                                        <td><a href="{{ $socialmedia->instagram }}">{{ $socialmedia->instagram }}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-center"><i class="bi bi-google"></i></td>
+                                        <td>{{ trans('settings_trans.google') }}</td>
+                                        <td><a href="{{ $socialmedia->google }}">{{ $socialmedia->google }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-center"><i class="bi bi-twitter"></i></td>
+                                        <td>{{ trans('settings_trans.twitter') }}</td>
+                                        <td><a href="{{ $socialmedia->twitter }}">{{ $socialmedia->twitter }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-center"><i class="bi bi-pinterest"></i></td>
+                                        <td>{{ trans('settings_trans.pinterest') }}</td>
+                                        <td><a href="{{ $socialmedia->pinterest }}">{{ $socialmedia->pinterest }}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-center"><i class="bi bi-youtube"></i></td>
+                                        <td>{{ trans('settings_trans.youtube') }}</td>
+                                        <td><a href="{{ $socialmedia->youtube }}">{{ $socialmedia->youtube }}</a></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -102,103 +104,41 @@
             </div>
         </div>
     </div>
-    <!-- couponModal add model -->
-    <div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-xl">
+    <!-- socialModal add model -->
+    <div class="modal fade" id="socialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ trans('settings_trans.slider_info_en') }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ trans('settings_trans.socialmedia') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('settings.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('socialmedia.update', 'test') }}" method="POST">
+                    {{ method_field('patch') }}
                     @csrf
                     <div class="modal-body">
                         <!-- add_form -->
-                        <div class="row">
-                            {{-- english info --}}
-                            <div class="col">
-                                <div class="text-muted small fx-bold text-uppercase px-3">
-                                    {{ trans('settings_trans.slider_info_en') }}
-                                </div>
-                                <hr class="dropdown-divider mb-2" />
-
-                                <label for="name_ar"
-                                    class="mr-sm-2">{{ trans('settings_trans.heading_en') }}:</label>
-                                <input id="name_ar" type="text" name="heading_en" class="form-control mb-2">
-                                <div class="form-floating mb-2">
-                                    <textarea class="form-control" name="description_en"
-                                        placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                    <label for="floatingTextarea">{{ trans('settings_trans.description_en') }}</label>
-                                </div>
-                            </div>
-                            {{-- arabic info --}}
-                            <div class="col">
-                                <div class="text-muted small fx-bold text-uppercase px-3">
-                                    {{ trans('settings_trans.slider_info_ar') }}
-                                </div>
-                                <hr class="dropdown-divider mb-2" />
-
-                                <label for="name_ar"
-                                    class="mr-sm-2">{{ trans('settings_trans.heading_ar') }}:</label>
-                                <input id="name_ar" type="text" name="heading_ar" class="form-control mb-2">
-                                <div class="form-floating mb-2">
-                                    <textarea class="form-control" name="description_ar"
-                                        placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                    <label for="floatingTextarea">{{ trans('settings_trans.description_ar') }}</label>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- slider position --}}
-                        <hr class="dropdown-divider mb-2" />
-                        <div class="row mb-2">
-                            <div class="col">
-                                <label class="control-label">{{ trans('settings_trans.position') }} :</label>
-                                <br>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" value="text-start" type="radio" name="position"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        {{ trans('settings_trans.left') }}
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" value="text-center" type="radio" name="position"
-                                        id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        {{ trans('settings_trans.center') }}
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" value="text-end" type="radio" name="position"
-                                        id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        {{ trans('settings_trans.right') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- slider image-->
                         <div class="text-muted small fx-bold text-uppercase px-3">
-                            {{ trans('settings_trans.image') }}
+                            {{ trans('settings_trans.social_info') }}
                         </div>
                         <hr class="dropdown-divider mb-2" />
-                        <div class="row mb-2">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="formFile"
-                                        class="form-label">{{ trans('products_trans.import') }}:</label>
-                                    <input class="form-control image" name="image" type="file" id="formFile">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <img src="{{ asset('uploads/carousel/default.png') }}" style="width: 300px;"
-                                        class="img-thumbnail image-preview" alt="">
-                                </div>
-                            </div>
-                        </div>
+                        {{-- facebook --}}
+                        <label for="facebook" class="mr-sm-2">{{ trans('settings_trans.facebook') }}:</label>
+                        <input id="facebook" type="text" name="facebook" value="{{$socialmedia->facebook}}" class="form-control mb-2">
+                        {{-- instagram --}}
+                        <label for="instagram" class="mr-sm-2">{{ trans('settings_trans.instagram') }}:</label>
+                        <input id="instagram" type="text" name="instagram" value="{{$socialmedia->instagram}}" class="form-control mb-2">
+                        {{-- google --}}
+                        <label for="google" class="mr-sm-2">{{ trans('settings_trans.google') }}:</label>
+                        <input id="google" type="text" name="google" value="{{$socialmedia->google}}" class="form-control mb-2">
+                        {{-- twitter --}}
+                        <label for="twitter" class="mr-sm-2">{{ trans('settings_trans.twitter') }}:</label>
+                        <input id="twitter" type="text" name="twitter" value="{{$socialmedia->twitter}}" class="form-control mb-2">
+                        {{-- pinterest --}}
+                        <label for="pinterest" class="mr-sm-2">{{ trans('settings_trans.pinterest') }}:</label>
+                        <input id="pinterest" type="text" name="pinterest" value="{{$socialmedia->pinterest}}" class="form-control mb-2">
+                        {{-- youtube --}}
+                        <label for="youtube" class="mr-sm-2">{{ trans('settings_trans.youtube') }}:</label>
+                        <input id="youtube" type="text" name="youtube" value="{{$socialmedia->youtube}}" class="form-control mb-2">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"

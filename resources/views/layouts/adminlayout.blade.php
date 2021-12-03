@@ -212,7 +212,7 @@
                     
                     {{--  --}}
                     <li>
-                        <a class="nav-link px-3 sidebar-link  {{ $main_sidebar == 8 ? 'active' : '' }}" data-bs-toggle="collapse" href="#collapsesetting" role="button"
+                        <a class="nav-link px-3 sidebar-link {{ $main_sidebar == 8 ? 'active' : '' }}" data-bs-toggle="collapse" href="#collapsesetting" role="button"
                             aria-expanded="false" aria-controls="collapsesetting">
                             <span class="me-2">
                                 <i class="bi bi-gear"></i>
@@ -222,18 +222,24 @@
                         </a>
                         <div class="collapse" id="collapsesetting">
                              <div>
-                                 <ul class="navbar-nav ps-3">
+                                 <ul class="navbar-nav ps-3 mb-5">
                                     <a href="{{route('settings.index')}}" class="nav-link px-3">
                                         <span class="me-2">
                                             <i class="bi bi-tv"></i>
                                         </span>
-                                        <span>Front Slider</span>
+                                        <span>{{ trans('settings_trans.slider_info') }}</span>
                                      </a>
                                      <a href="{{route('socialmedia.index')}}" class="nav-link px-3">
                                         <span class="me-2">
                                             <i class="bi bi-link"></i>
                                         </span>
-                                        <span>Social Media Links</span>
+                                        <span>{{ trans('settings_trans.socialmedialinks') }}</span>
+                                     </a>
+                                     <a href="{{route('contact.index')}}" class="nav-link px-3">
+                                        <span class="me-2">
+                                            <i class="bi bi-briefcase"></i>
+                                        </span>
+                                        <span>{{ trans('settings_trans.contactinformation') }}</span>
                                      </a>
                                  </ul>
                              </div>
@@ -266,22 +272,6 @@
     <script>
         // Get the current year for the copyright
         $('#year').text(new Date().getFullYear());
-        $(document).ready(function () {
-            // // image preview
-        $(".image").change(function () {
-        
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-        
-                reader.onload = function (e) {
-                    $('.image-preview').attr('src', e.target.result);
-                }
-        
-                reader.readAsDataURL(this.files[0]);
-            }
-        
-        });
-        });//end of ready
 
     </script>
 </body>
