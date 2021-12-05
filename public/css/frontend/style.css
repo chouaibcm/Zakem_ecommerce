@@ -3,7 +3,6 @@ main {
 .navbar {
     position: relative;
     box-shadow: 2px 2px 5px #3292a6;
-    opacity: 0.9;
     background: #fff; }
     .navbar .nav-item {
       font-size: 1.2rem;
@@ -45,5 +44,12 @@ main {
 }
 
 #products_s .card:hover {
-    background: #1b768d;
-    color: rgb(219, 213, 213); }
+    background: #3096afa9;
+    color: rgb(255, 255, 255); }
+    #products_s .card:hover a{
+        color: rgb(255, 255, 255); }
+
+    .card a {
+        text-decoration: none;
+        color: black;
+    }

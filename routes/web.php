@@ -24,8 +24,9 @@ Route::group(
     // });
     
     Auth::routes();
-   //==============================Partie User============================
+   //==============================Partie User Frontend============================
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/product_detail/{product}', 'HomeController@product_detail')->name('product_detail');
 
    //---------------------------------------------------------------------
 

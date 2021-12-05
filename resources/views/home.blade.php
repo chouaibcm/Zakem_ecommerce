@@ -70,11 +70,12 @@
                 @foreach ($products as $product)
                     <div class="col-md-3  mb-2">
                         <div class="card">
-                            <img class="card-img-top" src="{{ $product->image_path }}" alt="Card image cap">
+                            <a href="{{ route('product_detail', $product->id) }}"><img class="img-fluid card-img-top" src="{{ $product->image_path }}" alt="Card image cap"></a>
                             <div class="card-body">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                                <p class="card-text">{{ $product->title }}</p>
-                                <p class="fw-bold text-uppercase price" style="color: gray">{{ $product->price }} DA</p>
+                                <a href="{{ route('product_detail', $product->id) }}"><h5 class="card-title">{{ $product->name }}</h5></a>
+                                <a href="{{ route('product_detail', $product->id) }}"><p class="card-text">{{ $product->title }}</p></a>
+                                <p class="fw-bold text-uppercase price">{{ $product->price }} {{ trans('products_trans.DA') }}</p>
+                                <hr class="p-0">
                                 <div class="d-flex justify-content-end">
                                     <a href="#" class="btn btn-warning text-white">Add to carte</a>
                                 </div>

@@ -37,4 +37,13 @@ class HomeController extends Controller
         $sliders= FirstSlider::all();
         return view('home',compact('main_nav','products','sliders','socialmedia','contactinf'));
     }
+
+    public function product_detail(Product $product)
+    {
+        //frontend layout variable        
+        $socialmedia=Socialmedia::first();
+        $contactinf=Contactinf::first();
+        // end of frontend layout variable
+        return view('frontend.product_detail',compact('product','socialmedia','contactinf'));
+    }
 }
