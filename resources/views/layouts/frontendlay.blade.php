@@ -33,7 +33,7 @@
     <!-- START HERE -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="main-nav">
         <div class="container">
-            <a href="{{route('home')}}" class="navbar-brand">
+            <a href="{{ route('home') }}" class="navbar-brand">
                 <img src="{{ asset('uploads/logo/logo.png') }}" class="img-fluid" width="50" height="50" alt="">
                 <h3 class="d-inline align-middle">ZAKEM</h3>
             </a>
@@ -46,26 +46,68 @@
                         <i class="bi bi-cart3">
                             <span class="position-absolute start-25 translate-middle badge rounded-pill bg-danger"
                                 style="font-size: 12px">
-                                9
-                            </span></i>
+                                {{ Cart::content()->count() }}
+                            </span>
+                        </i>
                     </a>
                 </li>
             </ul>
 
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
+            <div class="offcanvas offcanvas-end " style="width: 700px" tabindex="-1" id="offcanvasExample"
                 aria-labelledby="offcanvasExampleLabel">
                 <div class="offcanvas-header">
                     <h3 class="offcanvas-title" id="offcanvasExampleLabel">My Carte</h3>
-                    
+
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <hr class="dropdown-divider mb-5" />
-                    <div>
-                        Some text as placeholder. In real life you can have the elements you have chosen. Like, text,
-                        images, lists, etc.
-                    </div>
+                    <h5 class="display-6 text-center mb-5">In Your Shopping Cart: {{ Cart::content()->count() }} Items</h5>
+                    @if (Cart::content()->count() > 0)
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>price</th>
+                                        <th>Quantity</th>
+                                        <th>total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <form id="change-qty2" action="{{ route('cart.change.qty') }}" method="GET">
+                                        @foreach (Cart::content() as $product)
+                                            <tr style="vertical-align: middle;">
+                                                <td>
+                                                    <a href="{{ route('cart.delete', $product->rowId) }}"><i class="fa fa-trash"
+                                                            style="color: rgb(216, 17, 17)"></i></a>
+                                                    <img src="{{ $product->model->image_path }}"
+                                                        class="img-fluid text-center" style="width: 100px;"
+                                                        alt="">
+                                                    {{ $product->name }}
+                                                </td>
+                                                <td>{{ $product->price }} DA</td>
+                                                <td><input type="number" name="qty" value="{{ $product->qty }}"
+                                                        min="1" class="form-control form-control-sm" style="width: 80px"
+                                                        onchange="event.preventDefault();
+                                                              document.getElementById('change-qty2').submit();">
+                                                    <input type="hidden" name="product_id"
+                                                        value="{{ $product->rowId }}">
+                                                </td>
+                                                <td>{{ $product->total() }} DA</td>
+                                            </tr>
+                                        @endforeach
+                                    </form>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-end">
+                            <h3>Total : {{ Cart::total() }} DA</h3>
+                            <button class="btn btn-primary" onclick="event.preventDefault();
+                    document.getElementById('form1').submit();">Checkout</button>
+                        </div>
+                    @endif
                 </div>
             </div>
             {{-- end of button carte --}}
@@ -167,9 +209,8 @@
                                         @endif
                                     @endif
                                 @endif
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
                                     {{ trans('main_trans.logout') }}
                                 </a>
 
@@ -196,45 +237,41 @@
                     <h4>Contact Us</h4>
                     <hr class="dropdown-divider" />
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-                    <span><i class="bi bi-geo-alt-fill"> {{$contactinf->address}}</i></span><br>
-                    <span><i class="bi bi-telephone-fill"> {{$contactinf->phone}}</i></span><br>
-                    <span><i class="bi bi-send-fill"> {{$contactinf->email}}</i></span><br>
+                    <span><i class="bi bi-geo-alt-fill"> {{ $contactinf->address }}</i></span><br>
+                    <span><i class="bi bi-telephone-fill"> {{ $contactinf->phone }}</i></span><br>
+                    <span><i class="bi bi-send-fill"> {{ $contactinf->email }}</i></span><br>
                 </div>
-                @if ($socialmedia->facebook or
-                $socialmedia->instagram or
-                $socialmedia->google or
-                $socialmedia->twitter or
-                $socialmedia->pinterest or
-                $socialmedia->youtube)
-                <div class="col">
-                    <h4>Follow Us</h4>
-                    <hr class="dropdown-divider" />
-                    @if ($socialmedia->facebook)
-                    <a href="#"><i class="bi bi-facebook"> facebook</i></a><br>                        
-                    @endif
-                    @if ($socialmedia->instagram)
-                    <a href="#"><i class="bi bi-instagram"> instagram</i></a><br>                        
-                    @endif
-                    @if ($socialmedia->google)
-                    <a href="#"><i class="bi bi-google"> Google+</i></a><br>                        
-                    @endif
-                    @if ($socialmedia->twitter)
-                    <a href="#"><i class="bi bi-twitter"> Twitter</i></a><br>                        
-                    @endif
-                    @if ($socialmedia->pinterest)
-                    <a href="#"><i class="bi bi-pinterest"> Pinterest</i></a><br>                        
-                    @endif
-                    @if ($socialmedia->youtube)
-                    <a href="#"><i class="bi bi-youtube"> Youtube</i></a><br>                        
-                    @endif
-                </div>                    
+                @if ($socialmedia->facebook or $socialmedia->instagram or $socialmedia->google or $socialmedia->twitter or $socialmedia->pinterest or $socialmedia->youtube)
+                    <div class="col">
+                        <h4>Follow Us</h4>
+                        <hr class="dropdown-divider" />
+                        @if ($socialmedia->facebook)
+                            <a href="#"><i class="bi bi-facebook"> facebook</i></a><br>
+                        @endif
+                        @if ($socialmedia->instagram)
+                            <a href="#"><i class="bi bi-instagram"> instagram</i></a><br>
+                        @endif
+                        @if ($socialmedia->google)
+                            <a href="#"><i class="bi bi-google"> Google+</i></a><br>
+                        @endif
+                        @if ($socialmedia->twitter)
+                            <a href="#"><i class="bi bi-twitter"> Twitter</i></a><br>
+                        @endif
+                        @if ($socialmedia->pinterest)
+                            <a href="#"><i class="bi bi-pinterest"> Pinterest</i></a><br>
+                        @endif
+                        @if ($socialmedia->youtube)
+                            <a href="#"><i class="bi bi-youtube"> Youtube</i></a><br>
+                        @endif
+                    </div>
                 @endif
                 <div class="col">
-                    
+
                 </div>
                 <div class="col d-flex justify-content-end">
                     <div>
-                    <img src="{{ asset('uploads/logo/logo1.png') }}" style="width: 200px;" alt=""></div>
+                        <img src="{{ asset('uploads/logo/logo1.png') }}" style="width: 200px;" alt="">
+                    </div>
                 </div>
             </div>
             <div class="row">

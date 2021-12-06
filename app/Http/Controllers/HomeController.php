@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Cart;
 use App\Contactinf;
 use App\FirstSlider;
 use App\Socialmedia;

@@ -27,6 +27,10 @@ Route::group(
    //==============================Partie User Frontend============================
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/product_detail/{product}', 'HomeController@product_detail')->name('product_detail');
+    Route::post('/product/addToCart','ShoppingController@add_to_cart')->name('cart.add');
+    Route::get('/cart','ShoppingController@mycart')->name('mycart');
+    Route::get('/cart/delete/{id}', 'ShoppingController@cart_delete')->name('cart.delete');
+    Route::get('/cart/qty', 'ShoppingController@change_qty')->name('cart.change.qty');
 
    //---------------------------------------------------------------------
 

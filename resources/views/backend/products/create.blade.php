@@ -97,7 +97,7 @@
                                                 id="basic-addon1">{{ trans('products_trans.DA') }}</span>
                                             <input type="number" name="price" class="form-control"
                                                 placeholder="{{ trans('products_trans.price') }}" aria-label="Username"
-                                                aria-describedby="basic-addon1">
+                                                aria-describedby="basic-addon1" min="1">
                                         </div>
                                     </div>
                                     <div class="col">
