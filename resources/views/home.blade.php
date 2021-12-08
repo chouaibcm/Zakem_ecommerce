@@ -77,7 +77,7 @@
                                 <p class="fw-bold text-uppercase price">{{ $product->price }} {{ trans('products_trans.DA') }}</p>
                                 <hr class="p-0">
                                 <div class="d-flex justify-content-end">
-                                    <a href="#" class="btn btn-warning text-white">Add to carte</a>
+                                    <a href="{{route('rapid_add',$product->id)}}" class="btn btn-warning text-white">Add to carte</a>
                                 </div>
                             </div>
                         </div>

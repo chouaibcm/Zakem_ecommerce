@@ -31,7 +31,12 @@ Route::group(
     Route::get('/cart','ShoppingController@mycart')->name('mycart');
     Route::get('/cart/delete/{id}', 'ShoppingController@cart_delete')->name('cart.delete');
     Route::get('/cart/qty', 'ShoppingController@change_qty')->name('cart.change.qty');
+    Route::get('/cart/rapid_add/{id}','ShoppingController@rapid_add')->name('rapid_add');
 
+    // -------------- lazem tconnecti bah troh lel checkout -----------
+    Route::middleware(['auth'])->group (function(){
+    Route::get('/cart/checkout','ShoppingController@checkout')->name('checkout');
+    });
    //---------------------------------------------------------------------
 
    //==============================Partie Admine============================

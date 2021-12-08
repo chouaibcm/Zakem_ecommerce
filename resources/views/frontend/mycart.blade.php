@@ -56,8 +56,7 @@
                 </div>
                 <div class="text-end">
                     <h3>Total : {{ Cart::total() }} DA</h3>
-                    <button class="btn btn-primary" onclick="event.preventDefault();
-                    document.getElementById('form1').submit();">Checkout</button>
+                    <a href="{{route('checkout')}}" class="btn btn-primary">Checkout</a>
                 </div>
             @endif
         </div>

@@ -62,8 +62,9 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <hr class="dropdown-divider mb-5" />
-                    <h5 class="display-6 text-center mb-5">In Your Shopping Cart: {{ Cart::content()->count() }} Items</h5>
+                    <hr class="dropdown-divider mb-3" />
+                    <h5 class="display-6 text-center mb-3">In Your Shopping Cart: {{ Cart::content()->count() }} Items
+                    </h5>
                     @if (Cart::content()->count() > 0)
                         <div class="table-responsive">
                             <table class="table">
@@ -80,11 +81,11 @@
                                         @foreach (Cart::content() as $product)
                                             <tr style="vertical-align: middle;">
                                                 <td>
-                                                    <a href="{{ route('cart.delete', $product->rowId) }}"><i class="fa fa-trash"
+                                                    <a href="{{ route('cart.delete', $product->rowId) }}"><i
+                                                            class="fa fa-trash"
                                                             style="color: rgb(216, 17, 17)"></i></a>
                                                     <img src="{{ $product->model->image_path }}"
-                                                        class="img-fluid text-center" style="width: 100px;"
-                                                        alt="">
+                                                        class="img-fluid text-center" style="width: 100px;" alt="">
                                                     {{ $product->name }}
                                                 </td>
                                                 <td>{{ $product->price }} DA</td>
@@ -104,10 +105,22 @@
                         </div>
                         <div class="text-end">
                             <h3>Total : {{ Cart::total() }} DA</h3>
-                            <button class="btn btn-primary" onclick="event.preventDefault();
-                    document.getElementById('form1').submit();">Checkout</button>
+
                         </div>
                     @endif
+                </div>
+                <div class="offcanvas-footer">
+                    <div class="container">
+                        @if (Cart::content()->count() > 0)
+                            <hr class="dropdown-divider" />
+                            <div class="row mb-3">
+                                <div class="col text-end">
+                                    <a href="{{route('mycart')}}" class="btn btn-outline-secondary">Expand cart</a>
+                                    <a href="{{route('checkout')}}" class="btn btn-primary">Checkout</a>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
             {{-- end of button carte --}}
@@ -123,12 +136,6 @@
                     </li>
                     <li class="nav-item">
                         <a href="#about" class="nav-link">{{ trans('main_trans.shop') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#authors" class="nav-link">{{ trans('main_trans.about') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link">{{ trans('main_trans.contact') }}</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
@@ -210,7 +217,7 @@
                                     @endif
                                 @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
+                                            document.getElementById('logout-form').submit();">
                                     {{ trans('main_trans.logout') }}
                                 </a>
 
