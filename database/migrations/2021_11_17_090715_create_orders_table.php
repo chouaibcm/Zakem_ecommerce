@@ -17,8 +17,8 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer('user_id')->unsigned();
             $table->double('total_price', 8, 2)->nullable();
-            $table->tinyInteger('status');
-            $table->tinyInteger('paid');
+            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('paid')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

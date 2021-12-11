@@ -42,12 +42,12 @@
                                                 id="mrlcho" style="width: 200px;" alt="">
                                             {{ $product->name }}
                                         </td>
-                                        <td>{{ $product->price }} DA</td>
+                                        <td>{{ number_format($product->price,2) }} DA</td>
                                         <td><input type="number" name="qty" value="{{ $product->qty }}" min="1"
                                                 class="form-control form-control-sm" style="width: 80px" onchange="event.preventDefault();
                                                               document.getElementById('change-qty').submit();">
                                                               <input type="hidden" name="product_id" value="{{ $product->rowId }}"></td>
-                                        <td>{{ $product->total() }} DA</td>
+                                        <td>{{ number_format($product->total(),2) }} DA</td>
                                     </tr>
                                 @endforeach
                             </form>

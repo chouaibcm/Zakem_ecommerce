@@ -10,9 +10,9 @@ class Order extends Model
         'user_id','total_price','paid','status'
     ];
     
-    public function client()
+    public function user()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class);
 
     }//end of user
 

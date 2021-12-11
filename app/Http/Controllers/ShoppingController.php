@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Cart;
+use App\User;
 use App\Product;
 use App\Socialmedia;
 use App\Contactinf;
@@ -20,7 +21,7 @@ class ShoppingController extends Controller
             'price' => $product->price
         ]);
         Cart::associate($cart->rowId,'App\Product');
-        toastr()->success(trans('messages.success'));
+        toastr()->success(trans('messages.add_carte'));
         return redirect()->route('mycart');
     }
 
@@ -33,7 +34,7 @@ class ShoppingController extends Controller
             'price' => $product->price
         ]);
         Cart::associate($cart->rowId,'App\Product');
-        toastr()->success(trans('messages.success'));
+        toastr()->success(trans('messages.add_carte'));
         return redirect()->back();
     }
 
@@ -63,7 +64,24 @@ class ShoppingController extends Controller
         if(Cart::content()->count()>0){
         return view('frontend.checkout',compact('socialmedia','contactinf'));}
         else{
-            return view('home',compact('socialmedia','contactinf'));
+            return redirect()->route('home');
         }
+    }
+
+    public function apply_order(Request $request){
+
+        $client= User::findOrFail($request->user_id);
+        //create order for client who ordred
+        $order = $client->orders()->create([]);
+        //attache the product that ordred
+        $order->products()->attach($request->offres);
+        // put the total price in the order
+        $order->update([
+            'total_price' => Cart::total()
+         ]);
+         //delete cart orders
+         Cart::destroy();
+         toastr()->success(trans('messages.add_order'));
+         return redirect()->route('home');
     }
 }

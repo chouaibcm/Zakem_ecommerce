@@ -11,6 +11,8 @@ return [
     'my_commandes'=>'My Orders',
     'num_order'=>'Order Number',
     'date'=>'Order Date',
-    'pre'=>'My Previous Orders'
+    'pre'=>'My Previous Orders',
+    'add_carte'=>'The product added to cart',
+    'add_order'=>'Your order is confirmed wait for message in your email',
 
 ];

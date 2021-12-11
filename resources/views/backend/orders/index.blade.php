@@ -45,6 +45,7 @@
                                         <th>{{ trans('orders_trans.number') }}</th>   
                                         <th>{{ trans('orders_trans.order_date') }}</th>                                        
                                         <th>{{ trans('orders_trans.client') }}</th>
+                                        <th>{{ trans('orders_trans.total') }}</th>
                                         <th>{{ trans('orders_trans.paid') }}</th>
                                         <th>{{ trans('orders_trans.status') }}</th>
                                         <th>{{ trans('orders_trans.items') }}</th>
@@ -57,15 +58,17 @@
                                         <tr>
                                             <?php $i++; ?>
                                             <td>{{ $i }}</td>
-                                            <td>{{ $order->name }}</td>
+                                            <td>{{ $order->id }}</td>
                                             <td>{{ $order->created_at }}</td>
-                                            <td>{{ $order->client()->name }}</td>
+                                            <td>{{ $order->user->name }}</td>
+                                            <td>{{ number_format($order->total_price,2) }} DA</td>
                                             <td>{{ $order->paid}}</td>
                                             @if ($order->status == 1)
                                                 <td>{{ trans('orders_trans.published') }}</td>
                                             @else
                                                 <td>{{ trans('orders_trans.draft') }}</td>
-                                            @endif                                                
+                                            @endif         
+                                            <td>{{ $order->products->count()}}</td>                                       
                                             <td>
                                                 <!--update order-->
                                                 @if (auth()->user()->hasPermission('update_orders'))
