@@ -71,13 +71,18 @@ class ShoppingController extends Controller
     public function apply_order(Request $request){
 
         $client= User::findOrFail($request->user_id);
-        //create order for client who ordred
+        //create order for client who ordred with his address and mobile
         $order = $client->orders()->create([]);
         //attache the product that ordred
         $order->products()->attach($request->offres);
         // put the total price in the order
         $order->update([
-            'total_price' => Cart::total()
+            'total_price' => Cart::total(),
+            'address' => $request->address,
+            'state'=> $request->state,
+            'country'=> $request->country,
+            'mobile'=> $request->mobile,
+            'pincode'=> $request->pincode
          ]);
          //delete cart orders
          Cart::destroy();

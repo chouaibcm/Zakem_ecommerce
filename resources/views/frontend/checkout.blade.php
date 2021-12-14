@@ -66,14 +66,7 @@
                                     <input type="text" class="form-control" id="mobile" name="mobile"
                                         value="{{ auth()->user()->mobile }}" required>
                                 </div>
-
-                                <div class="col-12">
-                                    <label for="email" class="form-label">Email <span
-                                            class="text-muted">(Optional)</span></label>
-                                    <input type="email" class="form-control" name="email"
-                                        value="{{ auth()->user()->email }}" id="email" placeholder="you@example.com">
-                                </div>
-
+                                
                                 <div class="col-12">
                                     <label for="address" class="form-label">Address</label>
                                     <input type="text" class="form-control" id="address" name="address"

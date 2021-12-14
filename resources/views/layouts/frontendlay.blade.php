@@ -77,7 +77,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <form id="change-qty2" action="{{ route('cart.change.qty') }}" method="GET">
                                         @foreach (Cart::content() as $product)
                                             <tr style="vertical-align: middle;">
                                                 <td>
@@ -89,22 +88,21 @@
                                                     {{ $product->name }}
                                                 </td>
                                                 <td>{{ number_format($product->price,2) }} DA</td>
-                                                <td><input type="number" name="qty" value="{{ $product->qty }}"
-                                                        min="1" class="form-control form-control-sm" style="width: 80px"
-                                                        onchange="event.preventDefault();
-                                                              document.getElementById('change-qty2').submit();">
-                                                    <input type="hidden" name="product_id"
-                                                        value="{{ $product->rowId }}">
-                                                </td>
+                                                <form action="{{ route('cart.change.qty') }}" method="GET">
+                                                    <td><input type="number" name="qty" value="{{ $product->qty }}" min="1"
+                                                            class="form-control form-control-sm" style="width: 80px"
+                                                            onchange="this.form.submit()">
+                                                    </td>
+                                                    <input type="hidden" name="product_id" value="{{ $product->rowId }}">
+                                                </form>
                                                 <td>{{ number_format($product->total(),2) }} DA</td>
                                             </tr>
                                         @endforeach
-                                    </form>
                                 </tbody>
                             </table>
                         </div>
                         <div class="text-end">
-                            <h3>Total : {{ Cart::total() }} DA</h3>
+                            <h3>Total : {{ number_format(Cart::total(),2) }} {{ trans('products_trans.DA') }}</h3>
 
                         </div>
                     @endif

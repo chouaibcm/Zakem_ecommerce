@@ -59,7 +59,8 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        $main_sidebar=4;
+        return view('backend.orders.edit', compact('order','main_sidebar'));
     }
 
     /**

@@ -32,31 +32,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <form id="change-qty" action="{{ route('cart.change.qty') }}" method="GET">
-                                @foreach (Cart::content() as $product)
-                                    <tr style="vertical-align: middle;">
-                                        <td>
-                                            <a href="{{ route('cart.delete', $product->rowId) }}" id="mlcho"><i
-                                                    class="fa fa-trash fa-2x" style="color: rgb(216, 17, 17)"></i></a>
-                                            <img src="{{ $product->model->image_path }}" class="img-fluid text-center"
-                                                id="mrlcho" style="width: 200px;" alt="">
-                                            {{ $product->name }}
-                                        </td>
-                                        <td>{{ number_format($product->price,2) }} DA</td>
+                            @foreach (Cart::content() as $product)
+                                <tr style="vertical-align: middle;">
+                                    <td>
+                                        <a href="{{ route('cart.delete', $product->rowId) }}" id="mlcho"><i
+                                                class="fa fa-trash fa-2x" style="color: rgb(216, 17, 17)"></i></a>
+                                        <img src="{{ $product->model->image_path }}" class="img-fluid text-center"
+                                            id="mrlcho" style="width: 200px;" alt="">
+                                        {{ $product->name }}
+                                    </td>
+                                    <td>{{ number_format($product->price, 2) }} {{ trans('products_trans.DA') }}</td>
+
+                                    <form action="{{ route('cart.change.qty') }}" method="GET">
                                         <td><input type="number" name="qty" value="{{ $product->qty }}" min="1"
-                                                class="form-control form-control-sm" style="width: 80px" onchange="event.preventDefault();
-                                                              document.getElementById('change-qty').submit();">
-                                                              <input type="hidden" name="product_id" value="{{ $product->rowId }}"></td>
-                                        <td>{{ number_format($product->total(),2) }} DA</td>
-                                    </tr>
-                                @endforeach
-                            </form>
+                                                class="form-control form-control-sm" style="width: 80px"
+                                                onchange="this.form.submit()">
+                                        </td>
+                                        <input type="hidden" name="product_id" value="{{ $product->rowId }}">
+                                    </form>
+                                    <td>{{ number_format($product->total(), 2) }} {{ trans('products_trans.DA') }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="text-end">
-                    <h3>Total : {{ Cart::total() }} DA</h3>
-                    <a href="{{route('checkout')}}" class="btn btn-primary">Checkout</a>
+                    <h3>Total : {{ number_format(Cart::total(), 2) }} {{ trans('products_trans.DA') }}</h3>
+                    <a href="{{ route('checkout') }}" class="btn btn-primary">Checkout</a>
                 </div>
             @endif
         </div>

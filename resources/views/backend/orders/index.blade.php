@@ -57,14 +57,14 @@
                                     @foreach ($orders as $order)
                                         <tr>
                                             <?php $i++; ?>
-                                            <td>{{ $i }}</td>
+                                            <td>{{ $i }}</td> 
                                             <td>{{ $order->id }}</td>
                                             <td>{{ $order->created_at }}</td>
                                             <td>{{ $order->user->name }}</td>
-                                            <td>{{ number_format($order->total_price,2) }} DA</td>
+                                            <td>{{ number_format($order->total_price,2) }} {{ trans('products_trans.DA') }}</td>
                                             <td>{{ $order->paid}}</td>
                                             @if ($order->status == 1)
-                                                <td>{{ trans('orders_trans.published') }}</td>
+                                                <td>{{ trans('orders_trans.pending') }}</td>
                                             @else
                                                 <td>{{ trans('orders_trans.draft') }}</td>
                                             @endif         
@@ -72,9 +72,9 @@
                                             <td>
                                                 <!--update order-->
                                                 @if (auth()->user()->hasPermission('update_orders'))
-                                                <button type="button" class="btn btn-primary btn-sm"
+                                                <a href="{{route('orders.edit', $order->id)}}" type="button" class="btn btn-primary btn-sm"
                                                     title="{{ trans('orders_trans.Edit') }}"><i
-                                                        class="fa fa-edit"></i></button>
+                                                        class="fa fa-edit"></i></a>
                                                 @else
                                                 <button class="btn btn-primary btn-sm" title="{{ trans('orders_trans.Edit') }}" disabled><i
                                                     class="fa fa-edit"></i></button>

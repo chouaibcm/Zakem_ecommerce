@@ -15,6 +15,8 @@ return [
     'edit_order'=> 'Edit Order',
     'delete_order'=> 'Delete Order',
     'Warning_order'=> 'Are sure of the deleting process?',
+    'total' => 'Total price',
+    'order_detail'=>'Order Detail',
     'submit' => 'Submit',
     'Name'=>'Order name',
     'client_name'=>'Client Name',
