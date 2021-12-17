@@ -19,8 +19,8 @@ class Product extends Model
            return $this->belongsTo(Category::class);
 
        }
-       public function attr(){
-        return $this->hasMany(ProductAtt::class);
+       public function attr_values(){
+        return $this->hasMany(AttributeValue::class,'product_id');
        }
 
        public function getImagePathAttribute()
@@ -32,4 +32,5 @@ class Product extends Model
        {
         return $this->belongsToMany(Order::class, 'product_order');
        }//end of orders
+       
 }

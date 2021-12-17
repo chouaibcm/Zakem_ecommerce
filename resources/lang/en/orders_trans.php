@@ -23,6 +23,11 @@ return [
     'total_price'=>'Total Price',
     'Processes'=>'Processes',
     'Edit'=>'Edit',
+    'print'=>'Print',
+    'customer'=>'Customer',
+    'customer_contact'=>'Customer contact',
+    'shipping_address'=>'Shipping address',
+    'facture'=>'Facture',
     
     'Delete'=>'Delete',
     'Close' => 'Close',

@@ -87,7 +87,6 @@
                                         <th>{{ trans('categories_trans.Name') }}</th>
                                         <th>{{ trans('products_trans.price') }}</th>
                                         <th>{{ trans('categories_trans.status') }}</th>
-                                        <th>{{ trans('products_trans.attr') }}</th>
                                         <th>{{ trans('products_trans.Processes') }}</th>
                                     </tr>
                                 </thead>
@@ -121,23 +120,6 @@
                                                         class="badge bg-warning">{{ trans('products_trans.draft') }}</span>
                                                 </td>
                                             @endif
-                                            <td>
-                                                <!--product Attribute-->
-                                                @if (auth()->user()->hasPermission('update_products'))
-                                                    <form action="{{ route('productsatts.edit', 'test') }}">
-                                                        <input id="id" type="hidden" name="id" class="form-control"
-                                                            value="{{ $product->id }}">
-                                                        <button class="btn btn-success btn-sm"
-                                                            title="{{ trans('products_trans.attr') }}">
-                                                            {{ trans('products_trans.add') }} <i
-                                                                class="fa fa-edit"></i></button>
-                                                    </form>
-                                                @else
-                                                    <button class="btn btn-success btn-sm"
-                                                        title="{{ trans('products_trans.attr') }}" disabled> <i
-                                                            class="fa fa-edit"></i></button>
-                                                @endif
-                                            </td>
                                             <td>
                                                 <div class="d-flex flex-row bd-highlight">
                                                     <!--update product-->

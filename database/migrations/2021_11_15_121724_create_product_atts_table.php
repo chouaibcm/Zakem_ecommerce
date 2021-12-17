@@ -15,13 +15,8 @@ class CreateProductAttsTable extends Migration
     {
         Schema::create('product_atts', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
-            $table->string('sku')->nullable();
-            $table->string('size')->nullable();
-            $table->integer('stock')->nullable();
+            $table->string('name');
             $table->timestamps();
-
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

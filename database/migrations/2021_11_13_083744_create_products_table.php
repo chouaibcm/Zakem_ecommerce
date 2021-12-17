@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->double('price', 8, 2);
             $table->string('image')->default('default.png');
             $table->tinyInteger('status');
+            $table->tinyInteger('stock')->default(0);
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });

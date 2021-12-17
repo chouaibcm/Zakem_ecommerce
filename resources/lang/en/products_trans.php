@@ -40,9 +40,11 @@ return [
     'attr_list'=>'Product Attributes List',
     'add_update_attr'=>'Add and Edit Product Attributes',
     'all_categories' => 'All Categories',
+    'in_stock' => 'In Stock',
+    'out_stock' => 'Out Of Stock',
 
     
-    'sku'=>'sku',
+    'attr_name'=>'Name',
     'size'=>'Size',
     
     'Delete'=>'Delete',

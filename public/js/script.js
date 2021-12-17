@@ -29,5 +29,9 @@ $(document).ready(function(){
             reader.readAsDataURL(this.files[0]);
         }
     
-    });  
+    }); 
+    //print order
+    $(document).on('click', '.print-btn', function() {
+        $('#print-area').printThis();
+    });//end of click function 
 });

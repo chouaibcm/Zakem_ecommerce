@@ -14,7 +14,9 @@ class ProductAttController extends Controller
     }
     public function index()
     {
-        //
+        $main_sidebar=3;
+        $productAtts = ProductAtt::all();
+        return view('backend.products.productAtt.index',compact('productAtts','main_sidebar'));
     }
 
     public function create()
@@ -25,18 +27,13 @@ class ProductAttController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'sku'=>'required',
-            'size'=>'required',
-            'stock'=>'required|numeric'
+            'name'=>'required',
         ]);
         $ProductAtt = new ProductAtt();
-        $ProductAtt->product_id = $request->id;
-        $ProductAtt->sku = $request->sku;
-        $ProductAtt->size = $request->size;
-        $ProductAtt->stock = $request->stock;
+        $ProductAtt->name = $request->name;
         $ProductAtt->save();
         toastr()->success(trans('messages.success'));
-        return back();
+        return redirect()->route('productsatts.index');
     }
 
     public function show(Request $request)
@@ -46,23 +43,19 @@ class ProductAttController extends Controller
 
     public function edit(Request $request)
     {
-        
-        $main_sidebar=3;
-        $product = Product::findOrFail($request->id);
-        $productAtts = ProductAtt::where('product_id',$request->id)->get();
-        return view('backend.products.productAtt.crud',compact('product','productAtts','main_sidebar'));
     }
 
     public function update(Request $request)
-    {        
+    {   
+        $this->validate($request,[
+            'name'=>'required',
+        ]);     
         $productAtt = ProductAtt::findOrFail($request->id);
         $productAtt->update([
-            $productAtt->sku = $request->sku,
-            $productAtt->size = $request->size,
-            $productAtt->stock = $request->stock,
+            $productAtt->name = $request->name,
         ]);        
         toastr()->success(trans('messages.Update'));
-        return back();
+        return redirect()->route('productsatts.index');
     }
 
     public function destroy(Request $request)
@@ -70,6 +63,6 @@ class ProductAttController extends Controller
         $productAtt = ProductAtt::findOrFail($request->id);
         $productAtt->delete();
         toastr()->success(trans('messages.Delete'));
-        return back();
+        return redirect()->route('productsatts.index');
     }
 }

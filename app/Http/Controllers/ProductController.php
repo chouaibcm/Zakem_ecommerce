@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Category;
 use App\ProductAtt;
+use App\AttributeValue;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
@@ -34,13 +35,25 @@ class ProductController extends Controller
     public function create()
     {
         $main_sidebar=3;
-        $categories=Category::all(); 
+        $categories=Category::all();
+        $productAtts=ProductAtt::all();
         $cate_levels=Category::where('parent_id',0)->get();
-        return view('backend.products.create',compact('cate_levels','main_sidebar','categories'));
+        return view('backend.products.create',compact('cate_levels','main_sidebar','categories','productAtts'));
     }
 
     public function store(Request $request)
     {
+        //products attributes array
+        if($request->att_on){
+        $p_atts = array_chunk($request->fields, 2);
+        foreach($p_atts as $p_att){
+            if($p_att[0]==null or $p_att[1]==0){
+                $request->validate( [
+                    'fields[]' => 'required',
+                ]);
+            }            
+        }
+        }
         $request->validate( [
             'name' => 'required',
             'title' => 'required',
@@ -56,6 +69,7 @@ class ProductController extends Controller
             })->save(public_path('uploads/product_img/' . $request->image->hashName()));
         }
 
+        
         $product = new Product();
         
         $product->name = $request->name;
@@ -65,9 +79,17 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->description = $request->description;
         $product->status = $request->status;
+        $product->stock = $request->stock;
         if($request->image){ 
         $product->image = $request->image->hashName();}
         $product->save();
+        foreach($p_atts as $p_att){
+            $new_p_att = new AttributeValue(); 
+            $new_p_att->value = $p_att[0]; 
+            $new_p_att->product_att_id = $p_att[1];
+            $new_p_att->product_id = $product->id;
+            $new_p_att->save();           
+        }
         toastr()->success(trans('messages.success'));
         return redirect()->route('products.index');
     }
@@ -81,8 +103,9 @@ class ProductController extends Controller
     {
         $main_sidebar=3; 
         $product = Product::findOrFail($request->id);
+        $productAtts=ProductAtt::all();
         $cate_levels=Category::where('parent_id',0)->get();
-        return view('backend.products.edit',compact('cate_levels','main_sidebar','product'));
+        return view('backend.products.edit',compact('cate_levels','main_sidebar','product','productAtts'));
     }
 
     public function update(Request $request)

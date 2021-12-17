@@ -44,9 +44,12 @@ return [
     'add_update_attr'=>'إضافة و تعديل سمات المنتج',
     'delete_attr'=>'حذف سمة المنتج',
     'attr_list'=>'قائمة سمات المنتج',
-    'sku'=>'sku',
+    
+    'attr_name'=>'الاسم',
     'size'=>'الحجم',
     'all_categories' => 'كل الفئات',
+    'in_stock' => 'يوجد في المخزون',
+    'out_stock' => 'لا يوجد في المخزون',
     
     'Delete'=>'حذف',
     'Close' => 'اغلاق',

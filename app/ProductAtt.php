@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductAtt extends Model
 {
     protected $fillable = [
-        'products_id','sku','size', 'stock',
+        'name',
     ];
     public function product()
        {
