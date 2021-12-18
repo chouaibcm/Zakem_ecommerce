@@ -26,17 +26,42 @@
                             <img src="{{ $product->image_path }}" class="img-fluid" alt="">
                         </div>
                         <div class="col-md-6 mb-4">
-                            <h3 class="text-warning mb-3">{{ $product->price }} DA</h3>
-                            <h3 class="mb-2">Product title {{ $product->title }}</h3>
+
+                            <h3 class="mb-2">{{ $product->title }}</h3>
+                            <hr>
                             <p class="mb-2">Description : {{ $product->description }}</p>
+                            <h3 class="text-warning mb-2">{{ number_format($product->price, 2) }} DA</h3>
+                            <p class="mb-2">Availability :
+                                @if ($product->stock == 0)
+                                    <span class="badge bg-success">{{ trans('products_trans.in_stock') }}</span>
+                                @else
+                                    <span class="badge bg-warning">{{ trans('products_trans.out_stock') }}</span>
+                                @endif
+                            </p>
                             <form action="{{ route('cart.add') }}" method="POST">
                                 @csrf
+                                @if ($product->attr_values->count() > 0)
+                                    @foreach ($product->attr_values->unique('product_att_id') as $av)
+                                        <div class="row mt-2">
+                                            <div class="col-sm-2">
+                                                <p>{{ $av->productAtts->name }} :</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select name="p_att[]" class="form-select form-select-sm" id="">
+                                                    @foreach ($av->productAtts->attr_values->where('product_id', $product->id) as $pav)
+                                                        <option value="{{ $pav->id }}">{{ $pav->value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
                                 <div class="row mt-2">
-                                    <input type="hidden" name="id" value="{{$product->id}}">
+                                    <input type="hidden" name="id" value="{{ $product->id }}">
                                     <div class="col"
                                         style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                                         <label for="qty" class="me-2">Quantity:</label>
-                                        <input type="number" class="form-control"  min="1" value="1" name="qty">
+                                        <input type="number" class="form-control" min="1" value="1" name="qty">
                                     </div>
                                     <div class="col d-flex justify-content-end">
                                         <button type="submit" class="btn btn-warning text-white"> Add to Card</button>

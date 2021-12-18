@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Cart;
 use App\User;
 use App\Product;
+use App\AttributeValue;
 use App\Socialmedia;
 use App\Contactinf;
 use Illuminate\Http\Request;
@@ -14,12 +15,24 @@ class ShoppingController extends Controller
     public function add_to_cart(Request $request)
     {        
         $product = Product::FindOrFail($request->id);
-        $cart = Cart::add([
-            'id' => $product->id,
-            'name' => $product->name,
-            'qty' => $request->qty,
-            'price' => $product->price
-        ]);
+        if ($request->p_att) {
+            $cart = Cart::add([
+                'id' => $product->id,
+                'name' => $product->name,
+                'qty' => $request->qty,
+                'price' => $product->price,
+                'options' =>['p_att' => $request->p_att],
+            ]);
+        } else {
+            $cart = Cart::add([
+                'id' => $product->id,
+                'name' => $product->name,
+                'qty' => $request->qty,
+                'price' => $product->price
+            ]);
+        }
+        
+        
         Cart::associate($cart->rowId,'App\Product');
         toastr()->success(trans('messages.add_carte'));
         return redirect()->route('mycart');
@@ -39,11 +52,12 @@ class ShoppingController extends Controller
     }
 
     public function mycart(){
-        //frontend layout variable        
+        //frontend layout variable  
+        $product_attribute=AttributeValue::all();      
         $socialmedia=Socialmedia::first();
         $contactinf=Contactinf::first();
         // end of frontend layout variable
-        return view('frontend.mycart',compact('socialmedia','contactinf'));
+        return view('frontend.mycart',compact('socialmedia','contactinf','product_attribute'));
     }
 
     public function cart_delete($id){

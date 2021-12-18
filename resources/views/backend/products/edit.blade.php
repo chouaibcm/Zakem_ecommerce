@@ -168,6 +168,10 @@
                             {{-- end image and stock --}}
                             {{-- les attributes ila kaynin naffichiwham hna --}}
                             @if ($product->attr_values->count() > 0)
+                            <div class="text-muted small fx-bold text-uppercase px-3">
+                                {{ trans('products_trans.attr') }}
+                            </div>
+                            <hr class="dropdown-divider mb-2" />
                                 @foreach ($product->attr_values as $p_attr)
                                 <div class="row entry mb-2">
                                     <!-- Field Start -->
@@ -202,6 +206,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                <input type="hidden" name="fields2[]" value="{{ $p_attr->id }}">
                                             </div>
                                         </div>
                                     </div>

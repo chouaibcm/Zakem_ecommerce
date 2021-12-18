@@ -83,12 +83,14 @@ class ProductController extends Controller
         if($request->image){ 
         $product->image = $request->image->hashName();}
         $product->save();
+        if($request->att_on){
         foreach($p_atts as $p_att){
             $new_p_att = new AttributeValue(); 
             $new_p_att->value = $p_att[0]; 
             $new_p_att->product_att_id = $p_att[1];
             $new_p_att->product_id = $product->id;
             $new_p_att->save();           
+        }
         }
         toastr()->success(trans('messages.success'));
         return redirect()->route('products.index');
@@ -110,6 +112,27 @@ class ProductController extends Controller
 
     public function update(Request $request)
     {
+       
+        if($request->fields2){
+            $p_atts2 = array_chunk($request->fields2, 3);
+            foreach($p_atts2 as $p_att2){
+                if($p_att2[0]==null or $p_att2[1]==0){
+                    $request->validate( [
+                        'fields2[]' => 'required',
+                    ]);
+                }            
+            }
+            }
+            if($request->att_on){
+                $p_atts = array_chunk($request->fields, 2);
+                foreach($p_atts as $p_att){
+                    if($p_att[0]==null or $p_att[1]==0){
+                        $request->validate( [
+                            'fields[]' => 'required',
+                        ]);
+                    }            
+                }
+                }
         $request->validate( [
             'name' => 'required',
             'title' => 'required',
@@ -140,7 +163,40 @@ class ProductController extends Controller
             $product->price = $request->price,
             $product->description = $request->description,
             $product->status = $request->status,
+            $product->stock = $request->stock,
         ]);
+        //--------------------------update attribute value
+        if($request->fields2){
+            $p_atts2 = array_chunk($request->fields2, 3);
+        foreach($product->attr_values as $att_v){
+            $still_existe=0;
+            foreach($p_atts2 as $p_att2){
+                if($att_v->id == $p_att2[2]){
+                    $still_existe=1;
+                    $updt=AttributeValue::findOrFail($att_v->id);
+                    $updt->update([
+                        $updt->value = $p_att2[0],
+                        $updt->product_att_id = $p_att2[1],
+                    ]);
+                }
+            }
+            if($still_existe==0){
+                $updt=AttributeValue::findOrFail($att_v->id);
+                $updt->delete();
+            }
+        }
+        }
+        //---------------------------------------------------
+        //added new attribute value
+        if($request->att_on){
+            foreach($p_atts as $p_att){
+                $new_p_att = new AttributeValue(); 
+                $new_p_att->value = $p_att[0]; 
+                $new_p_att->product_att_id = $p_att[1];
+                $new_p_att->product_id = $product->id;
+                $new_p_att->save();           
+            }
+            }// end of new attribute added
 
         toastr()->success(trans('messages.Update'));
         return redirect()->route('products.index');

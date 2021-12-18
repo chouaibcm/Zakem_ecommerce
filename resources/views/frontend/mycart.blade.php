@@ -28,6 +28,7 @@
                                 <th>Product</th>
                                 <th>price</th>
                                 <th>Quantity</th>
+                                <th>Attributes</th>
                                 <th>total</th>
                             </tr>
                         </thead>
@@ -48,9 +49,19 @@
                                                 class="form-control form-control-sm" style="width: 80px"
                                                 onchange="this.form.submit()">
                                         </td>
+                                        <td>
+                                            @foreach ($product->options->p_att as $pav)
+                                                @foreach ($product_attribute as $pa)
+                                                    @if ($pa->id == $pav)
+                                                        <p class="mb-0">{{ $pa->value }}</p>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+                                        </td>
                                         <input type="hidden" name="product_id" value="{{ $product->rowId }}">
                                     </form>
-                                    <td>{{ number_format($product->total(), 2) }} {{ trans('products_trans.DA') }}</td>
+                                    <td>{{ number_format($product->total(), 2) }} {{ trans('products_trans.DA') }}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
