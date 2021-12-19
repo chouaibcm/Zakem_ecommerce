@@ -21,15 +21,22 @@
         <div class="container">
             <div class="card py-5">
                 <div class="card-body">
+                    @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     <div class="row">
                         <div class="col-md-6 mb-4 text-center">
                             <img src="{{ $product->image_path }}" class="img-fluid" alt="">
                         </div>
                         <div class="col-md-6 mb-4">
-
                             <h3 class="mb-2">{{ $product->title }}</h3>
                             <hr>
-                            <p class="mb-2">Description : {{ $product->description }}</p>
                             <h3 class="text-warning mb-2">{{ number_format($product->price, 2) }} DA</h3>
                             <p class="mb-2">Availability :
                                 @if ($product->stock == 0)
@@ -43,11 +50,12 @@
                                 @if ($product->attr_values->count() > 0)
                                     @foreach ($product->attr_values->unique('product_att_id') as $av)
                                         <div class="row mt-2">
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-4">
                                                 <p>{{ $av->productAtts->name }} :</p>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <select name="p_att[]" class="form-select form-select-sm" id="">
+                                            <div class="col-sm-8">
+                                                <select name="p_att[]" class="form-select" id="">
+                                                    <option selected>Select {{ $av->productAtts->name }}</option>
                                                     @foreach ($av->productAtts->attr_values->where('product_id', $product->id) as $pav)
                                                         <option value="{{ $pav->id }}">{{ $pav->value }}</option>
                                                     @endforeach
@@ -58,16 +66,20 @@
                                 @endif
                                 <div class="row mt-2">
                                     <input type="hidden" name="id" value="{{ $product->id }}">
-                                    <div class="col"
+                                    <div class="col-md-4"
                                         style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                                         <label for="qty" class="me-2">Quantity:</label>
                                         <input type="number" class="form-control" min="1" value="1" name="qty">
                                     </div>
-                                    <div class="col d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-warning text-white"> Add to Card</button>
+                                    <div class="col-md-8 text-end">
+                                        <div class="form-group d-grid gap-2">
+                                        <button type="submit" class="btn btn-danger text-white"><i class="bi bi-cart"></i> Add to Card</button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
+                            <hr>
+                            <p class="mb-2">Description : {{ $product->description }}</p>
                         </div>
                     </div>
                 </div>

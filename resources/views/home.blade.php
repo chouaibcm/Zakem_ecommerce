@@ -8,8 +8,8 @@
             <div class="carousel-indicators">
                 <?php $i = 0; ?>
                 @foreach ($sliders as $slider)
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{$i}}"
-                    class="{{ $i == 0 ? 'active' : '' }}" aria-current="true"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $i }}"
+                        class="{{ $i == 0 ? 'active' : '' }}" aria-current="true"></button>
                     <?php $i++; ?>
                 @endforeach
             </div>
@@ -19,7 +19,7 @@
                 @foreach ($sliders as $slider)
                     <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
                         <img src="{{ $slider->image_path }}" class="img-fluid" alt="">
-                        <div class="carousel-caption d-none d-md-block {{$slider->position}}">
+                        <div class="carousel-caption d-none d-md-block {{ $slider->position }}">
                             <h1 class="display-3">{{ $slider->heading }}</h1>
                             <p>{{ $slider->description }}</p>
                         </div>
@@ -66,19 +66,27 @@
                     </div>
                 </div>
             </div>
-            <div class="row d-flex justify-content-center">
+            <div class="row">
                 @foreach ($products as $product)
                     <div class="col-md-3  mb-2">
-                        <div class="card">
-                            <a href="{{ route('product_detail', $product->id) }}"><img class="img-fluid card-img-top" src="{{ $product->image_path }}" alt="Card image cap"></a>
-                            <div class="card-body">
-                                <a href="{{ route('product_detail', $product->id) }}"><h5 class="card-title">{{ $product->name }}</h5></a>
-                                <a href="{{ route('product_detail', $product->id) }}"><p class="card-text">{{ $product->title }}</p></a>
-                                <p class="fw-bold text-uppercase price">{{ $product->price }} {{ trans('products_trans.DA') }}</p>
-                                <hr class="p-0">
-                                <div class="d-flex justify-content-end">
-                                    <a href="{{route('rapid_add',$product->id)}}" class="btn btn-warning text-white">Add to carte</a>
-                                </div>
+                        <div class="card h-100">
+                            <a href="{{ route('product_detail', $product->id) }}"><img class="img-fluid card-img-top"
+                                    src="{{ $product->image_path }}" alt="Card image cap">
+                            </a>
+                            <div class="card-body text-start">
+                                <a href="{{ route('product_detail', $product->id) }}">
+                                    <p class="text-muted mb-0">{{ $product->name }}</p>
+                                </a>
+                                <a href="{{ route('product_detail', $product->id) }}">
+                                    <p class="card-text fw-bold">{{ $product->title }}</p>
+                                </a>
+                                <p class="fw-bold text-uppercase price" style="color: rgb(89, 153, 250)">
+                                    {{ $product->price }}
+                                    {{ trans('products_trans.DA') }}</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end">
+                                <a href="{{ route('rapid_add', $product->id) }}" class="btn btn-warning text-white">Add
+                                    to carte</a>
                             </div>
                         </div>
                     </div>

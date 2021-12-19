@@ -44,11 +44,8 @@ main {
     color: gainsboro;
 }
 
-#products_s .card:hover {
-    background: #3096afa9;
-    color: rgb(255, 255, 255); }
-    #products_s .card:hover a{
-        color: rgb(255, 255, 255); }
+    #products_s a:hover{
+        color: rgb(184, 10, 10); }
 
     .card a {
         text-decoration: none;

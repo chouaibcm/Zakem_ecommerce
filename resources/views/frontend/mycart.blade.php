@@ -50,13 +50,15 @@
                                                 onchange="this.form.submit()">
                                         </td>
                                         <td>
-                                            @foreach ($product->options->p_att as $pav)
-                                                @foreach ($product_attribute as $pa)
-                                                    @if ($pa->id == $pav)
-                                                        <p class="mb-0">{{ $pa->value }}</p>
-                                                    @endif
+                                            @if ($product->options->p_att)
+                                                @foreach ($product->options->p_att as $pav)
+                                                    @foreach ($product_attribute as $pa)
+                                                        @if ($pa->id == $pav)
+                                                            <p class="mb-0">{{ $pa->value }}</p>
+                                                        @endif
+                                                    @endforeach
                                                 @endforeach
-                                            @endforeach
+                                            @endif
                                         </td>
                                         <input type="hidden" name="product_id" value="{{ $product->rowId }}">
                                     </form>

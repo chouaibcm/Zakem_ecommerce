@@ -15,6 +15,12 @@ class ShoppingController extends Controller
     public function add_to_cart(Request $request)
     {        
         $product = Product::FindOrFail($request->id);
+        if($product->attr_values->count()>0){            
+            $request->validate( [
+                'p_att' => 'required|array',
+                'p_att.*' => 'required|integer',
+            ]);
+        }
         if ($request->p_att) {
             $cart = Cart::add([
                 'id' => $product->id,
@@ -88,7 +94,17 @@ class ShoppingController extends Controller
         //create order for client who ordred with his address and mobile
         $order = $client->orders()->create([]);
         //attache the product that ordred
-        $order->products()->attach($request->offres);
+       // $order->products()->attach($request->offres);
+       foreach (Cart::content as $order_product) {
+          $order->product()->attach([
+              'product_id' => $order_product->id,
+              'quantity' => $order_product->qty,
+              'product_attribute' => serialize($order_product->options->p_att),
+            ]);
+       }
+    //    ---------------------------------------
+       //And When you returning data use unserialze
+    //    ---------------------------------------
         // put the total price in the order
         $order->update([
             'total_price' => Cart::total(),

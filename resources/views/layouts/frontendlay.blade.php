@@ -77,6 +77,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if (Cart::content()->count()>0)
+                                        
                                         @foreach (Cart::content() as $product)
                                             <tr style="vertical-align: middle;">
                                                 <td>
@@ -98,6 +100,8 @@
                                                 <td>{{ number_format($product->total(),2) }} DA</td>
                                             </tr>
                                         @endforeach
+                                        
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
