@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Cart;
 use App\User;
 use App\Product;
+use App\Order;
 use App\AttributeValue;
 use App\Socialmedia;
 use App\Contactinf;
@@ -42,19 +43,6 @@ class ShoppingController extends Controller
         Cart::associate($cart->rowId,'App\Product');
         toastr()->success(trans('messages.add_carte'));
         return redirect()->route('mycart');
-    }
-
-    public function rapid_add($id){
-        $product = Product::FindOrFail($id);
-        $cart = Cart::add([
-            'id' => $product->id,
-            'name' => $product->name,
-            'qty' => 1,
-            'price' => $product->price
-        ]);
-        Cart::associate($cart->rowId,'App\Product');
-        toastr()->success(trans('messages.add_carte'));
-        return redirect()->back();
     }
 
     public function mycart(){
@@ -95,12 +83,20 @@ class ShoppingController extends Controller
         $order = $client->orders()->create([]);
         //attache the product that ordred
        // $order->products()->attach($request->offres);
-       foreach (Cart::content as $order_product) {
-          $order->product()->attach([
-              'product_id' => $order_product->id,
-              'quantity' => $order_product->qty,
-              'product_attribute' => serialize($order_product->options->p_att),
-            ]);
+       foreach (Cart::content() as $order_product) {
+           if ($order_product->options->p_att) {
+               $pa =serialize($order_product->options->p_att);
+               $order->products()->attach($order_product->id,[
+                'quantity' => $order_product->qty,
+                'product_attribute' => $pa,
+              ]);
+           }else {
+            $order->product()->attach($order_product->id,[
+                'quantity' => $order_product->qty,
+              ]);
+           }
+           
+          
        }
     //    ---------------------------------------
        //And When you returning data use unserialze

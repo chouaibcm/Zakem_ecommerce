@@ -40,7 +40,7 @@
                                 {{ trans('products_trans.about_product') }}
                             </div>
                             <hr class="dropdown-divider mb-2" />
-                            <form action="{{ route('products.store') }}" method="POST">
+                            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <!-- name and title of product-->
                                 <div class="row mb-2">
@@ -255,7 +255,6 @@
                     </ul>
                 </div>
                 @endif
-
             </div>
         </div>
     </div>

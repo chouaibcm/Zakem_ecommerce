@@ -54,7 +54,7 @@
                                                 <p>{{ $av->productAtts->name }} :</p>
                                             </div>
                                             <div class="col-sm-8">
-                                                <select name="p_att[]" class="form-select" id="">
+                                                <select name="p_att[]" class="form-select" id="" required>
                                                     <option selected>Select {{ $av->productAtts->name }}</option>
                                                     @foreach ($av->productAtts->attr_values->where('product_id', $product->id) as $pav)
                                                         <option value="{{ $pav->id }}">{{ $pav->value }}</option>

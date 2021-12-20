@@ -85,7 +85,7 @@
                                     {{ trans('products_trans.DA') }}</p>
                             </div>
                             <div class="card-footer d-flex justify-content-end">
-                                <a href="{{ route('rapid_add', $product->id) }}" class="btn btn-warning text-white">Add
+                                <a href="{{ route('product_detail', $product->id) }}" class="btn btn-warning text-white">Add
                                     to carte</a>
                             </div>
                         </div>
