@@ -32,5 +32,11 @@ return [
 
     'Copyright' => 'جميع الحقوق محفوظة ',
 
+    
+    'all_categories'=>'جميع الفئات',
+    'all_clients'=>'جميع الزبائن',
+    'all_products'=>'جميع المنتجات',
+    'all_orders'=>'جميع الطلبات',
+
 
 ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\AttributeValue;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,7 +14,7 @@ class OrderController extends Controller
         $this->middleware(['permission:update_orders'])->only('edit');
     }
     public function index()
-    {
+    { 
         $main_sidebar=4;
         $orders= Order::orderBy('id', 'DESC')->get();
         return view('backend.orders.index', compact('orders','main_sidebar'));
@@ -60,7 +61,8 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         $main_sidebar=4;
-        return view('backend.orders.edit', compact('order','main_sidebar'));
+        $product_attribute=AttributeValue::all();  
+        return view('backend.orders.edit', compact('order','main_sidebar','product_attribute'));
     }
 
     /**

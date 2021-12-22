@@ -12,7 +12,8 @@
                                             class="bi bi-speedometer2"></i></span><a
                                         href="{{ route('dashboard') }}">{{ trans('main_trans.Dashboard') }}</a></li>
                                 <li class="breadcrumb-item" aria-current="page">
-                                    <a href="{{ route('orders.index') }}">{{ trans('main_trans.orders') }}</a></li>
+                                    <a href="{{ route('orders.index') }}">{{ trans('main_trans.orders') }}</a>
+                                </li>
                                 <li class="breadcrumb-item active" aria-current="page">{{ trans('orders_trans.number') }}
                                     #{{ $order->id }} </li>
                             </ol>
@@ -43,96 +44,114 @@
                             </div>
                             <div>
                                 <button class="btn btn-outline-primary" data-bs-toggle="modal"
-                                data-bs-target="#factureModal">{{ trans('orders_trans.facture') }}</button>
+                                    data-bs-target="#factureModal">{{ trans('orders_trans.facture') }}</button>
                                 <button class="btn btn-primary">{{ trans('orders_trans.Edit') }}</button>
                             </div>
 
                         </div>
-                            <div class="row">
-                                <div class="col">
-                                    <hr class="dropdown-divider mb-2" />
-                                    <p class="text-muted mb-0"> {{ $order->created_at }} |
-                                        {{ $order->products->count() }}
-                                        {{ trans('orders_trans.items') }}
-                                        | {{ trans('orders_trans.total') }}: {{ number_format($order->total_price, 2) }} DA </p>
-                                    <hr class="dropdown-divider mb-2" />
-                                </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr class="dropdown-divider mb-2" />
+                                <p class="text-muted mb-0"> {{ $order->created_at }} |
+                                    {{ $order->products->count() }}
+                                    {{ trans('orders_trans.items') }}
+                                    | {{ trans('orders_trans.total') }}: {{ number_format($order->total_price, 2) }}
+                                    DA </p>
+                                <hr class="dropdown-divider mb-2" />
                             </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="card mb-2">
-                                        <div class="card-body">
-                                            <h4 class="fw-bold">{{ trans('orders_trans.items') }}</h4>
-                                            <hr class="dropdown-divider mb-2" />
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <tbody>
-                                                        @foreach ($order->products as $product)
-                                                            <tr>
-                                                                <td><img src="{{ $product->image_path }}"
-                                                                        style="width: 100px" alt=""></td>
-                                                                <td>{{ $product->name }}</td>
-                                                                <td>{{ number_format($product->price, 2) }}
-                                                                    {{ trans('products_trans.DA') }}</td>
-                                                                <td>{{ $product->pivot->quantity }}</td>
-                                                                <td class="text-end">
-                                                                    {{ number_format($product->price * $product->pivot->quantity, 2) }}
-                                                                    {{ trans('products_trans.DA') }}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <h5 class="fw-bold">{{ trans('orders_trans.total') }}:</h5>
-                                                <h5 class="fw-bold">{{ number_format($order->total_price, 2) }}
-                                                    {{ trans('products_trans.DA') }}</h5>
-                                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <h4 class="fw-bold">{{ trans('orders_trans.items') }}</h4>
+                                        <hr class="dropdown-divider mb-2" />
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tbody>
+                                                    @foreach ($order->products as $product)
+                                                        <tr>
+                                                            <td><img src="{{ $product->image_path }}"
+                                                                    style="width: 100px" alt=""></td>
+                                                            <td>{{ $product->name }}</td>
+                                                            <td>{{ number_format($product->price, 2) }}
+                                                                {{ trans('products_trans.DA') }}</td>
+                                                            <td>{{ $product->pivot->quantity }}</td>
+                                                            <td>
+                                                                {{-- product attribute --}}
+                                                                @if ($product->pivot->product_attribute)
+                                                                <?php
+                                                                        $pa_array = unserialize($product->pivot->product_attribute);
+                                                                        ?>
+                                                                    @foreach ($pa_array as $pav)
+                                                                        @foreach ($product_attribute as $pa)
+                                                                            @if ($pa->id == $pav)
+                                                                                <p class="mb-0">
+                                                                                    {{ $pa->value }}</p>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @endforeach
+                                                                @endif
+
+                                                            </td>
+                                                            <td class="text-end">
+                                                                {{ number_format($product->price * $product->pivot->quantity, 2) }}
+                                                                {{ trans('products_trans.DA') }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="fw-bold">{{ trans('orders_trans.total') }}:</h5>
+                                            <h5 class="fw-bold">{{ number_format($order->total_price, 2) }}
+                                                {{ trans('products_trans.DA') }}</h5>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div id="customer_1">
-                                        <div class="card mb-2">
-                                            <div class="card-body">
-                                                <h4 class="fw-bold">{{ trans('orders_trans.customer') }}</h4>
-                                                <hr class="dropdown-divider" />
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-4 text-end">
-                                                        <img src="{{ $order->user->image_path }}"
-                                                            class="img-fluid rounded-circle" style="width: 50px;" alt="">
-                                                    </div>
-                                                    <div class="col-8 text-start">
-                                                        <p class="fw-bold">
-                                                            {{ $order->user->name }}</p>
-                                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="customer_1">
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <h4 class="fw-bold">{{ trans('orders_trans.customer') }}</h4>
+                                            <hr class="dropdown-divider" />
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-4 text-end">
+                                                    <img src="{{ $order->user->image_path }}"
+                                                        class="img-fluid rounded-circle" style="width: 50px;" alt="">
+                                                </div>
+                                                <div class="col-8 text-start">
+                                                    <p class="fw-bold">
+                                                        {{ $order->user->name }}</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card mb-2">
-                                        <div class="card-body">
-                                            <h4 class="fw-bold">{{ trans('orders_trans.customer_contact') }}</h4>
-                                            <hr class="dropdown-divider mb-2" />
-                                            <p class="fw-bold mb-0">{{ $order->user->name }}</p>
-                                            <p class="mb-0">{{ $order->user->email }}</p>
-                                            <p class="text-muted mb-0">{{ $order->mobile }}</p>
+                                </div>
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <h4 class="fw-bold">{{ trans('orders_trans.customer_contact') }}</h4>
+                                        <hr class="dropdown-divider mb-2" />
+                                        <p class="fw-bold mb-0">{{ $order->user->name }}</p>
+                                        <p class="mb-0">{{ $order->user->email }}</p>
+                                        <p class="text-muted mb-0">{{ $order->mobile }}</p>
 
-                                        </div>
                                     </div>
-                                    <div class="card mb-2">
-                                        <div class="card-body">
-                                            <h4 class="fw-bold">{{ trans('orders_trans.shipping_address') }}</h4>
-                                            <hr class="dropdown-divider mb-2" />
-                                            <p class="mb-0">{{ $order->user->name }}<br>
-                                                {{ $order->address }} <br>
-                                                {{ $order->state }} <br>
-                                                {{ $order->pincode }}, {{ $order->country }}
-                                            </p>
-                                        </div>
+                                </div>
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <h4 class="fw-bold">{{ trans('orders_trans.shipping_address') }}</h4>
+                                        <hr class="dropdown-divider mb-2" />
+                                        <p class="mb-0">{{ $order->user->name }}<br>
+                                            {{ $order->address }} <br>
+                                            {{ $order->state }} <br>
+                                            {{ $order->pincode }}, {{ $order->country }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         {{--  --}}
                     </div>
                 </div>
@@ -160,17 +179,17 @@
                             </div>
                         </div>
                         <div class="row">
-                            
+
                             <div class="col-md-12 mb-2 px-3">
                                 <div class="d-flex justify-content-between">
-                                <div class="text-start">
+                                    <div class="text-start">
                                         <h4 class="fw-bold">{{ trans('orders_trans.customer_contact') }}</h4>
                                         <hr class="dropdown-divider mb-2" />
                                         <p class="fw-bold mb-0">{{ $order->user->name }}</p>
                                         <p class="mb-0">{{ $order->user->email }}</p>
                                         <p class="text-muted mb-0">{{ $order->mobile }}</p>
-                                </div>
-                                <div class="text-end">
+                                    </div>
+                                    <div class="text-end">
                                         <h4 class="fw-bold">{{ trans('orders_trans.shipping_address') }}</h4>
                                         <hr class="dropdown-divider mb-2" />
                                         <p class="mb-0">{{ $order->user->name }}<br>
@@ -178,8 +197,8 @@
                                             {{ $order->state }} <br>
                                             {{ $order->pincode }}, {{ $order->country }}
                                         </p>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="card mb-2">
