@@ -91,7 +91,7 @@ class ShoppingController extends Controller
                 'product_attribute' => $pa,
               ]);
            }else {
-            $order->product()->attach($order_product->id,[
+            $order->products()->attach($order_product->id,[
                 'quantity' => $order_product->qty,
               ]);
            }
@@ -115,4 +115,13 @@ class ShoppingController extends Controller
          toastr()->success(trans('messages.add_order'));
          return redirect()->route('home');
     }
+
+    public function my_orders(){
+        //frontend layout variable        
+        $socialmedia=Socialmedia::first();
+        $contactinf=Contactinf::first();
+        // end of frontend layout variable
+        return view('frontend.my_orders',compact('socialmedia','contactinf'));
+    }
+
 }

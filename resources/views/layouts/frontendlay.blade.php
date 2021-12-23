@@ -44,7 +44,7 @@
                     <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                         aria-controls="offcanvasExample">
                         <i class="bi bi-cart3">
-                            <span class="position-absolute start-25 translate-middle badge rounded-pill bg-danger"
+                            <span class="position-absolute start-25 translate-middle badge rounded-pill bg-dark"
                                 style="font-size: 12px">
                                 {{ Cart::content()->count() }}
                             </span>
@@ -218,6 +218,9 @@
                                         @endif
                                     @endif
                                 @endif
+                                <a class="dropdown-item" href="{{ route('my_orders') }}">
+                                    {{ trans('main_trans.my_orders') }}
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                     {{ trans('main_trans.logout') }}

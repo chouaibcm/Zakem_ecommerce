@@ -37,6 +37,12 @@ return [
     'all_clients'=>'جميع الزبائن',
     'all_products'=>'جميع المنتجات',
     'all_orders'=>'جميع الطلبات',
+    'my_orders'=>'طلباتي',
+
+    
+    'new'=>'جدبد',
+    'pending'=>'في الإنتظار',
+    'shipped'=>'تم شحنها',
 
 
 ];

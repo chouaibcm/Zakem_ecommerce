@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <h3 class="display-6">{{ $product->name }}</h3>
+                    {{-- <h3 class="display-6">{{ $product->name }}</h3> --}}
                 </div>
                 <div class="col-md-3 mb-4 text-center">
                     {{-- <i class="bi bi-shop fa-3x mb-2"></i>
@@ -19,9 +19,10 @@
     </section>
     <section id="home-icons" class="py-5">
         <div class="container">
+            <h3 class="display-6">{{ $product->name }}</h3>
             <div class="card py-5">
                 <div class="card-body">
-                    @if ($errors->any())
+                        @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)
@@ -37,7 +38,7 @@
                         <div class="col-md-6 mb-4">
                             <h3 class="mb-2">{{ $product->title }}</h3>
                             <hr>
-                            <h3 class="text-warning mb-2">{{ number_format($product->price, 2) }} DA</h3>
+                            <h3 class="mb-2" style="color: gray">{{ number_format($product->price, 2) }} DA</h3>
                             <p class="mb-2">Availability :
                                 @if ($product->stock == 0)
                                     <span class="badge bg-success">{{ trans('products_trans.in_stock') }}</span>
@@ -79,7 +80,7 @@
                                 </div>
                             </form>
                             <hr>
-                            <p class="mb-2">Description : {{ $product->description }}</p>
+                            <p class="mb-2">Description : {!! $product->description !!}</p>
                         </div>
                     </div>
                 </div>

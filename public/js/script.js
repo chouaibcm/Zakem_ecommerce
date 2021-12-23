@@ -34,4 +34,5 @@ $(document).ready(function(){
     $(document).on('click', '.print-btn', function() {
         $('#print-area').printThis();
     });//end of click function 
+    
 });

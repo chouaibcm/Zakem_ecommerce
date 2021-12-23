@@ -117,12 +117,8 @@
                             <hr class="dropdown-divider mb-2" />
                             <div class="row mb-2">
                                 <div class="col">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" name="description"
-                                            placeholder="Leave a comment here"
-                                            id="floatingTextarea">{{ $product->description }}</textarea>
-                                        <label for="floatingTextarea">{{ trans('products_trans.description') }}</label>
-                                    </div>
+                                    <label class="control-label">{{ trans('products_trans.description') }}</label>
+                                    <textarea class="form-control ckeditor" name="description">{!! $product->description !!}</textarea>
                                 </div>
                             </div>
                             <!-- product image and stock-->

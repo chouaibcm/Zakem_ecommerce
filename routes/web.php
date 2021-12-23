@@ -37,6 +37,7 @@ Route::group(
     Route::middleware(['auth'])->group (function(){
     Route::get('/cart/checkout','ShoppingController@checkout')->name('checkout');
     Route::post('/cart/checkout/apply-order','ShoppingController@apply_order')->name('apply_order');
+    Route::get('/my-orders','ShoppingController@my_orders')->name('my_orders');
     });
    //---------------------------------------------------------------------
 

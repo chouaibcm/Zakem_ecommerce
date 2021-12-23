@@ -29,6 +29,13 @@ return [
     'shipping_address'=>'Shipping address',
     'facture'=>'Facture',
     
+    'new'=>'New',
+    'pending'=>'Pending',
+    'shipped'=>'Shipped',
+
+    'no'=>'No',
+    'yes'=>'Yes',
+    
     'Delete'=>'Delete',
     'Close' => 'Close',
 

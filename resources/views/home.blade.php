@@ -73,7 +73,7 @@
                             <a href="{{ route('product_detail', $product->id) }}"><img class="img-fluid card-img-top"
                                     src="{{ $product->image_path }}" alt="Card image cap">
                             </a>
-                            <div class="card-body text-start">
+                            <div class="card-body text-start pb-0">
                                 <a href="{{ route('product_detail', $product->id) }}">
                                     <p class="text-muted mb-0">{{ $product->name }}</p>
                                 </a>
@@ -84,9 +84,8 @@
                                     {{ $product->price }}
                                     {{ trans('products_trans.DA') }}</p>
                             </div>
-                            <div class="card-footer d-flex justify-content-end">
-                                <a href="{{ route('product_detail', $product->id) }}" class="btn btn-warning text-white">Add
-                                    to carte</a>
+                            <div class="card-footer d-flex justify-content-center" style="background: white">
+                                <a href="{{ route('product_detail', $product->id) }}" class="btn btn-dark text-white" style="width: 200px">View More</a>
                             </div>
                         </div>
                     </div>

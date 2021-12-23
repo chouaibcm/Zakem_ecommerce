@@ -275,6 +275,7 @@
 
     <script src="{{ URL::asset('js/script.js') }}"></script>
     <script src="{{ URL::asset('js/plugins-jquery.js') }}"></script>
+    <script src="{{ URL::asset('plugins/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ URL::asset('js/printThis.js') }}"></script>
     @if (App::getLocale() == 'ar')
         <script src="{{ URL::asset('DataTables/rtlscript.js') }}"></script>
@@ -284,6 +285,9 @@
     <script>
         // Get the current year for the copyright
         $('#year').text(new Date().getFullYear());
+        $(document).ready(function(){
+        CKEDITOR.config.language =  '{{ app()->getLocale() }}';
+    });
 
     </script>
 </body>

@@ -31,4 +31,5 @@ return [
     'all_clients'=>'All Customers',
     'all_products'=>'All Products',
     'all_orders'=>'All Orders',
+    'my_orders'=>'My Orders',
 ];
