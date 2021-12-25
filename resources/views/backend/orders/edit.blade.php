@@ -1,5 +1,17 @@
 @extends('layouts.adminlayout')
+@section('css')
+    <style>
+        #items a {
+            text-decoration: none;
+            color: gray;
+        }
 
+        #items a:hover {
+            color: black;
+        }
+
+    </style>
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -22,6 +34,7 @@
                 </div>
             </div>
         </div>
+        <div id="items">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -45,7 +58,6 @@
                             <div>
                                 <button class="btn btn-outline-primary" data-bs-toggle="modal"
                                     data-bs-target="#factureModal">{{ trans('orders_trans.facture') }}</button>
-                                <button class="btn btn-primary">{{ trans('orders_trans.Edit') }}</button>
                             </div>
 
                         </div>
@@ -56,7 +68,19 @@
                                     {{ $order->products->count() }}
                                     {{ trans('orders_trans.items') }}
                                     | {{ trans('orders_trans.total') }}: {{ number_format($order->total_price, 2) }}
-                                    DA </p>
+                                    {{ trans('products_trans.DA') }} |
+                                    @if ($order->status == 1)
+                                        <span class="badge bg-warning">{{ trans('orders_trans.new') }}</span>
+                                    @else
+                                        @if ($order->status == 2)
+                                            <span class="badge bg-primary">{{ trans('orders_trans.pending') }}</span>
+                                        @else
+                                            @if ($order->status == 3)
+                                                <span class="badge bg-success">{{ trans('orders_trans.shipped') }}</span>
+                                            @endif
+                                        @endif
+                                    @endif
+                                </p>
                                 <hr class="dropdown-divider mb-2" />
                             </div>
                         </div>
@@ -64,7 +88,11 @@
                             <div class="col-md-8">
                                 <div class="card mb-2">
                                     <div class="card-body">
-                                        <h4 class="fw-bold">{{ trans('orders_trans.items') }}</h4>
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="fw-bold">{{ trans('orders_trans.items') }}</h5>
+                                            <a href="" data-bs-toggle="modal"
+                                                data-bs-target="#orderModal">{{ trans('orders_trans.Edit') }}</a>
+                                        </div>
                                         <hr class="dropdown-divider mb-2" />
                                         <div class="table-responsive">
                                             <table class="table">
@@ -80,11 +108,11 @@
                                                             <td>
                                                                 {{-- product attribute --}}
                                                                 @if ($product->pivot->product_attribute)
-                                                                <?php
-                                                                        $pa_array = unserialize($product->pivot->product_attribute);
-                                                                        ?>
+                                                                    <?php
+                                                                    $pa_array = unserialize($product->pivot->product_attribute);
+                                                                    ?>
                                                                     @foreach ($pa_array as $pav)
-                                                                        @foreach ($product_attribute as $pa)
+                                                                        @foreach ($product->attr_values as $pa)
                                                                             @if ($pa->id == $pav)
                                                                                 <p class="mb-0">
                                                                                     {{ $pa->value }}</p>
@@ -114,7 +142,7 @@
                                 <div id="customer_1">
                                     <div class="card mb-2">
                                         <div class="card-body">
-                                            <h4 class="fw-bold">{{ trans('orders_trans.customer') }}</h4>
+                                            <h5 class="fw-bold">{{ trans('orders_trans.customer') }}</h5>
                                             <hr class="dropdown-divider" />
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-4 text-end">
@@ -131,7 +159,7 @@
                                 </div>
                                 <div class="card mb-2">
                                     <div class="card-body">
-                                        <h4 class="fw-bold">{{ trans('orders_trans.customer_contact') }}</h4>
+                                        <h5 class="fw-bold">{{ trans('orders_trans.customer_contact') }}</h5>
                                         <hr class="dropdown-divider mb-2" />
                                         <p class="fw-bold mb-0">{{ $order->user->name }}</p>
                                         <p class="mb-0">{{ $order->user->email }}</p>
@@ -141,7 +169,7 @@
                                 </div>
                                 <div class="card mb-2">
                                     <div class="card-body">
-                                        <h4 class="fw-bold">{{ trans('orders_trans.shipping_address') }}</h4>
+                                        <h5 class="fw-bold">{{ trans('orders_trans.shipping_address') }}</h5>
                                         <hr class="dropdown-divider mb-2" />
                                         <p class="mb-0">{{ $order->user->name }}<br>
                                             {{ $order->address }} <br>
@@ -157,6 +185,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!-- FactureModal add model -->
     <div class="modal fade" id="factureModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -243,4 +272,150 @@
             </div>
         </div>
     </div>
+    <!-- orderModal add model -->
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ trans('orders_trans.edit_order') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <h4 class="fw-bold">{{ trans('orders_trans.items') }}</h4>
+                                    <hr class="dropdown-divider mb-2" />
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>{{ trans('products_trans.image') }}</th>
+                                                    <th>{{ trans('products_trans.Name') }}</th>
+                                                    <th>{{ trans('products_trans.price') }}</th>
+                                                    <th>{{ trans('products_trans.quantity') }}</th>
+                                                    <th>{{ trans('products_trans.attr') }}</th>
+                                                    <th>{{ trans('products_trans.total') }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($order->products as $product)
+                                                    <tr style="vertical-align: middle;">
+                                                        <td><a href="" data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{ $product->id }}"><i
+                                                                    class="fa fa-trash"
+                                                                    style="color: rgb(216, 17, 17)"></i></a></td>
+                                                        <td><img src="{{ $product->image_path }}" style="width: 100px"
+                                                                alt=""></td>
+                                                        <td>{{ $product->name }}</td>
+                                                        <td>{{ number_format($product->price, 2) }}
+                                                            {{ trans('products_trans.DA') }}</td>
+                                                        <form action="{{ route('order.change.qty', $order->id) }}"
+                                                            method="POST">
+                                                            {{ method_field('PUT') }}
+                                                            @csrf
+                                                            <td><input type="number" name="qty"
+                                                                    value="{{ $product->pivot->quantity }}" min="1"
+                                                                    class="form-control form-control-sm"
+                                                                    style="width: 80px" onchange="this.form.submit()">
+                                                            </td>
+                                                            <input type="hidden" name="product_id"
+                                                                value="{{ $product->id }}">
+                                                        </form>
+                                                        <td>
+
+                                                            @if ($product->pivot->product_attribute)
+                                                            <form action="{{ route('update_attr', $order->id) }}" method="POST">
+                                                                {{ method_field('PUT') }}
+                                                                @csrf
+                                                                <input type="hidden" name="product_id"
+                                                                value="{{ $product->id }}">
+                                                                <?php
+                                                                $pa_array = unserialize($product->pivot->product_attribute);
+                                                                $i = 0;
+                                                                ?>
+                                                                @foreach ($product->attr_values->unique('product_att_id') as $av)
+                                                                    <div class="row mt-2">
+                                                                        <div class="col">
+                                                                            <select name="p_att[]" class="form-select"
+                                                                                id="" onchange="this.form.submit()">
+                                                                                @foreach ($av->productAtts->attr_values->where('product_id', $product->id) as $pav)
+                                                                                    <option value="{{ $pav->id }}"
+                                                                                        {{ $pav->id == $pa_array[$i] ? 'selected' : '' }}>
+                                                                                        {{ $pav->value }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php
+                                                                    $i = $i + 1;
+                                                                    ?>
+                                                                @endforeach
+                                                            </form>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-end">
+                                                            {{ number_format($product->price * $product->pivot->quantity, 2) }}
+                                                            {{ trans('products_trans.DA') }}</td>
+                                                    </tr>
+                                                    <!--Delete product from order-->
+                                                    <div class="modal fade" id="delete{{ $product->id }}"
+                                                        tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                        {{ trans('products_trans.delete_product') }}</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <form action="{{ route('delete_item', $order->id) }}"
+                                                                    method="post">
+                                                                    {{ method_field('put') }}
+                                                                    @csrf
+                                                                    <div class="modal-body">
+                                                                        {{ trans('categories_trans.Warning_category') }}
+                                                                    </div>
+                                                                    <input id="id" type="hidden" name="product_id"
+                                                                        class="form-control"
+                                                                        value="{{ $product->id }}">
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">{{ trans('categories_trans.Close') }}</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">{{ trans('categories_trans.submit') }}</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="fw-bold">{{ trans('orders_trans.total') }}:</h5>
+                                        <h5 class="fw-bold">{{ number_format($order->total_price, 2) }}
+                                            {{ trans('products_trans.DA') }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">{{ trans('categories_trans.Close') }}</button>
+                    <button type="submit"
+                        class="btn btn-primary print-btn">{{ trans('categories_trans.submit') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 @endsection

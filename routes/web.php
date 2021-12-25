@@ -55,6 +55,11 @@ Route::group(
     Route::resource('productsatts', 'ProductAttController');
     //==============================Orders============================
     Route::resource('orders', 'OrderController');
+    Route::put('/orders/{order}/edit/update_qty','OrderController@qty_update')->name('order.change.qty');//update quantity
+    Route::put('/orders/{order}/edit/delete_item', 'OrderController@delete_item')->name('delete_item');//delete item in order
+    Route::put('/orders/{order}/edit/update_attr', 'OrderController@update_attr')->name('update_attr');//update attr order
+    Route::get('/orders/{order}/edit/update_total_order', 'OrderController@update_total_order')->name('update_total_order');//update attr order
+
     //==============================clients============================
     Route::get('/clients', 'UserController@Client_index')->name('clients.index');
     Route::get('/clients/show', 'UserController@Client_show')->name('clients.show');

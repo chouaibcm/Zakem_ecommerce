@@ -117,6 +117,35 @@
                                         </tr>
                                         <!--Edit order-->
                                         <!--Delete order-->
+                                        <!--Delete product from order-->
+                                        <div class="modal fade" id="delete{{ $order->id }}"
+                                            tabindex="-1" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                            {{ trans('products_trans.delete_product') }}</h5>
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{ route('orders.destroy', $order->id) }}"
+                                                        method="post">
+                                                        {{ method_field('Delete') }}
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            {{ trans('categories_trans.Warning_category') }}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">{{ trans('categories_trans.Close') }}</button>
+                                                            <button type="submit"
+                                                                class="btn btn-danger">{{ trans('categories_trans.submit') }}</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </tbody>
                             </table>

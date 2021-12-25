@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use App\AttributeValue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -60,9 +61,8 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        $main_sidebar=4;
-        $product_attribute=AttributeValue::all();  
-        return view('backend.orders.edit', compact('order','main_sidebar','product_attribute'));
+        $main_sidebar=4;  
+        return view('backend.orders.edit', compact('order','main_sidebar'));
     }
 
     /**
@@ -85,6 +85,71 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->products()->detach();
+        $order->delete();
+            toastr()->success(trans('messages.Delete'));
+            return redirect()->route('orders.index');
     }
+    public function qty_update(Request $request,Order $order)
+    {
+        foreach ($order->products as $product) {
+            if($product->id==$request->product_id){
+            $product->pivot->quantity = $request->qty;
+            $product->pivot->save();
+             }
+         }
+         $total_order_price=0;
+         foreach ($order->products as $product) {
+             $subtotal= $product->price * $product->pivot->quantity;
+             $total_order_price = $total_order_price + $subtotal;
+         }
+         $order->update([
+            $order->total_price = $total_order_price,
+         ]);
+
+         toastr()->success(trans('messages.Update'));
+        return redirect()->back();
+
+    }
+    public function update_attr(Request $request,Order $order)
+    {
+        $pa =serialize($request->p_att);
+        foreach ($order->products as $product) {
+            if($product->id==$request->product_id){
+            $product->pivot->product_attribute = $pa;
+            $product->pivot->save();
+             }
+         }
+
+        toastr()->success(trans('messages.Update'));
+        return redirect()->back();
+
+    }
+
+    public function delete_item(Request $request,Order $order){
+        if($order->products->count()==1){
+            $order->products()->detach();
+            $order->delete();
+            toastr()->success(trans('messages.Delete'));
+            return redirect()->route('orders.index');
+        }else{
+             $order->products()->detach($request->product_id);
+         
+         return redirect()->route('update_total_order', $order->id);
+        }
+    }
+    
+    
+    public function update_total_order(Order $order){
+        $total_order_price=0;
+        foreach ($order->products as $product) {
+            $subtotal= $product->price * $product->pivot->quantity;
+            $total_order_price = $total_order_price + $subtotal;
+        }
+        DB::table('orders')->where('id',$order->id)->update(['total_price'=>$total_order_price]);
+        return redirect()->route('orders.edit',$order->id);
+
+    }
+
+    
 }
