@@ -27,7 +27,6 @@
                             <th>{{ trans('orders_trans.number') }}</th>
                             <th>{{ trans('orders_trans.order_date') }}</th>
                             <th>{{ trans('orders_trans.total') }}</th>
-                            <th>{{ trans('orders_trans.paid') }}</th>
                             <th>{{ trans('orders_trans.status') }}</th>
                             <th>{{ trans('orders_trans.items') }}</th>
                             <th>{{ trans('orders_trans.Processes') }}</th>
@@ -39,7 +38,7 @@
                                 <td>{{ $order->id }}</td>
                                 <td>{{ $order->created_at->format('d-m-Y') }}</td>
                                 <td>{{ number_format($order->total_price, 2) }} {{ trans('products_trans.DA') }}</td>
-                                <td>{{ $order->paid }}</td>
+                                
                                 @if ($order->status == 1)
                                     <td><span class="badge bg-warning">{{ trans('orders_trans.new') }}</span>
                                     </td>

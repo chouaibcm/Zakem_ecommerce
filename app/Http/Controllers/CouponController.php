@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Cart;
 use App\Coupon;
 use Illuminate\Http\Request;
+use Session;
 
 class CouponController extends Controller
 {
@@ -106,4 +108,35 @@ class CouponController extends Controller
         toastr()->error(trans('messages.Delete'));
         return redirect()->route('coupons.index');
     }
+
+    public function applycoupon(Request $request){
+        $coupon_code=$request->coupon;
+        $new_total_price=Cart::total();
+
+        $check_coupon=Coupon::where('nb_coupon',$coupon_code)->count();
+        if($check_coupon==0){
+            toastr()->error(trans('coupons_trans.no_coupon'));
+            return redirect()->back();
+        }else{ //CHOCHO2021
+            $check_status=Coupon::where('nb_coupon',$coupon_code)->first();
+            if($check_status->status==0){
+                toastr()->error( trans('coupons_trans.ex_coupon'));
+                return redirect()->back();
+            }else{
+                if ($check_status->min_price<=$new_total_price) {
+                    $new_total_price=$new_total_price-$check_status->discount;
+                    Session::put('new_total_price',$new_total_price);
+                    Session::put('coupon_code',$check_status->id);
+                    toastr()->success(trans('coupons_trans.ap_coupon'));
+                    return redirect()->back();
+                } else {
+                    toastr()->error( trans('coupons_trans.totalshippest'));
+                    return redirect()->back();
+                }
+                
+            }
+        }
+
+    }//end of apply coupon
+
 }

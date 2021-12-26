@@ -151,5 +151,25 @@ class OrderController extends Controller
 
     }
 
+    public function order_address_update(Request $request,Order $order){
+        $order->update([
+            'address' => $request->address,
+            'state'=> $request->state,
+            'country'=> $request->country,
+            'pincode'=> $request->pincode
+         ]);
+         toastr()->success(trans('messages.Update'));
+         return redirect()->back();
+    }
+    
+    public function order_status_update(Request $request,Order $order){
+        $order->update([
+            'status' => $request->status,
+            'paid' => $request->paid,
+         ]);
+         toastr()->success(trans('messages.Update'));
+         return redirect()->back();
+    }
+
     
 }

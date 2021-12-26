@@ -38,6 +38,7 @@ Route::group(
     Route::get('/cart/checkout','ShoppingController@checkout')->name('checkout');
     Route::post('/cart/checkout/apply-order','ShoppingController@apply_order')->name('apply_order');
     Route::get('/my-orders','ShoppingController@my_orders')->name('my_orders');
+    Route::post('/cart/checkout/applycoupon','CouponController@applycoupon')->name('applycoupon');
     });
    //---------------------------------------------------------------------
 
@@ -58,7 +59,9 @@ Route::group(
     Route::put('/orders/{order}/edit/update_qty','OrderController@qty_update')->name('order.change.qty');//update quantity
     Route::put('/orders/{order}/edit/delete_item', 'OrderController@delete_item')->name('delete_item');//delete item in order
     Route::put('/orders/{order}/edit/update_attr', 'OrderController@update_attr')->name('update_attr');//update attr order
-    Route::get('/orders/{order}/edit/update_total_order', 'OrderController@update_total_order')->name('update_total_order');//update attr order
+    Route::get('/orders/{order}/edit/update_total_order', 'OrderController@update_total_order')->name('update_total_order');//update order total
+    Route::put('/orders/{order}/edit/order_address_update', 'OrderController@order_address_update')->name('order_address_update');//update order shipping address
+    Route::put('/orders/{order}/edit/order_status_update', 'OrderController@order_status_update')->name('order_status_update');//update order status
 
     //==============================clients============================
     Route::get('/clients', 'UserController@Client_index')->name('clients.index');

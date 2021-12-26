@@ -10,6 +10,7 @@ use App\AttributeValue;
 use App\Socialmedia;
 use App\Contactinf;
 use Illuminate\Http\Request;
+use Session;
 
 class ShoppingController extends Controller
 {
@@ -45,7 +46,9 @@ class ShoppingController extends Controller
         return redirect()->route('mycart');
     }
 
-    public function mycart(){
+    public function mycart(){        
+        Session::forget('new_total_price');
+        Session::forget('coupon_code');
         //frontend layout variable  
         $product_attribute=AttributeValue::all();      
         $socialmedia=Socialmedia::first();
@@ -77,7 +80,7 @@ class ShoppingController extends Controller
     }
 
     public function apply_order(Request $request){
-
+        
         $client= User::findOrFail($request->user_id);
         //create order for client who ordred with his address and mobile
         $order = $client->orders()->create([]);
@@ -95,23 +98,34 @@ class ShoppingController extends Controller
                 'quantity' => $order_product->qty,
               ]);
            }
-           
-          
        }
     //    ---------------------------------------
        //And When you returning data use unserialze
     //    ---------------------------------------
         // put the total price in the order
-        $order->update([
-            'total_price' => Cart::total(),
-            'address' => $request->address,
-            'state'=> $request->state,
-            'country'=> $request->country,
-            'mobile'=> $request->mobile,
-            'pincode'=> $request->pincode
-         ]);
+        if ($request->new_total_price) {
+            $order->update([
+                'total_price' => $request->new_total_price,
+                'address' => $request->address,
+                'state'=> $request->state,
+                'country'=> $request->country,
+                'mobile'=> $request->mobile,
+                'pincode'=> $request->pincode
+            ]);
+        } else {
+            $order->update([
+                'total_price' => Cart::total(),
+                'address' => $request->address,
+                'state'=> $request->state,
+                'country'=> $request->country,
+                'mobile'=> $request->mobile,
+                'pincode'=> $request->pincode
+            ]);
+        }
          //delete cart orders
          Cart::destroy();
+         Session::forget('new_total_price');
+         Session::forget('coupon_code');
          toastr()->success(trans('messages.add_order'));
          return redirect()->route('home');
     }

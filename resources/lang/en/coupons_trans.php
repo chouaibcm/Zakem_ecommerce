@@ -28,6 +28,7 @@ return [
     'no_coupon'=>'Your Coupon Code Not Exist!',
     'ex_coupon'=>'Your Coupon has expired!',
     'ap_coupon'=>'Your Coupon Code was Apply',
+    'totalshippest'=>'Your Coupon Apply When Order total price higher',
        
     'apply' => 'Apply',
     

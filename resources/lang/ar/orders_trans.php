@@ -6,7 +6,11 @@ return [
     'order_date' => 'تاريخ الطلب',
     'client' => 'الزبون',
     'paid' => 'الدفع',
+    'order_paid' => 'الطلب مدفوع؟',
+    'not_paid' => 'ليس مدفوع',
+    'yes_paid' => 'مدفوع',
     'status' => 'الحالة',
+    'edit_status' => 'تعديل حالة الطلب',
     'items' => 'العناصر',
 
     'title_page' => 'الطلبات',

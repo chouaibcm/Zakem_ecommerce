@@ -67,10 +67,10 @@
                                             <td>{{ number_format($order->total_price, 2) }}
                                                 {{ trans('products_trans.DA') }}</td>
                                             @if ($order->paid == 0)
-                                                <td><span class="badge bg-danger">{{ trans('orders_trans.no') }}</span>
+                                                <td><span class="badge bg-danger">{{ trans('orders_trans.not_paid') }}</span>
                                                 </td>
                                             @else
-                                                <td><span class="badge bg-success">{{ trans('orders_trans.yes') }}</span>
+                                                <td><span class="badge bg-success">{{ trans('orders_trans.yes_paid') }}</span>
                                                 </td>
                                             @endif
                                             @if ($order->status == 1)

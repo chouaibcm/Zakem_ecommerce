@@ -6,7 +6,11 @@ return [
     'order_date' => 'Order Date',
     'client' => 'Customer',
     'paid' => 'Paid',
+    'order_paid' => 'Order Paid?',
+    'not_paid' => 'Not Paid',
+    'yes_paid' => 'Paid',
     'status' => 'Status',
+    'edit_status' => 'Edit Order Status',
     'items' => 'Items',
 
     'title_page' => 'Orders',
