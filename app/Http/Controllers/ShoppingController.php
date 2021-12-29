@@ -130,12 +130,13 @@ class ShoppingController extends Controller
          return redirect()->route('home');
     }
 
-    public function my_orders(){
+    public function my_orders(User $user){
         //frontend layout variable        
         $socialmedia=Socialmedia::first();
         $contactinf=Contactinf::first();
+        $orders=Order::where('user_id',$user->id)->orderby('created_at', 'DESC')->get();
         // end of frontend layout variable
-        return view('frontend.my_orders',compact('socialmedia','contactinf'));
+        return view('frontend.my_orders',compact('socialmedia','contactinf','orders'));
     }
 
 }

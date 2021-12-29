@@ -253,7 +253,7 @@
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>                                                    
                                         @if (count($category->childs) > 0)
                                             @include('backend.products.createsubcategories', ['subcategories' => $category->childs, 'parent' => $category->name])
-                                        @endif                                                    
+                                        @endif                                                     
                                     @endforeach
                                 </select>
                             </div>

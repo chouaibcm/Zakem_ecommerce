@@ -128,7 +128,7 @@
                     <!-- Products -->
                     <li>
                         <a class="nav-link px-3 sidebar-link  {{ $main_sidebar == 3 ? 'active' : '' }}" data-bs-toggle="collapse" href="#collapseproduct" role="button"
-                            aria-expanded="false" aria-controls="collapseproduct">
+                            aria-expanded="false" aria-controls="collapseproduct"> 
                             <span class="me-2">
                                 <i class="bi bi-shop"></i>
                             </span>

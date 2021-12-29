@@ -24,6 +24,7 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     @endif
+    @yield('css')
     @toastr_css
     <title>ZAKEM</title>
 </head>
@@ -31,7 +32,8 @@
 <body>
 
     <!-- START HERE -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="main-nav">
+    <div id="main-nav">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a href="{{ route('home') }}" class="navbar-brand">
                 <img src="{{ asset('uploads/logo/logo.png') }}" class="img-fluid" width="50" height="50" alt="">
@@ -117,8 +119,7 @@
                             <hr class="dropdown-divider" />
                             <div class="row mb-3">
                                 <div class="col text-end">
-                                    <a href="{{route('mycart')}}" class="btn btn-outline-secondary">Expand cart</a>
-                                    <a href="{{route('checkout')}}" class="btn btn-primary">Checkout</a>
+                                    <a href="{{route('mycart')}}" class="btn btn-outline-primary">Expand cart</a>
                                 </div>
                             </div>
                         @endif
@@ -137,7 +138,7 @@
                             class="nav-link {{ $main_nav = 1 ? 'active' : '' }}">{{ trans('main_trans.home') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#about" class="nav-link">{{ trans('main_trans.shop') }}</a>
+                        <a href="{{route('shop')}}" class="nav-link">{{ trans('main_trans.shop') }}</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
@@ -218,7 +219,7 @@
                                         @endif
                                     @endif
                                 @endif
-                                <a class="dropdown-item" href="{{ route('my_orders') }}">
+                                <a class="dropdown-item" href="{{ route('my_orders', auth()->user()->id) }}">
                                     {{ trans('main_trans.my_orders') }}
                                 </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -239,6 +240,7 @@
 
         </div>
     </nav>
+</div>
     <main class="">
         @yield('content')
     </main>

@@ -26,6 +26,7 @@ Route::group(
     Auth::routes();
    //==============================Partie User Frontend============================
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/shop', 'HomeController@shop')->name('shop');
     Route::get('/product_detail/{product}', 'HomeController@product_detail')->name('product_detail');
     Route::post('/product/addToCart','ShoppingController@add_to_cart')->name('cart.add');
     Route::get('/cart','ShoppingController@mycart')->name('mycart');
@@ -37,7 +38,7 @@ Route::group(
     Route::middleware(['auth'])->group (function(){
     Route::get('/cart/checkout','ShoppingController@checkout')->name('checkout');
     Route::post('/cart/checkout/apply-order','ShoppingController@apply_order')->name('apply_order');
-    Route::get('/my-orders','ShoppingController@my_orders')->name('my_orders');
+    Route::get('/{user}/my-orders','ShoppingController@my_orders')->name('my_orders');
     Route::post('/cart/checkout/applycoupon','CouponController@applycoupon')->name('applycoupon');
     });
    //---------------------------------------------------------------------

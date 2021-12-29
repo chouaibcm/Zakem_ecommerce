@@ -7,5 +7,5 @@
             $parents = $parent . '->' . $sub->name;
         @endphp
         @include('backend.products.createsubcategories', ['subcategories' => $sub->childs, 'parent' => $parents])
-    @endif
+    @endif 
 @endforeach
