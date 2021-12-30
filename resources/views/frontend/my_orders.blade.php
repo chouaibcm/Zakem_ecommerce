@@ -2,8 +2,8 @@
 
 @section('css')
     <style>
-        .modal-body {
-            overflow-x: auto;
+        .modal a {
+            color: rgb(91, 91, 214) !important;
         }
     </style>
 @endsection
@@ -121,6 +121,21 @@
                                                         <td class="text-end">
                                                             {{ number_format($product->price * $product->pivot->quantity, 2) }}
                                                             {{ trans('products_trans.DA') }}
+                                                        </td>
+                                                        <td class="text-end">
+                                                            @php
+                                                                $reviewed=0;
+                                                            @endphp
+                                                            @foreach (auth()->user()->reviews as $review)
+                                                                @if ($review->product->id == $product->id)
+                                                                    @php
+                                                                        $reviewed=1;
+                                                                    @endphp
+                                                                @endif
+                                                            @endforeach
+                                                            @if ($reviewed==0)
+                                                                <a href="{{ route('add_review',$product->id)}}" class="link">Write a review</a>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach

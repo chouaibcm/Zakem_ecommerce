@@ -274,7 +274,7 @@
     <script type="text/javascript" src="{{ URL::asset('DataTables/datatables.min.js') }}"></script>
 
     <script src="{{ URL::asset('js/script.js') }}"></script>
-    <script src="{{ URL::asset('js/plugins-jquery.js') }}"></script>
+    <script src="{{ URL::asset('js/plugins-jquery.js') }}"></script> 
     <script src="{{ URL::asset('plugins/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ URL::asset('js/printThis.js') }}"></script>
     @if (App::getLocale() == 'ar')

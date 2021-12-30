@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\User;
+use App\Review;
 use App\Category;
 use Cart;
 use App\Contactinf;
@@ -67,5 +69,29 @@ class HomeController extends Controller
         $contactinf=Contactinf::first();
         // end of frontend layout variable
         return view('frontend.product_detail',compact('product','socialmedia','contactinf'));
+    }
+
+    public function add_review(Request $request, Product $product)
+    {
+        //frontend layout variable        
+        $socialmedia=Socialmedia::first();
+        $contactinf=Contactinf::first();
+        // end of frontend layout variable
+        return view('frontend.addreview',compact('product','socialmedia','contactinf'));
+    }
+    public function upload_review(Request $request, Product $product)
+    {
+        
+        // end of frontend layout variable
+
+        $review = new Review();
+        $review->user_id = $request->user_id;
+        $review->product_id = $product->id;
+        $review->rating = $request->rating;
+        $review->review = $request->review;
+        $review->save();
+        
+        toastr()->success(trans('messages.success'));
+        return redirect()->route('my_orders',$request->user_id);
     }
 }

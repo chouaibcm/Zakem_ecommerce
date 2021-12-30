@@ -306,6 +306,8 @@
     @if (App::getLocale() == 'ar')
         <script src="{{ URL::asset('DataTables/rtlscript.js') }}"></script>
     @endif
+    
+    <script src="{{ URL::asset('plugins/ckeditor/ckeditor.js') }}"></script>
     @toastr_js
     @toastr_render
     <script>
@@ -330,6 +332,7 @@
                 }
 
             });
+            CKEDITOR.config.language =  '{{ app()->getLocale() }}';
         }); //end of ready
     </script>
 </body>
