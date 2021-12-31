@@ -1,12 +1,17 @@
 @extends('layouts.frontendlay')
 @section('css')
     <style>
-        .fa.fa-star{
+        .bi.bi-star-half {
             color: #e52;
         }
-        .far.fa-star{
+
+        .bi.bi-star {
             color: #e52;
         }
+        .bi.bi-star-fill{
+            color: #e52;
+        }
+
     </style>
 @endsection
 @section('content')
@@ -108,13 +113,21 @@
 
                             @for ($i = 0; $i < 5; $i++)
                                 @if ($review_rating_global > 0)
-                                    @if ($i < $rating_moyen)
-                                        <span class="fa fa-star"></span>
+                                    @if ($rating_moyen > $i and $rating_moyen < $i + 1)
+                                        {{-- <span class="fas fa-star-half-alt"></span> --}}
+                                        <span><i class="bi bi-star-half"></i></span>
                                     @else
-                                        <span class="far fa-star"></span>
+                                        @if ($i <= $rating_moyen)
+                                            {{-- <span class="fa fa-star"></span> --}}
+                                            <span><i class="bi bi-star-fill"></i></span>
+                                        @else
+                                            {{-- <span class="far fa-star"></span> --}}
+                                            <i class="bi bi-star"></i>
+                                        @endif
                                     @endif
                                 @else
-                                    <span class="far fa-star"></span>
+                                    {{-- <span class="far fa-star"></span> --}}
+                                    <i class="bi bi-star"></i>
                                 @endif
                             @endfor
                             <h6 class="ms-2">({{ $product->reviews->count() }}) Reviews</h6>
@@ -128,17 +141,17 @@
                             <hr>
                             <ul class="list-unstyled">
                                 @foreach ($product->reviews as $review)
-                                    <li class="media">
+                                    <li class="media mb-2">
                                         <div class="d-flex justify-content-inline">
                                             <img class="mr-3 img-fluid rounded-circle"
                                                 src="{{ $review->user->image_path }}" style="width: 100px">
                                             <div class="media-body ms-5">
                                                 <h5>{{ $review->user->name }}</h5>
-                                                @for ($i = 0; $i < 5; $i++)
-                                                    @if ($i < $review->rating)
-                                                        <span class="fa fa-star checked" style="color: "></span>
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $review->rating)
+                                                        <span><i class="bi bi-star-fill"></i></span>
                                                     @else
-                                                        <span class="fa fa-star"></span>
+                                                        <span><i class="bi bi-star"></i></span>
                                                     @endif
                                                 @endfor
                                                 {!! $review->review !!}

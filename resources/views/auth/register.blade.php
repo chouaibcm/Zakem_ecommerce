@@ -113,7 +113,10 @@
         </div>
         
        
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+        <button class="w-100 btn btn-lg btn-primary mb-2" type="submit">Register</button>
+        <a class="btn btn-link text-end" href="{{ route('login') }}">
+            {{ __('Sign in?') }}
+        </a>
         
         <p class="mt-5 mb-3 text-muted">Copyright &copy; <span id="year"></span> ZAKEM</p>
     </form>

@@ -27,6 +27,12 @@
             </ul>
         </div>
     @endif
+    @php
+        $total_orders=0;
+        foreach($orders as $order){
+            $total_orders= $total_orders + $order->total_price;
+        }
+    @endphp
     <div class="row mb-2">
         <div class="col-md-6 fw-bold fs-3">
             <span class="me-2">
@@ -56,7 +62,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="">{{ trans('clients_trans.average') }} :</label>
-                                <p class="text-muted">222 DA</p>
+                                <p class="text-muted">{{number_format($total_orders,2)}} {{ trans('products_trans.DA') }}</p>
                             </div>
                         </div>
                     </div>
@@ -65,7 +71,10 @@
             <div class="col-md-8">                
                 <div class="card mb-2">
                     <div class="card-body">
+                        <div class="d-flex justify-content-between">
                         <h4 class="fw-bold">{{ trans('orders_trans.title_page') }}</h4>
+                        <p class="text-muted p-0">Total spent: {{number_format($total_orders,2)}} {{ trans('products_trans.DA') }}</p>
+                    </div>
                         <hr class="dropdown-divider mb-2" />
                         <div class="table-responsive">
                             <table class="table data-table">
@@ -73,7 +82,7 @@
                                     <tr>
                                         <th>{{ trans('orders_trans.number') }}</th>   
                                         <th>{{ trans('orders_trans.order_date') }}</th>                                        
-                                        <th>{{ trans('orders_trans.client') }}</th>
+                                        <th>{{ trans('orders_trans.total') }}</th>
                                         <th>{{ trans('orders_trans.paid') }}</th>
                                         <th>{{ trans('orders_trans.status') }}</th>
                                         <th>{{ trans('orders_trans.items') }}</th>
@@ -82,10 +91,33 @@
                                 <tbody>
                                     @foreach ($orders as $order)
                                         <tr>
-                                            <td>{{ $order->name }}</td>
-                                            <td>{{ $order->created_at }}</td>
-                                            <td>{{ $order->client()->name }}</td>
-                                            <td>{{ $order->paid}}</td>
+                                            <td>#{{ $order->id }}</td>
+                                            <td>{{ $order->created_at->format('d-m-Y') }}</td>
+                                            <td>{{ number_format($order->total_price ,2)}} {{ trans('products_trans.DA') }}</td> 
+                                            @if ($order->paid == 0)
+                                                <td><span class="badge bg-danger">{{ trans('orders_trans.not_paid') }}</span>
+                                                </td>
+                                            @else
+                                                <td><span class="badge bg-success">{{ trans('orders_trans.yes_paid') }}</span>
+                                                </td>
+                                            @endif
+                                            @if ($order->status == 1)
+                                                <td><span class="badge bg-warning">{{ trans('orders_trans.new') }}</span>
+                                                </td>
+                                            @else
+                                                @if ($order->status == 2)
+                                                    <td><span
+                                                            class="badge bg-primary">{{ trans('orders_trans.pending') }}</span>
+                                                    </td>
+                                                @else
+                                                    @if ($order->status == 3)
+                                                        <td><span
+                                                                class="badge bg-success">{{ trans('orders_trans.shipped') }}</span>
+                                                        </td>
+                                                    @endif
+                                                @endif
+                                            @endif
+                                            <td>{{ $order->products->count() }}</td>
                                         </tr>
                                         <!--Edit client-->
                                         <!--Delete client-->

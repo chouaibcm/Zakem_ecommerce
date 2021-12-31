@@ -109,11 +109,17 @@
                 </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            
             @if (Route::has('password.request'))
+            <div class="text-start">
                 <a class="btn btn-link" href="{{ route('password.request') }}">
                     {{ __('Forgot Your Password?') }}
                 </a>
-            @endif
+            </div>
+            @endif 
+            <a class="btn btn-link text-end" href="{{ route('register') }}">
+                {{ __('New account?') }}
+            </a>
             <p class="mt-5 mb-3 text-muted">Copyright &copy; <span id="year"></span> ZAKEM</p>
         </form>
     </main>
