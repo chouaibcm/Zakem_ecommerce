@@ -31,17 +31,17 @@
                                             <input type="hidden" class="form-control" name="category_id"
                                                 value="{{ $category->id }}">
 
-                                            
+
                                             @if (count($category->childs) > 0)
-                                            <li><a href="" class="nav-link p-0"
-                                                onclick="this.closest('form').submit();return false;">{{ $category->name }}</a>
-                                        </li>
-                                                    @include('frontend.showcategories', ['subcategories' =>
-                                                    $category->childs, 'parent' => '-'])
+                                                <li><a href="" class="nav-link p-0"
+                                                        onclick="this.closest('form').submit();return false;">{{ $category->name }}</a>
+                                                </li>
+                                                @include('frontend.showcategories', ['subcategories' =>
+                                                $category->childs, 'parent' => '-'])
                                             @else
-                                            <li><a href="" class="nav-link"
-                                                onclick="this.closest('form').submit();return false;">{{ $category->name }}</a>
-                                        </li>
+                                                <li><a href="" class="nav-link"
+                                                        onclick="this.closest('form').submit();return false;">{{ $category->name }}</a>
+                                                </li>
                                             @endif
 
                                         </form>
@@ -70,6 +70,16 @@
                     <div class="row">
                         @if ($products->count() > 0)
                             @foreach ($products as $product)
+                                @php
+                                    $review_rating_global = 0;
+                                    $nb_review = $product->reviews->count();
+                                    foreach ($product->reviews as $review) {
+                                        $review_rating_global = $review_rating_global + $review->rating;
+                                    }
+                                    if ($review_rating_global > 0) {
+                                        $rating_moyen = $review_rating_global / $nb_review;
+                                    }
+                                @endphp
                                 <div class="col-md-4  mb-2">
                                     <div class="card product-card h-100">
                                         <a href="{{ route('product_detail', $product->id) }}"><img
@@ -80,6 +90,28 @@
                                             <a href="{{ route('product_detail', $product->id) }}">
                                                 <p class="text-muted mb-0">{{ $product->name }}</p>
                                             </a>
+                                            {{-- eda ydirlak moyen ta njom --}}
+                                            @if ($product->reviews->count() > 0)
+                                                <div class="col d-flex justify-content-inline">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        @if ($review_rating_global > 0)
+                                                            @if ($rating_moyen > $i and $rating_moyen < $i + 1)
+                                                                <span><i class="bi bi-star-half"></i></span>
+                                                            @else
+                                                                @if ($i <= $rating_moyen)
+                                                                    <span><i class="bi bi-star-fill"></i></span>
+                                                                @else
+                                                                    <i class="bi bi-star"></i>
+                                                                @endif
+                                                            @endif
+                                                        @else
+                                                            <i class="bi bi-star"></i>
+                                                        @endif
+                                                    @endfor
+                                                    <h6 class="ms-2">({{ $product->reviews->count() }})</h6>
+                                                </div>
+                                            @endif
+                                            {{-- --------------------------------- --}}
                                             <a href="{{ route('product_detail', $product->id) }}">
                                                 <p class="card-text fw-bold">{{ $product->title }}</p>
                                             </a>

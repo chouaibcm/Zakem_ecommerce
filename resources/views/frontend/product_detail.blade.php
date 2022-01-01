@@ -1,20 +1,16 @@
 @extends('layouts.frontendlay')
-@section('css')
-    <style>
-        .bi.bi-star-half {
-            color: #e52;
-        }
 
-        .bi.bi-star {
-            color: #e52;
-        }
-        .bi.bi-star-fill{
-            color: #e52;
-        }
-
-    </style>
-@endsection
 @section('content')
+    @php
+    $review_rating_global = 0;
+    $nb_review = $product->reviews->count();
+    foreach ($product->reviews as $review) {
+        $review_rating_global = $review_rating_global + $review->rating;
+    }
+    if ($review_rating_global > 0) {
+        $rating_moyen = $review_rating_global / $nb_review;
+    }
+    @endphp
 
     <section id="home-icons1" class="py-3 bg-light">
         <div class="container">
@@ -52,6 +48,28 @@
                         <div class="col-md-6 mb-4">
                             <h3 class="mb-2">{{ $product->title }}</h3>
                             <hr>
+                            @if ($product->reviews->count() > 0)
+                                <div class="col d-flex justify-content-inline">
+                                    {{-- eda ydirlak moyen ta njom --}}
+                                    @for ($i = 0; $i < 5; $i++)
+                                        @if ($review_rating_global > 0)
+                                            @if ($rating_moyen > $i and $rating_moyen < $i + 1)
+                                                <span><i class="bi bi-star-half"></i></span>
+                                            @else
+                                                @if ($i <= $rating_moyen)
+                                                    <span><i class="bi bi-star-fill"></i></span>
+                                                @else
+                                                    <i class="bi bi-star"></i>
+                                                @endif
+                                            @endif
+                                        @else
+                                            <i class="bi bi-star"></i>
+                                        @endif
+                                    @endfor
+                                    <h6 class="ms-2">({{ $product->reviews->count() }})</h6>
+                                    {{-- --------------------------------- --}}
+                                </div>
+                            @endif
                             <h3 class="mb-2" style="color: gray">{{ number_format($product->price, 2) }} DA</h3>
                             <p class="mb-2">Availability :
                                 @if ($product->stock == 0)
@@ -100,37 +118,24 @@
                     </div>
                     <div class="row">
                         <div class="col d-flex justify-content-inline">
-                            @php
-                                $review_rating_global = 0;
-                                $nb_review = $product->reviews->count();
-                                foreach ($product->reviews as $review) {
-                                    $review_rating_global = $review_rating_global + $review->rating;
-                                }
-                                if ($review_rating_global > 0) {
-                                    $rating_moyen = $review_rating_global / $nb_review;
-                                }
-                            @endphp
-
+                            {{-- eda ydirlak moyen ta njom --}}
                             @for ($i = 0; $i < 5; $i++)
                                 @if ($review_rating_global > 0)
                                     @if ($rating_moyen > $i and $rating_moyen < $i + 1)
-                                        {{-- <span class="fas fa-star-half-alt"></span> --}}
                                         <span><i class="bi bi-star-half"></i></span>
                                     @else
                                         @if ($i <= $rating_moyen)
-                                            {{-- <span class="fa fa-star"></span> --}}
                                             <span><i class="bi bi-star-fill"></i></span>
                                         @else
-                                            {{-- <span class="far fa-star"></span> --}}
                                             <i class="bi bi-star"></i>
                                         @endif
                                     @endif
                                 @else
-                                    {{-- <span class="far fa-star"></span> --}}
                                     <i class="bi bi-star"></i>
                                 @endif
                             @endfor
                             <h6 class="ms-2">({{ $product->reviews->count() }}) Reviews</h6>
+                            {{-- --------------------------------- --}}
                         </div>
                     </div>
                     <hr>
@@ -140,7 +145,7 @@
                             <h6>Comments</h6>
                             <hr>
                             <ul class="list-unstyled">
-                                @foreach ($product->reviews as $review)
+                                @foreach ($reviews as $review)
                                     <li class="media mb-2">
                                         <div class="d-flex justify-content-inline">
                                             <img class="mr-3 img-fluid rounded-circle"
@@ -160,6 +165,10 @@
                                     </li>
                                 @endforeach
                             </ul>
+                            <hr>
+                            <div class="d-flex justify-content-center">
+                                {{ $reviews->appends(request()->query())->links() }}
+                            </div>
                         </div>
                         <div class="col-md-2"></div>
                     </div>

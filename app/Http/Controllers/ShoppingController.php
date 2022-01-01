@@ -122,6 +122,13 @@ class ShoppingController extends Controller
                 'pincode'=> $request->pincode
             ]);
         }
+        $client->update([
+            'address' => $request->address,
+                'state'=> $request->state,
+                'country'=> $request->country,
+                'mobile'=> $request->mobile,
+                'pincode'=> $request->pincode,
+        ]);
          //delete cart orders
          Cart::destroy();
          Session::forget('new_total_price');

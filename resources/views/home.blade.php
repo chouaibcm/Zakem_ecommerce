@@ -68,6 +68,16 @@
             </div>
             <div class="row">
                 @foreach ($products as $product)
+                    @php
+                        $review_rating_global = 0;
+                        $nb_review = $product->reviews->count();
+                        foreach ($product->reviews as $review) {
+                            $review_rating_global = $review_rating_global + $review->rating;
+                        }
+                        if ($review_rating_global > 0) {
+                            $rating_moyen = $review_rating_global / $nb_review;
+                        }
+                    @endphp
                     <div class="col-md-3  mb-2">
                         <div class="card product-card h-100">
                             <a href="{{ route('product_detail', $product->id) }}"><img class="img-fluid card-img-top"
@@ -77,6 +87,28 @@
                                 <a href="{{ route('product_detail', $product->id) }}">
                                     <p class="text-muted mb-0">{{ $product->name }}</p>
                                 </a>
+                                {{-- eda ydirlak moyen ta njom --}}
+                                @if ($product->reviews->count() > 0)
+                                    <div class="col d-flex justify-content-inline">
+                                        @for ($i = 0; $i < 5; $i++)
+                                            @if ($review_rating_global > 0)
+                                                @if ($rating_moyen > $i and $rating_moyen < $i + 1)
+                                                    <span><i class="bi bi-star-half"></i></span>
+                                                @else
+                                                    @if ($i <= $rating_moyen)
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                    @else
+                                                        <i class="bi bi-star"></i>
+                                                    @endif
+                                                @endif
+                                            @else
+                                                <i class="bi bi-star"></i>
+                                            @endif
+                                        @endfor
+                                        <h6 class="ms-2">({{ $product->reviews->count() }})</h6>
+                                    </div>
+                                @endif
+                                {{-- --------------------------------- --}}
                                 <a href="{{ route('product_detail', $product->id) }}">
                                     <p class="card-text fw-bold">{{ $product->title }}</p>
                                 </a>
@@ -85,7 +117,8 @@
                                     {{ trans('products_trans.DA') }}</p>
                             </div>
                             <div class="card-footer d-flex justify-content-center" style="background: white">
-                                <a href="{{ route('product_detail', $product->id) }}" class="btn btn-dark text-white" style="width: 200px">View More</a>
+                                <a href="{{ route('product_detail', $product->id) }}" class="btn btn-dark text-white"
+                                    style="width: 200px">View More</a>
                             </div>
                         </div>
                     </div>

@@ -67,8 +67,9 @@ class HomeController extends Controller
         //frontend layout variable        
         $socialmedia=Socialmedia::first();
         $contactinf=Contactinf::first();
+        $reviews=$product->reviews()->paginate(8);
         // end of frontend layout variable
-        return view('frontend.product_detail',compact('product','socialmedia','contactinf'));
+        return view('frontend.product_detail',compact('product','socialmedia','contactinf','reviews'));
     }
 
     public function add_review(Request $request, Product $product)
