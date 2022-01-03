@@ -219,6 +219,9 @@
                                         @endif
                                     @endif
                                 @endif
+                                <a class="dropdown-item" href="{{ route('my_profile', auth()->user()->id) }}">
+                                    {{ trans('main_trans.my_profile') }}
+                                </a>
                                 <a class="dropdown-item" href="{{ route('my_orders', auth()->user()->id) }}">
                                     {{ trans('main_trans.my_orders') }}
                                 </a>

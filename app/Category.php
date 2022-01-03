@@ -11,12 +11,9 @@ class Category extends Model
     public $translatable = ['name'];
 
     protected $fillable = [
-        'name','status','parent_id',
+        'name','status',
     ];
     
-    public function childs() {
-        return $this->hasMany(Category::class, 'parent_id', 'id');
-    }
 
     public function products(){
         return $this->hasMany(Product::class);

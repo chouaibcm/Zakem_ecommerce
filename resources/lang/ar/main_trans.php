@@ -38,11 +38,9 @@ return [
     'all_products'=>'جميع المنتجات',
     'all_orders'=>'جميع الطلبات',
     'my_orders'=>'طلباتي',
+    'my_profile'=>'صفحتي الشخصية',
 
     
-    'new'=>'جدبد',
-    'pending'=>'في الإنتظار',
-    'shipped'=>'تم شحنها',
 
 
 ];

@@ -62,14 +62,10 @@
                                     <select class="form-select" name="category_id" id=""
                                         aria-label="Default select example">
                                         <option value="0" selected> {{ trans('products_trans.all_categories') }}
-                                            @foreach ($cate_levels as $category)
+                                            @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
                                             {{ $product->category_id == $category->id ? 'selected' : '' }}>
                                             {{ $category->name }}</option>
-                                        @if (count($category->childs) > 0)
-                                            @include('backend.products.editsubcategories', ['subcategories' =>
-                                            $category->childs, 'parent' => $category->name,'product'=> $product])
-                                        @endif
                                         @endforeach
                                     </select>
                                 </div>

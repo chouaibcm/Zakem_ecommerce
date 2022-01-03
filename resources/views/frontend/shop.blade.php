@@ -1,5 +1,20 @@
 @extends('layouts.frontendlay')
 
+@section('css')
+    <style>
+        #shop .nav{
+            border-top: 1px solid rgba(83, 83, 83, 0.678);
+            border-bottom: 1px solid rgba(83, 83, 83, 0.678);
+        }
+        #shop .nav .nav-link{
+            color: rgba(83, 83, 83, 0.938);
+        }
+        #shop .nav .nav-link:hover{
+            color: black;
+        }
+    </style>
+@endsection
+
 @section('content')
     <section id="shop-bar" class="py-2 mb-2">
         <div class="container">
@@ -17,41 +32,22 @@
     </section>
     <section id="shop" class="">
         <div class="container">
+            
+                    <ul class="nav justify-content-center mb-2">
+                        @foreach ($categories as $category)
+                            <form action="{{ route('shop') }}" method="GET">
+                                {{-- onclick="this.form.submit()" --}}
+                                <input type="hidden" class="form-control" name="category_id"
+                                    value="{{ $category->id }}">
+
+                                <li class="nav-item"><a href="" class="nav-link"
+                                        onclick="this.closest('form').submit();return false;">{{ $category->name }}</a>
+                                </li>
+                            </form>
+                        @endforeach
+                    </ul>
             <div class="row">
-                <div class="col-md-3">
-                    <div class="card cat-card">
-                        <div class="card-body" style="height: 400px">
-                            <p class="text-muted mb-0"> {{ trans('main_trans.categories') }} </p>
-                            <hr class="dropdown-divider mb-2" />
-                            <nav class="navbar">
-                                <ul class="navbar-nav">
-                                    @foreach ($categories as $category)
-                                        <form action="{{ route('shop') }}" method="GET">
-                                            {{-- onclick="this.form.submit()" --}}
-                                            <input type="hidden" class="form-control" name="category_id"
-                                                value="{{ $category->id }}">
-
-
-                                            @if (count($category->childs) > 0)
-                                                <li><a href="" class="nav-link p-0"
-                                                        onclick="this.closest('form').submit();return false;">{{ $category->name }}</a>
-                                                </li>
-                                                @include('frontend.showcategories', ['subcategories' =>
-                                                $category->childs, 'parent' => '-'])
-                                            @else
-                                                <li><a href="" class="nav-link"
-                                                        onclick="this.closest('form').submit();return false;">{{ $category->name }}</a>
-                                                </li>
-                                            @endif
-
-                                        </form>
-                                    @endforeach
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-9">
+                <div class="col">
                     <div class="d-flex justify-content-between">
                         <h4 class="fw-bold"> Products</h4>
                         <div class="dropdown">
@@ -80,7 +76,7 @@
                                         $rating_moyen = $review_rating_global / $nb_review;
                                     }
                                 @endphp
-                                <div class="col-md-4  mb-2">
+                                <div class="col-md-3  mb-2">
                                     <div class="card product-card h-100">
                                         <a href="{{ route('product_detail', $product->id) }}"><img
                                                 class="img-fluid card-img-top" src="{{ $product->image_path }}"

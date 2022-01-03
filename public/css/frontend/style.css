@@ -82,3 +82,32 @@
     .bi.bi-star-fill{
         color: #e52;
     }
+    /* image rounded */
+    .image-upload {
+        position:relative;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 1px solid grey;
+        margin-top: -50px;
+      }
+     .image-upload #file {
+          display: none;
+      }
+    #uploadBtn{
+        height: 40px;
+        width: 200px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        text-align: center;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: wheat;
+        font-size: 15px;
+        cursor: pointer;
+        opacity: 0;
+    }
+    .imghov:hover #uploadBtn{
+        opacity: 1;
+    }
+    /* -----------------------  */

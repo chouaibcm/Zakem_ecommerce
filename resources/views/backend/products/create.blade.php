@@ -59,15 +59,11 @@
                                 <div class="row mb-2">
                                     <div class="col">
                                         <label class="control-label">{{ trans('categories_trans.Name') }} :</label>
-                                        <select class="form-select" name="category_id" id=""
+                                        <select class="form-select" name="category_id"
                                             aria-label="Default select example">
                                             <option value="0" selected> {{ trans('products_trans.all_categories') }}
-                                                @foreach ($cate_levels as $category)
+                                                @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @if (count($category->childs) > 0)
-                                                @include('backend.products.createsubcategories', ['subcategories' =>
-                                                $category->childs, 'parent' => $category->name])
-                                            @endif
                         @endforeach
                         </select>
                     </div>

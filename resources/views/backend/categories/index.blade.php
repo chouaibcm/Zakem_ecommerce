@@ -55,8 +55,7 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th>#</th>
-                                        <th>{{ trans('categories_trans.Name') }}</th>                                        
-                                        <th>{{ trans('categories_trans.parent_category') }}</th>
+                                        <th>{{ trans('categories_trans.Name') }}</th>              
                                         <th>{{ trans('categories_trans.status') }}</th>
                                         <th>{{ trans('categories_trans.Processes') }}</th>
                                     </tr>
@@ -64,22 +63,10 @@
                                 <tbody>
                                     <?php $i = 0; ?>
                                     @foreach ($categories as $category)
-                                          <?php
-                                           $parent_cates=App\Category::where('id',$category->parent_id)->get();
-                                            ?>
                                         <tr>
                                             <?php $i++; ?>
                                             <td>{{ $i }}</td>
                                             <td>{{ $category->name }}</td>
-                                            <td>
-                                                @foreach($parent_cates as $parent_cate)
-                                                @if (App::getLocale() == 'ar')
-                                                {{$parent_cate->getTranslation('name', 'ar')}}
-                                                @else
-                                                {{$parent_cate->getTranslation('name', 'en')}}
-                                                @endif                                                        
-                                                @endforeach
-                                            </td>
                                             @if ($category->status == 1)
                                                 <td>{{ trans('categories_trans.published') }}</td>
                                             @else
@@ -140,20 +127,6 @@
                                                                         :</label>
                                                                     <input type="text" class="form-control" name="name_en"
                                                                         value="{{ $category->getTranslation('name', 'en') }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <label class="control-label">{{trans('categories_trans.category_level') }}</label>
-                                                                    <select class="form-select" name="parent_id" id="" aria-label="Default select example">
-                                                                        <option value="0">{{trans('categories_trans.main_category') }}</option>
-                                                                        @foreach ($cate_levels as $cat)
-                                                                            <option value="{{ $cat->id }}" {{ $category->id == $cat->id ? 'selected' : '' }}>{{ $category->name }}</option>                                                    
-                                                                            @if (count($cat->childs) > 0)
-                                                                                @include('backend.categories.editcategory', ['subcategories' => $cat->childs, 'parent' => $cat->name,'category' => $category])
-                                                                            @endif                                                    
-                                                                        @endforeach
-                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -240,22 +213,6 @@
                                 <label for="name_en" class="mr-sm-2">{{ trans('categories_trans.stage_name_en') }}
                                     :</label>
                                 <input type="text" class="form-control" name="name_en">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label class="control-label">{{trans('categories_trans.category_level') }}</label>
-                                
-                                
-                                <select class="form-select" name="parent_id" id="" aria-label="Default select example">
-                                    <option value="0">{{trans('categories_trans.main_category') }}</option>     
-                                    @foreach ($cate_levels as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>                                                    
-                                        @if (count($category->childs) > 0)
-                                            @include('backend.products.createsubcategories', ['subcategories' => $category->childs, 'parent' => $category->name])
-                                        @endif                                                     
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                         <div class="row">

@@ -64,11 +64,8 @@
                                         <div class="col d-flex justify-content-start">                                                    
                                             <select class="form-select" name="category_id" id="" aria-label="Default select example" onchange="this.form.submit()">
                                                 <option value="0" selected> {{ trans('products_trans.all_categories') }}     
-                                                @foreach ($cate_levels as $category)
-                                                    <option value="{{ $category->id }}" {{ request()->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>                                                    
-                                                    @if (count($category->childs) > 0)
-                                                        @include('backend.products.subcategories', ['subcategories' => $category->childs, 'parent' => $category->name])
-                                                    @endif                                                    
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->id }}" {{ request()->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

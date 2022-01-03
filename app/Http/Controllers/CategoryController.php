@@ -14,12 +14,9 @@ class CategoryController extends Controller
     public function index()
     {
         $main_sidebar=2;
-        //category level in add category
-        $cate_levels=Category::where('parent_id',0)->get();
-        // $cate_levels=['0'=>'Main Category']+$plucked->all();
         //------------------------------
         $categories=Category::all();
-        return view('backend.categories.index',compact('categories','cate_levels','main_sidebar'));
+        return view('backend.categories.index',compact('categories','main_sidebar'));
     }
 
     public function create()
@@ -36,7 +33,6 @@ class CategoryController extends Controller
         $category = new Category();
         
         $category->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
-        $category->parent_id = $request->parent_id;
         if ($request->status == 1) {            
             $category->status = $request->status;
         } else {            
@@ -73,8 +69,7 @@ class CategoryController extends Controller
         }  
         $category->update([
             $category->Name = ['ar' => $request->name_ar, 'en' => $request->name_en],           
-            $category->status = $test,      
-            $category->parent_id = $request->parent_id,      
+            $category->status = $test,       
           ]);
           toastr()->success(trans('messages.Update'));
         return redirect()->route('categories.index');

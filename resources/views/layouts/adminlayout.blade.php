@@ -97,6 +97,7 @@
                         <div class="text-muted small fx-bold text-uppercase px-3">{{ trans('main_trans.Dashboard') }}
                         </div>
                     </li>
+                    {{-- dashboard --}}
                     <li>
                         <a class="nav-link px-3 {{ $main_sidebar == 1 ? 'active' : '' }}"
                             href="{{ route('dashboard') }}">
@@ -219,7 +220,7 @@
                         </div>
                     </li>
                     
-                    {{--  --}}
+                    {{-- Settings --}}
                     <li>
                         <a class="nav-link px-3 sidebar-link {{ $main_sidebar == 8 ? 'active' : '' }}" data-bs-toggle="collapse" href="#collapsesetting" role="button"
                             aria-expanded="false" aria-controls="collapsesetting">

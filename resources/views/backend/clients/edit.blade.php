@@ -53,7 +53,7 @@
                                             <input class="form-control image" type="file" name="image" id="file">
                                             <label for="file" id="uploadBtn">{{ trans('clients_trans.update_img') }}</label>
                                         </div>
-                                    </div>
+                                    </div> 
                                     <div class="text-muted small fx-bold text-uppercase px-3">
                                         {{ trans('clients_trans.show') }}
                                     </div>

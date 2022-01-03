@@ -32,4 +32,5 @@ return [
     'all_products'=>'All Products',
     'all_orders'=>'All Orders',
     'my_orders'=>'My Orders',
+    'my_profile'=>'My Profile',
 ];

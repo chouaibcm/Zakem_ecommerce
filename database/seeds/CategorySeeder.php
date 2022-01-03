@@ -14,7 +14,6 @@ class CategorySeeder extends Seeder
     {
         $first=Category::create([
             'name'=>'My Products',
-            'parent_id'=> 0,
             'status'=> 1,
         ]);
     }

@@ -39,6 +39,8 @@ Route::group(
     Route::get('/cart/checkout','ShoppingController@checkout')->name('checkout');
     Route::post('/cart/checkout/apply-order','ShoppingController@apply_order')->name('apply_order');
     Route::get('/{user}/my-orders','ShoppingController@my_orders')->name('my_orders');
+    Route::get('/{user}/my-profile','HomeController@my_profile')->name('my_profile');
+    Route::put('/{user}/my-profile/update','HomeController@update_profile')->name('update_profile');
     Route::get('/{product}/add-review','HomeController@add_review')->name('add_review');
     Route::post('/{product}/upload-review','HomeController@upload_review')->name('upload_review');
     Route::post('/cart/checkout/applycoupon','CouponController@applycoupon')->name('applycoupon');

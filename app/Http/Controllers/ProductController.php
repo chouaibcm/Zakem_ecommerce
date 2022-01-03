@@ -22,14 +22,14 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $main_sidebar=3;        
-        $cate_levels=Category::where('parent_id', '=', 0)->with('childs')->get();
+        $categories=Category::all();
         
         if($request->category_id==0){   // all categories         
             $products=Product::orderBy('id', 'DESC')->get();
         }else{// chooose category
             $products = Product::where('category_id','=',$request->category_id)->get();
         }
-        return view('backend.products.index',compact('products','main_sidebar','cate_levels'));
+        return view('backend.products.index',compact('products','main_sidebar','categories'));
     }
 
     public function create()
@@ -37,8 +37,7 @@ class ProductController extends Controller
         $main_sidebar=3;
         $categories=Category::all();
         $productAtts=ProductAtt::all();
-        $cate_levels=Category::where('parent_id',0)->get();
-        return view('backend.products.create',compact('cate_levels','main_sidebar','categories','productAtts'));
+        return view('backend.products.create',compact('main_sidebar','categories','productAtts'));
     }
 
     public function store(Request $request)
@@ -104,10 +103,10 @@ class ProductController extends Controller
     public function edit(Request $request)
     {
         $main_sidebar=3; 
+        $categories=Category::all();
         $product = Product::findOrFail($request->id);
         $productAtts=ProductAtt::all();
-        $cate_levels=Category::where('parent_id',0)->get();
-        return view('backend.products.edit',compact('cate_levels','main_sidebar','product','productAtts'));
+        return view('backend.products.edit',compact('categories','main_sidebar','product','productAtts'));
     }
 
     public function update(Request $request)
