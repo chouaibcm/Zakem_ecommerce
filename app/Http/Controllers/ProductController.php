@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
+use App\ProductImg;
 use App\ProductAtt;
 use App\AttributeValue;
 use Illuminate\Http\Request;
@@ -67,6 +68,7 @@ class ProductController extends Controller
                 $constraint->aspectRatio();
             })->save(public_path('uploads/product_img/' . $request->image->hashName()));
         }
+        
 
         
         $product = new Product();
@@ -79,9 +81,22 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->status = $request->status;
         $product->stock = $request->stock;
+        //save image in db
         if($request->image){ 
         $product->image = $request->image->hashName();}
         $product->save();
+        //save albume of pics
+        if($request->albume){
+            foreach($request->albume as $pic){
+                Image::make($pic)->resize(400, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('uploads/product_img/' . $pic->getClientOriginalName()));
+                $p_img=new ProductImg();
+                $p_img->product_id = $product->id;
+                $p_img->image =$pic->getClientOriginalName();
+                $p_img->save();
+            }   
+        }
         if($request->att_on){
         foreach($p_atts as $p_att){
             $new_p_att = new AttributeValue(); 

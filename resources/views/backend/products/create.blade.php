@@ -115,17 +115,18 @@
                 </div>
                 <!-- product image-->
                 <div class="row">
+                    <div class="text-muted small fx-bold text-uppercase px-3">
+                        {{ trans('products_trans.image') }}
+                    </div>
+                    <hr class="dropdown-divider mb-2" />
                     <div class="col-md-6">
-                        <div class="text-muted small fx-bold text-uppercase px-3">
-                            {{ trans('products_trans.image') }}
-                        </div>
-                        <hr class="dropdown-divider mb-2" />
                         <div class="row mb-2">
                             <div class="col">
                                 <div class="mb-3">
                                     <label for="formFile"
                                         class="form-label">{{ trans('products_trans.import') }}:</label>
-                                    <input class="form-control image" name="image" type="file" id="formFile">
+                                    <input class="form-control image" name="image" type="file" accept="image/*"
+                                        id="formFile">
                                 </div>
                             </div>
                         </div>
@@ -138,8 +139,15 @@
                             </div>
                         </div>
                     </div>
-                    {{-- stock --}}
+
                     <div class="col-md-6">
+                        <label for="formFile" class="form-label">{{ trans('products_trans.import') }}:</label>
+                        <input class="form-control" name="albume[]" type="file" accept="image/*" multiple>
+                    </div>
+                </div>
+                {{-- stock --}}
+                <div class="row mb-2">
+                    <div class="col">
                         <div class="text-muted small fx-bold text-uppercase px-3">
                             {{ trans('products_trans.stock') }}
                         </div>

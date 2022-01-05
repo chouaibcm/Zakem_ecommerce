@@ -19,8 +19,13 @@ class Product extends Model
            return $this->belongsTo(Category::class);
 
        }
+
        public function attr_values(){
         return $this->hasMany(AttributeValue::class,'product_id');
+       }
+
+       public function product_images(){
+        return $this->hasMany(ProductImg::class,'product_id');
        }
 
        public function getImagePathAttribute()
