@@ -31,186 +31,242 @@
 
 <body>
 
+    {{-- <ul class="nav justify-content-center navbar-dark bg-dark mb-2">
+                <li class="nav-item"><a href="" class="nav-link">ZAKEM</a>
+                </li>
+    </ul> --}}
+    <div id="top-nav">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+            <div class="container">
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><span><i class="bi bi-telephone-fill">
+                                    {{ $contactinf->phone }}</i></span></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @if ($socialmedia->facebook)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{$socialmedia->facebook}}" target="_blank"><i class="bi bi-facebook"></i></a>
+                    </li>
+                    @endif
+                    @if ($socialmedia->instagram)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{$socialmedia->instagram}}" target="_blank"><i class="bi bi-instagram"> </i></a>
+                    </li>
+                    @endif
+                    @if ($socialmedia->google)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{$socialmedia->google}}" target="_blank"><i class="bi bi-google"></i></a>
+                    </li>
+                    @endif
+                    @if ($socialmedia->twitter)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{$socialmedia->twitter}}" target="_blank"><i class="bi bi-twitter"></i></a>
+                    </li>
+                    @endif
+                    @if ($socialmedia->pinterest)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{$socialmedia->pinterest}}" target="_blank"><i class="bi bi-pinterest"></i></a>
+                    </li>
+                    @endif
+                    @if ($socialmedia->youtube)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{$socialmedia->youtube}}" target="_blank"><i class="bi bi-youtube"></i></a>
+                    </li>
+                    @endif
+                </ul>
+            </div>
+        </nav>
+    </div>
+
     <!-- START HERE -->
     <div id="main-nav">
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a href="{{ route('home') }}" class="navbar-brand">
-                <img src="{{ asset('uploads/logo/logo.png') }}" class="img-fluid" width="50" height="50" alt="">
-                <h3 class="d-inline align-middle">ZAKEM</h3>
-            </a>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a href="{{ route('home') }}" class="navbar-brand">
+                    <img src="{{ asset('uploads/logo/logo.png') }}" class="img-fluid" width="50" height="50"
+                        alt="">
+                    <h3 class="d-inline align-middle">ZAKEM</h3>
+                </a>
 
-            {{-- button ta carte li nhato fiha les produit --}}
-            <ul class="navbar-nav cartcho">
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-                        aria-controls="offcanvasExample">
-                        <i class="bi bi-cart3">
-                            <span class="position-absolute start-25 translate-middle badge rounded-pill bg-dark"
-                                style="font-size: 12px">
-                                {{ Cart::content()->count() }}
-                            </span>
-                        </i>
-                    </a>
-                </li>
-            </ul>
+                {{-- button ta carte li nhato fiha les produit --}}
+                <ul class="navbar-nav cartcho">
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+                            aria-controls="offcanvasExample">
+                            <i class="bi bi-cart3">
+                                <span class="position-absolute start-25 translate-middle badge rounded-pill bg-dark"
+                                    style="font-size: 12px">
+                                    {{ Cart::content()->count() }}
+                                </span>
+                            </i>
+                        </a>
+                    </li>
+                </ul>
 
-            <div class="offcanvas offcanvas-end " style="width: 700px" tabindex="-1" id="offcanvasExample"
-                aria-labelledby="offcanvasExampleLabel">
-                <div class="offcanvas-header">
-                    <h3 class="offcanvas-title" id="offcanvasExampleLabel">My Carte</h3>
+                <div class="offcanvas offcanvas-end " style="width: 700px" tabindex="-1" id="offcanvasExample"
+                    aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header">
+                        <h3 class="offcanvas-title" id="offcanvasExampleLabel">My Carte</h3>
 
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <hr class="dropdown-divider mb-3" />
-                    <h5 class="display-6 text-center mb-3">In Your Shopping Cart: {{ Cart::content()->count() }} Items
-                    </h5>
-                    @if (Cart::content()->count() > 0)
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="table-primary">
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>price</th>
-                                        <th>Quantity</th>
-                                        <th>total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Cart::content()->count()>0)
-                                        
-                                        @foreach (Cart::content() as $product)
-                                            <tr style="vertical-align: middle;">
-                                                <td>
-                                                    <a href="{{ route('cart.delete', $product->rowId) }}"><i
-                                                            class="fa fa-trash"
-                                                            style="color: rgb(216, 17, 17)"></i></a>
-                                                    <img src="{{ $product->model->image_path }}"
-                                                        class="img-fluid text-center" style="width: 100px;" alt="">
-                                                    {{ $product->name }}
-                                                </td>
-                                                <td>{{ number_format($product->price,2) }} DA</td>
-                                                <form action="{{ route('cart.change.qty') }}" method="GET">
-                                                    <td><input type="number" name="qty" value="{{ $product->qty }}" min="1"
-                                                            class="form-control form-control-sm" style="width: 80px"
-                                                            onchange="this.form.submit()">
-                                                    </td>
-                                                    <input type="hidden" name="product_id" value="{{ $product->rowId }}">
-                                                </form>
-                                                <td>{{ number_format($product->total(),2) }} DA</td>
-                                            </tr>
-                                        @endforeach
-                                        
-                                    @endif
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-end">
-                            <h3>Total : {{ number_format(Cart::total(),2) }} {{ trans('products_trans.DA') }}</h3>
-
-                        </div>
-                    @endif
-                </div>
-                <div class="offcanvas-footer">
-                    <div class="container">
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <hr class="dropdown-divider mb-3" />
+                        <h5 class="display-6 text-center mb-3">In Your Shopping Cart: {{ Cart::content()->count() }}
+                            Items
+                        </h5>
                         @if (Cart::content()->count() > 0)
-                            <hr class="dropdown-divider" />
-                            <div class="row mb-3">
-                                <div class="col text-end">
-                                    <a href="{{route('mycart')}}" class="btn btn-outline-primary">Expand cart</a>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>price</th>
+                                            <th>Quantity</th>
+                                            <th>total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Cart::content()->count() > 0)
+
+                                            @foreach (Cart::content() as $product)
+                                                <tr style="vertical-align: middle;">
+                                                    <td>
+                                                        <a href="{{ route('cart.delete', $product->rowId) }}"><i
+                                                                class="fa fa-trash"
+                                                                style="color: rgb(216, 17, 17)"></i></a>
+                                                        <img src="{{ $product->model->image_path }}"
+                                                            class="img-fluid text-center" style="width: 100px;" alt="">
+                                                        {{ $product->name }}
+                                                    </td>
+                                                    <td>{{ number_format($product->price, 2) }} DA</td>
+                                                    <form action="{{ route('cart.change.qty') }}" method="GET">
+                                                        <td><input type="number" name="qty"
+                                                                value="{{ $product->qty }}" min="1"
+                                                                class="form-control form-control-sm" style="width: 80px"
+                                                                onchange="this.form.submit()">
+                                                        </td>
+                                                        <input type="hidden" name="product_id"
+                                                            value="{{ $product->rowId }}">
+                                                    </form>
+                                                    <td>{{ number_format($product->total(), 2) }} DA</td>
+                                                </tr>
+                                            @endforeach
+
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-end">
+                                <h3>Total : {{ number_format(Cart::total(), 2) }} {{ trans('products_trans.DA') }}
+                                </h3>
+
                             </div>
                         @endif
                     </div>
-                </div>
-            </div>
-            {{-- end of button carte --}}
-
-            <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="{{ route('home') }}"
-                            class="nav-link {{ $main_nav = 1 ? 'active' : '' }}">{{ trans('main_trans.home') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('shop')}}" class="nav-link">{{ trans('main_trans.shop') }}</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (App::getLocale() == 'ar')
-                                {{ LaravelLocalization::getCurrentLocaleName() }}
-                            @else
-                                {{ LaravelLocalization::getCurrentLocaleName() }}
+                    <div class="offcanvas-footer">
+                        <div class="container">
+                            @if (Cart::content()->count() > 0)
+                                <hr class="dropdown-divider" />
+                                <div class="row mb-3">
+                                    <div class="col text-end">
+                                        <a href="{{ route('mycart') }}" class="btn btn-outline-primary">Expand cart</a>
+                                    </div>
+                                </div>
                             @endif
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
-                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}"
-                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">{{ $properties['native'] }}</a>
-                            @endforeach
                         </div>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <!-- Authentication Links -->
-                    @guest
+                    </div>
+                </div>
+                {{-- end of button carte --}}
+
+                <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> 
+                            <a href="{{ route('home') }}"
+                                class="nav-link {{ $main_nav = 1 ? 'active' : '' }}">{{ trans('main_trans.home') }}</a>
                         </li>
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else
+                        <li class="nav-item">
+                            <a href="{{ route('shop') }}" class="nav-link">{{ trans('main_trans.shop') }}</a>
+                        </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ Auth::user()->name }}
+                                @if (App::getLocale() == 'ar')
+                                    {{ LaravelLocalization::getCurrentLocaleName() }}
+                                @else
+                                    {{ LaravelLocalization::getCurrentLocaleName() }}
+                                @endif
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                @if (auth()->user()->isAdmin())
-                                    <!-- if you are admin-->
-                                    @if (auth()->user()->hasPermission('read_dashboards'))
-                                        <!-- if you have access to dashboard-->
-                                        <a class="dropdown-item"
-                                            href="{{ route('dashboard') }}">{{ trans('main_trans.Dashboard_page') }}</a>
-                                    @else
-                                        @if (auth()->user()->hasPermission('read_categories'))
-                                            <!-- if you have access to categories-->
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
+                                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}"
+                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">{{ $properties['native'] }}</a>
+                                @endforeach
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @if (auth()->user()->isAdmin())
+                                        <!-- if you are admin-->
+                                        @if (auth()->user()->hasPermission('read_dashboards'))
+                                            <!-- if you have access to dashboard-->
                                             <a class="dropdown-item"
-                                                href="{{ route('categories.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
+                                                href="{{ route('dashboard') }}">{{ trans('main_trans.Dashboard_page') }}</a>
                                         @else
-                                            @if (auth()->user()->hasPermission('read_products'))
-                                                <!-- if you have access to products-->
+                                            @if (auth()->user()->hasPermission('read_categories'))
+                                                <!-- if you have access to categories-->
                                                 <a class="dropdown-item"
-                                                    href="{{ route('products.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
+                                                    href="{{ route('categories.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
                                             @else
-                                                @if (auth()->user()->hasPermission('read_orders'))
-                                                    <!-- if you have access to orders-->
+                                                @if (auth()->user()->hasPermission('read_products'))
+                                                    <!-- if you have access to products-->
                                                     <a class="dropdown-item"
-                                                        href="{{ route('orders.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
+                                                        href="{{ route('products.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
                                                 @else
-                                                    @if (auth()->user()->hasPermission('read_clients'))
-                                                        <!-- if you have access to clients-->
+                                                    @if (auth()->user()->hasPermission('read_orders'))
+                                                        <!-- if you have access to orders-->
                                                         <a class="dropdown-item"
-                                                            href="{{ route('clients.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
+                                                            href="{{ route('orders.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
                                                     @else
-                                                        @if (auth()->user()->hasPermission('read_coupons'))
-                                                            <!-- if you have access to coupons-->
+                                                        @if (auth()->user()->hasPermission('read_clients'))
+                                                            <!-- if you have access to clients-->
                                                             <a class="dropdown-item"
-                                                                href="{{ route('coupons.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
+                                                                href="{{ route('clients.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
                                                         @else
-                                                            @if (auth()->user()->hasPermission('read_users'))
-                                                                <!-- if you have access to users-->
+                                                            @if (auth()->user()->hasPermission('read_coupons'))
+                                                                <!-- if you have access to coupons-->
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('users.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
+                                                                    href="{{ route('coupons.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
+                                                            @else
+                                                                @if (auth()->user()->hasPermission('read_users'))
+                                                                    <!-- if you have access to users-->
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('users.index') }}">{{ trans('main_trans.Dashboard_page') }}</a>
+                                                                @endif
                                                             @endif
                                                         @endif
                                                     @endif
@@ -218,32 +274,31 @@
                                             @endif
                                         @endif
                                     @endif
-                                @endif
-                                <a class="dropdown-item" href="{{ route('my_profile', auth()->user()->id) }}">
-                                    {{ trans('main_trans.my_profile') }}
-                                </a>
-                                <a class="dropdown-item" href="{{ route('my_orders', auth()->user()->id) }}">
-                                    {{ trans('main_trans.my_orders') }}
-                                </a>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                    {{ trans('main_trans.logout') }}
-                                </a>
+                                    <a class="dropdown-item" href="{{ route('my_profile', auth()->user()->id) }}">
+                                        {{ trans('main_trans.my_profile') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('my_orders', auth()->user()->id) }}">
+                                        {{ trans('main_trans.my_orders') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                        {{ trans('main_trans.logout') }}
+                                    </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
+
+
             </div>
-
-
-        </div>
-    </nav>
-</div>
+        </nav>
+    </div>
     <main class="">
         @yield('content')
     </main>
@@ -263,22 +318,22 @@
                         <h4>Follow Us</h4>
                         <hr class="dropdown-divider" />
                         @if ($socialmedia->facebook)
-                            <a href="#"><i class="bi bi-facebook"> facebook</i></a><br>
+                            <a href="#"><i class="bi bi-facebook" target="_blank"> facebook</i></a><br>
                         @endif
                         @if ($socialmedia->instagram)
-                            <a href="#"><i class="bi bi-instagram"> instagram</i></a><br>
+                            <a href="#"><i class="bi bi-instagram" target="_blank"> instagram</i></a><br>
                         @endif
                         @if ($socialmedia->google)
-                            <a href="#"><i class="bi bi-google"> Google+</i></a><br>
+                            <a href="#"><i class="bi bi-google" target="_blank"> Google+</i></a><br>
                         @endif
                         @if ($socialmedia->twitter)
-                            <a href="#"><i class="bi bi-twitter"> Twitter</i></a><br>
+                            <a href="#"><i class="bi bi-twitter" target="_blank"> Twitter</i></a><br>
                         @endif
                         @if ($socialmedia->pinterest)
-                            <a href="#"><i class="bi bi-pinterest"> Pinterest</i></a><br>
+                            <a href="#"><i class="bi bi-pinterest" target="_blank"> Pinterest</i></a><br>
                         @endif
                         @if ($socialmedia->youtube)
-                            <a href="#"><i class="bi bi-youtube"> Youtube</i></a><br>
+                            <a href="#"><i class="bi bi-youtube" target="_blank"> Youtube</i></a><br>
                         @endif
                     </div>
                 @endif
@@ -309,7 +364,7 @@
     @if (App::getLocale() == 'ar')
         <script src="{{ URL::asset('DataTables/rtlscript.js') }}"></script>
     @endif
-    
+
     <script src="{{ URL::asset('plugins/ckeditor/ckeditor.js') }}"></script>
     @toastr_js
     @toastr_render
@@ -335,9 +390,10 @@
                 }
 
             });
-            CKEDITOR.config.language =  '{{ app()->getLocale() }}';
+            CKEDITOR.config.language = '{{ app()->getLocale() }}';
         }); //end of ready
     </script>
+    @yield('script')
 </body>
 
 </html>

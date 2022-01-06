@@ -1,5 +1,109 @@
 @extends('layouts.frontendlay')
 
+@section('css')
+
+<style>
+
+#content-wrapper{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.column{
+	width: 600px;
+	padding: 10px;
+
+}
+
+#featured{
+	max-width: 500px;
+	max-height: 600px;
+	object-fit: cover;
+	cursor: pointer;
+	border: 2px solid rgba(156, 156, 156, 0.767);
+
+}
+
+.thumbnail{
+	object-fit: cover;
+	max-width: 180px;
+	max-height: 100px;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 5px;
+	border: 2px solid rgba(156, 156, 156, 0.767);
+
+}
+
+.thumbnail:hover{
+	opacity:1;
+}
+
+.active{
+	opacity: 1;
+}
+
+#slide-wrapper{
+	max-width: 500px;
+	display: flex;
+	min-height: 100px;
+	align-items: center;
+}
+
+#slider{
+	width: 440px;
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+
+}
+
+
+#slider::-webkit-scrollbar {
+		width: 8px;
+
+}
+
+#slider::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+
+}
+ 
+#slider::-webkit-scrollbar-thumb {
+  background-color: #161616;
+  outline: 1px solid slategrey;
+   border-radius: 100px;
+
+}
+
+#slider::-webkit-scrollbar-thumb:hover{
+    background-color: #c0c0c0;
+}
+
+.arrow{
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	transition: .3s;
+}
+
+.arrow:hover{
+	opacity: .5;
+	width: 35px;
+	height: 35px;
+}
+
+.prdt-card{
+    box-shadow: 2px 2px 10px #4e4e4eb7;
+}
+
+
+</style>
+    
+@endsection
+
 @section('content')
     @php
     $review_rating_global = 0;
@@ -12,25 +116,11 @@
     }
     @endphp
 
-    <section id="home-icons1" class="py-3 bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    {{-- <h3 class="display-6">{{ $product->name }}</h3> --}}
-                </div>
-                <div class="col-md-3 mb-4 text-center">
-                    {{-- <i class="bi bi-shop fa-3x mb-2"></i>
-                <h3>Product Detail</h3> --}}
-                </div>
-                <div class="col-md-3 mb-4 text-center">
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="home-icons" class="py-5">
+    
+    <section id="home-icons" class="py-5 bg-light">
         <div class="container">
             <h3 class="display-6">{{ $product->name }}</h3>
-            <div class="card py-5">
+            <div class="card prdt-card py-5">
                 <div class="card-body">
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -43,7 +133,24 @@
                     @endif
                     <div class="row">
                         <div class="col-md-6 mb-4 text-center">
-                            <img src="{{ $product->image_path }}" class="img-fluid" alt="">
+                            {{-- <img src="{{ $product->image_path }}" class="img-fluid" alt=""> --}}
+
+                            <img id=featured src="{{ $product->image_path }}">
+
+                            <div id="slide-wrapper">
+                                {{-- <img id="slideLeft" class="arrow" src="images/arrow-left.png"> --}}
+                                <i  id="slideLeft"  class="bi bi-arrow-left-circle-fill arrow"></i>
+
+                                <div id="slider">
+                                    <img class="thumbnail active" src="{{ $product->image_path }}">
+                                    @foreach ($product->product_images as $image)
+                                       <img class="thumbnail" src="{{ $image->image_path }}">
+                                    @endforeach
+                                </div>
+
+                                {{-- <img id="slideRight" class="arrow" src="images/arrow-right.png"> --}}
+                                <i  id="slideRight" class="bi bi-arrow-right-circle-fill arrow"></i>
+                            </div>
                         </div>
                         <div class="col-md-6 mb-4">
                             <h3 class="mb-2">{{ $product->title }}</h3>
@@ -141,7 +248,10 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-2"></div>
+                        
                         <div class="col-md-8">
+                            @if ($reviews->count()>0)
+                            
                             <h6>Comments</h6>
                             <hr>
                             <ul class="list-unstyled">
@@ -169,6 +279,7 @@
                             <div class="d-flex justify-content-center">
                                 {{ $reviews->appends(request()->query())->links() }}
                             </div>
+                            @endif
                         </div>
                         <div class="col-md-2"></div>
                     </div>
@@ -177,4 +288,41 @@
         </div>
     </section>
 
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    let thumbnails = document.getElementsByClassName('thumbnail')
+
+    let activeImages = document.getElementsByClassName('active')
+
+    for (var i=0; i < thumbnails.length; i++){
+
+        thumbnails[i].addEventListener('mouseover', function(){
+            console.log(activeImages)
+            
+            if (activeImages.length > 0){
+                activeImages[0].classList.remove('active')
+            }
+            
+
+            this.classList.add('active')
+            document.getElementById('featured').src = this.src
+        })
+    }
+
+
+    let buttonRight = document.getElementById('slideRight');
+    let buttonLeft = document.getElementById('slideLeft');
+
+    buttonLeft.addEventListener('click', function(){
+        document.getElementById('slider').scrollLeft -= 180
+    })
+
+    buttonRight.addEventListener('click', function(){
+        document.getElementById('slider').scrollLeft += 180
+    })
+
+
+</script>
 @endsection

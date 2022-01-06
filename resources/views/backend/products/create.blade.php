@@ -138,10 +138,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
 
                     <div class="col-md-6">
-                        <label for="formFile" class="form-label">{{ trans('products_trans.import') }}:</label>
+                        <div class="alert alert-secondary mt-2">
+                            {{ trans('products_trans.add_albume2') }}
+                        </div>
+                        <label for="formFile" class="form-label">{{ trans('products_trans.add_albume') }}:</label>
                         <input class="form-control" name="albume[]" type="file" accept="image/*" multiple>
                     </div>
                 </div>

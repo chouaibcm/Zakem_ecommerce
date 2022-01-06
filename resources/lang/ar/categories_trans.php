@@ -28,7 +28,7 @@ return [
     'Close' => 'اغلاق',
     'select_category' => 'اختر فئة',
 
-    'delete_category_Error' => 'لايمكن حذف فئة بسبب وجود عروض تابعة لها',
+    'delete_category_Error' => 'لايمكن حذف فئة بسبب وجود منتجات تابعة لها',
 
 
 

@@ -42,6 +42,8 @@ return [
     'all_categories' => 'All Categories',
     'in_stock' => 'In Stock',
     'out_stock' => 'Out Of Stock',
+    'add_albume' => 'Add Albume',
+    'add_albume2' => 'Add Another picture to describe your product!',
 
     
     'attr_name'=>'Name',

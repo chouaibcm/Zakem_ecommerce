@@ -18,7 +18,7 @@
                 <?php $i = 0; ?>
                 @foreach ($sliders as $slider)
                     <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
-                        <img src="{{ $slider->image_path }}" class="img-fluid" alt="">
+                        <img src="{{ $slider->image_path }}" class="img-fluid" style="width: 100%" alt="">
                         <div class="carousel-caption d-none d-md-block {{ $slider->position }}">
                             <h1 class="display-3">{{ $slider->heading }}</h1>
                             <p>{{ $slider->description }}</p>
@@ -117,7 +117,7 @@
                                     {{ trans('products_trans.DA') }}</p>
                             </div>
                             <div class="card-footer d-flex justify-content-center" style="background: white">
-                                <a href="{{ route('product_detail', $product->id) }}" class="btn btn-dark text-white"
+                                <a href="{{ route('product_detail', $product->id) }}" id="btn-hover" class="btn btn-dark text-white"
                                     style="width: 200px">View More</a>
                             </div>
                         </div>

@@ -119,11 +119,11 @@
                             </div>
                             <!-- product image and stock-->
                             <div class="row">
+                                <div class="text-muted small fx-bold text-uppercase px-3">
+                                    {{ trans('products_trans.image') }}
+                                </div>
+                                <hr class="dropdown-divider mb-2" />
                                 <div class="col-md-6">
-                                    <div class="text-muted small fx-bold text-uppercase px-3">
-                                        {{ trans('products_trans.image') }}
-                                    </div>
-                                    <hr class="dropdown-divider mb-2" />
                                     <div class="row mb-2">
                                         <div class="col">
                                             <div class="mb-3">
@@ -142,18 +142,30 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- stock --}}
                                 <div class="col-md-6">
+                                    <div class="alert alert-secondary mt-2">
+                                        {{ trans('products_trans.add_albume2') }}
+                                    </div>
+                                    <label for="formFile" class="form-label">{{ trans('products_trans.add_albume') }}:</label>
+                                    <input class="form-control mb-2" name="albume[]" type="file" accept="image/*" multiple>
+                                    <p>Number of picture in albume: {{$product->product_images->count()}}</p>
+                                    @foreach ($product->product_images as $image)
+                                    <img src="{{ $image->image_path }}" style="width: 50px;"
+                                    class="img-fluid" alt="">
+                                    @endforeach
+                                </div>
+                            </div>
+                            {{-- stock --}}
+                            <div class="row mb-2">
+                                <div class="col">
                                     <div class="text-muted small fx-bold text-uppercase px-3">
                                         {{ trans('products_trans.stock') }}
                                     </div>
                                     <hr class="dropdown-divider mb-2" />
                                     <label class="control-label mb-2">{{ trans('products_trans.stock') }} :</label>
                                     <select class="form-select" name="stock" id="" aria-label="Default select example">
-                                        <option value="0" {{ $product->stock == 0 ? 'selected' : '' }}>
-                                            {{ trans('products_trans.in_stock') }}
-                                        <option value="1" {{ $product->stock == 1 ? 'selected' : '' }}>
-                                            {{ trans('products_trans.out_stock') }}
+                                        <option value="0" selected> {{ trans('products_trans.in_stock') }}
+                                        <option value="1"> {{ trans('products_trans.out_stock') }}
                                     </select>
                                 </div>
                             </div>

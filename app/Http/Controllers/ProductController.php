@@ -126,7 +126,6 @@ class ProductController extends Controller
 
     public function update(Request $request)
     {
-       
         if($request->fields2){
             $p_atts2 = array_chunk($request->fields2, 3);
             foreach($p_atts2 as $p_att2){
@@ -167,6 +166,23 @@ class ProductController extends Controller
             $product->update([
                 $product->image = $request->image->hashName(),
                 ]); 
+        }
+        //save albume of pics
+        if($request->albume){
+            foreach ($product->product_images as $image) {
+                $path=public_path('uploads/product_img/' . $image->image);
+                    unlink($path); 
+                    $image->delete();
+            }
+            foreach($request->albume as $pic){
+                Image::make($pic)->resize(400, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('uploads/product_img/' . $pic->getClientOriginalName()));
+                $p_img=new ProductImg();
+                $p_img->product_id = $product->id;
+                $p_img->image =$pic->getClientOriginalName();
+                $p_img->save();
+            }   
         }
 
         $product->update([

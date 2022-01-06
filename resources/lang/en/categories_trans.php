@@ -28,7 +28,7 @@ return [
     'Close' => 'Close',
     'select_category' => 'Select Category',
     
-    'delete_category_Error' => 'لايمكن حذف فئة بسبب وجود عروض تابعة لها',
+    'delete_category_Error' => 'You can not delete this category because there is products belongs to her',
 
 
 
