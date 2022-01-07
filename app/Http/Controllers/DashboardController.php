@@ -21,6 +21,11 @@ class DashboardController extends Controller
     }
     public function index(Request $request)
     {
+        if ($request->date2) {
+        $date = explode(" to ",$request->date2);}
+        
+
+        // dd($date);
         $categories_count = Category::count();
         $products_count = Product::count();
         $users_count = User::where('user_role','client')->count();
@@ -34,6 +39,27 @@ class DashboardController extends Controller
         $month_price=self::monthprice($orders_m);
         $today_price=self::monthprice($today_orders);
         //--------------------------------------
+        if ($request->date2) {
+            if(count($date)==2){
+                $dateBorder=$date[0];
+                $dateEorder=$date[1];
+                $order_between = Order::whereBetween('created_at', [$dateBorder.' 00:00:00', $dateEorder.' 23:59:59'])->get();
+                $between_price=self::monthprice($order_between);
+            }else{
+                $dateBorder=$date[0];
+                $dateEorder=$date[0];
+                $order_between = Order::whereBetween('created_at', [$dateBorder.' 00:00:00', $dateEorder.' 23:59:59'])->get();
+                $between_price=self::monthprice($order_between);
+            }
+        } else {
+            $dateBorder=Carbon::now()->startOfMonth();
+            $dateEorder=Carbon::now();
+            $order_between = Order::whereBetween('created_at', [$dateBorder, $dateEorder])->get();
+            $dateBorder=Carbon::now()->startOfMonth()->format('d-m-Y');
+            $dateEorder=Carbon::now()->format('d-m-Y');
+            $between_price=self::monthprice($order_between);
+        }
+        
         
         // elequent edi ta7ssab ch7al order f yoom f chhar eda 
         $option=0;
@@ -97,7 +123,8 @@ class DashboardController extends Controller
         // ------------------------------------------------
         $main_sidebar=1;
         return view('backend/dashboard',compact('month_price','today_price','chart', 'topsales', 'main_sidebar',
-        'categories_count', 'products_count', 'users_count', 'orders_count','products'));
+        'categories_count', 'products_count', 'users_count', 'orders_count','products', 'dateBorder' ,'dateEorder',
+        'order_between','between_price'));
     }
     private function monthprice($orders){
         $month_price=0;

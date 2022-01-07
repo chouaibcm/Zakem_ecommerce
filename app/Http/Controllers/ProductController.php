@@ -239,6 +239,11 @@ class ProductController extends Controller
             $path=public_path('uploads/product_img/' . $product->image);
                 unlink($path);  
         }
+        foreach ($product->product_images as $image) {
+            $path=public_path('uploads/product_img/' . $image->image);
+                unlink($path); 
+                $image->delete();
+        }
         $product->delete();         
         toastr()->error(trans('messages.Delete'));
         return redirect()->route('products.index');

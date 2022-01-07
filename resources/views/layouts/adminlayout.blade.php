@@ -21,6 +21,9 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @endif
+    {{-- flat picker --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    {{-- ------------- --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" integrity="sha512-HCG6Vbdg4S+6MkKlMJAm5EHJDeTZskUdUMTb8zNcUKoYNDteUQ0Zig30fvD9IXnRv7Y0X4/grKCnNoQ21nF2Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     @yield('css')
@@ -281,6 +284,7 @@
     @if (App::getLocale() == 'ar')
         <script src="{{ URL::asset('DataTables/rtlscript.js') }}"></script>
     @endif
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     @toastr_js
     @toastr_render
     <script>
@@ -289,7 +293,13 @@
         $(document).ready(function(){
         CKEDITOR.config.language =  '{{ app()->getLocale() }}';
     });
-
+    config={
+    mode: "range",
+    maxDate: "today",
+    dateFormat: "Y-m-d",
+                        
+    }
+    flatpickr(".anotherSelector",config);
     </script>
 </body>
 
