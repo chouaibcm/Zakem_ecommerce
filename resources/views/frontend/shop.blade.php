@@ -32,7 +32,6 @@
     </section>
     <section id="shop" class="">
         <div class="container">
-            
                     <ul class="nav justify-content-center mb-2">
                         @foreach ($categories as $category)
                             <form action="{{ route('shop') }}" method="GET">
@@ -81,7 +80,7 @@
                                         <a href="{{ route('product_detail', $product->id) }}"><img
                                                 class="img-fluid card-img-top" src="{{ $product->image_path }}"
                                                 alt="Card image cap">
-                                        </a>
+                                        </a> 
                                         <div class="card-body text-start pb-0">
                                             <a href="{{ route('product_detail', $product->id) }}">
                                                 <p class="text-muted mb-0">{{ $product->name }}</p>

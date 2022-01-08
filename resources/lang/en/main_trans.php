@@ -33,4 +33,11 @@ return [
     'all_orders'=>'All Orders',
     'my_orders'=>'My Orders',
     'my_profile'=>'My Profile',
+    
+    'order_period'=>'All Orders In This Period',
+    'nb_order_period'=>'Number Of Orders In This Period',
+    'income_period'=>'Your Income In This Period',
+    'update'=>'Update',
+    'order'=>'Orders',
+    'top10'=>'Top 10 selling products',
 ];

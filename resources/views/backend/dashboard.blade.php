@@ -156,13 +156,14 @@
         </div>
         {{-- -------------------------------------- --}}
         <hr>
+        {{-- search in period --}}
         <div class="row mt-2 mb-2">
             <div class="col">
 
                 <form action="{{ route('dashboard') }}" method="GET">
                     <div class="row">
                         <div class="col-md-2">
-                            <label for="">Order in this Period:</label></div>
+                            <label for="">{{ trans('main_trans.order_period') }} :</label></div>
                         <div class="col-md-10">
                             <div class="d-flex justify-content-inline">
                                 <div class="input-group">
@@ -171,7 +172,7 @@
                                         <span class="input-group-text"><i class="bi bi-calendar"></i></span>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="submit"> apply</button>
+                                <button class="btn btn-outline-secondary" type="submit"> {{ trans('main_trans.update') }}</button>
                             </div>
                         </div>
                     </div>
@@ -191,16 +192,16 @@
                             </span>
                         </div>
                         <div class="text-end">
-                            <p class="card-text text-dark mb-0">Number Of Order between:</p>
+                            <p class="card-text text-dark mb-0">{{ trans('main_trans.nb_order_period') }}:</p>
                             <p class="card-text text-dark mb-0">{{ $dateBorder }} {{ trans('main_trans.to') }}
                                 {{ $dateEorder }}</p>
-                            <h3>{{$order_between->count()}} Order</h3>
+                            <h3>{{$order_between->count()}} {{ trans('main_trans.order') }}</h3>
                         </div>
                     </div>
                     <p class="text-muted pt-3 mb-0 mt-2 border-top">
                         <i class="fa fa-money mr-1" aria-hidden="true"></i>
                         <i class="bi bi-cart  mr-1"></i>
-                        Orders
+                        {{ trans('main_trans.nb_order_period') }}
                     </p>
                 </div>
             </div>
@@ -215,7 +216,7 @@
                             </span>
                         </div>
                         <div class="text-end">
-                            <p class="card-text text-dark mb-0">Royalties in this period</p>
+                            <p class="card-text text-dark mb-0">{{ trans('main_trans.income_period') }}</p>
                             <p class="card-text text-dark mb-0">{{ $dateBorder }} {{ trans('main_trans.to') }}
                                 {{ $dateEorder }}</p>
                             <h4>{{ number_format($between_price, 2) }} {{ trans('products_trans.DA') }}</h4>
@@ -223,7 +224,7 @@
                     </div>
                     <p class="text-muted pt-3 mb-0 mt-2 border-top">
                         <i class="fa fa-money mr-1" aria-hidden="true"></i>
-                        Royalties in this period
+                        {{ trans('main_trans.income_period') }}
                     </p>
                 </div>
             </div>
@@ -256,7 +257,7 @@
                 <div class="card card-statistics h-100">
                     <div class="card-body">
                         <div class="card-title mb-3">
-                            <h4>Top 10 selling</h4>
+                            <h4>{{ trans('main_trans.top10') }}</h4>
                         </div>
                         <div class="table-responsive">
                             <table id="datatable" class="table  table-hover table-sm table-bordered p-0"
