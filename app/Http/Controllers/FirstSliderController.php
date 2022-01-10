@@ -63,13 +63,13 @@ class FirstSliderController extends Controller
         if ($request->image) {
             // lakan image li kanat 9bal mach default tna7iha 
             if($slider->image != 'default.png'){
-                $path=public_path('uploads/product_img/' . $slider->image);
+                $path=public_path('uploads/carousel/' . $slider->image);
                     unlink($path);  
             }
                    // t7at image jdida
-            Image::make($request->image)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path('uploads/product_img/' . $request->image->hashName())); 
+                   Image::make($request->image)->resize(null, 1280, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('uploads/carousel/' . $request->image->hashName()));
             // t7otha f base de donnees
             $slider->update([
                 $slider->image = $request->image->hashName(),

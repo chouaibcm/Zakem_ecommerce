@@ -17,7 +17,7 @@
 
                 </div>
                 <div class="col-md-6 mb-4 text-center">
-                    <i class="bi bi-shop fa-3x mb-2"></i>
+                    <i class="bi bi-box-seam fa-3x mb-2"></i>
                     <h3 class="display-6">{{ trans('main_trans.my_orders') }}</h3>
                 </div>
                 <div class="col-md-3 mb-4 text-center">
@@ -27,7 +27,7 @@
     </section>
     <section id="home-icons" class="py-5">
         <div class="container">
-            <h3 class="display-6 text-center mb-5">{{ auth()->user()->orders()->count() }} Order Effected</h3>
+            {{-- <h3 class="display-6 text-center mb-5">{{ auth()->user()->orders()->count() }} Order Effected</h3> --}}
             <div class="table-responsive">
                 <table class="table data-table">
                     <thead class="table-primary">
