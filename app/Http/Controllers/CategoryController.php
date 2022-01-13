@@ -28,8 +28,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate( [
-            'name_ar' => 'required',
-            'name_en' => 'required',
+            'name_ar' => 'required|max:255|unique:categories,name',
+            'name_en' => 'required|max:255|unique:categories,name',
         ]);
         $category = new Category();
         
@@ -57,12 +57,12 @@ class CategoryController extends Controller
 
     public function update(Request $request)
     {
+        $category = Category::findOrFail($request->id);
         $request->validate( [
-            'name_ar' => 'required',
-            'name_en' => 'required',
+            'name_ar' => 'required|max:255|unique:categories,name,'.$category->id,
+            'name_en' => 'required|max:255|unique:categories,name,'.$category->id,
         ]);
         
-        $category = Category::findOrFail($request->id);
         if ($request->status == 1) {          
             $test=1;
         } else {            

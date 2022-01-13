@@ -43,6 +43,13 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate( [
+            'name' => 'required',
+            'title' => 'required',
+            'category_id' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+        ]);
         //products attributes array
         if($request->att_on){
         $p_atts = array_chunk($request->fields, 2);
@@ -54,14 +61,6 @@ class ProductController extends Controller
             }            
         }
         }
-        $request->validate( [
-            'name' => 'required',
-            'title' => 'required',
-            'category_id' => 'required',
-            'p_code' => 'required',
-            'price' => 'required',
-            'description' => 'required',
-        ]);
 
         if($request->image){            
             Image::make($request->image)->resize(400, null, function ($constraint) {
@@ -76,7 +75,12 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->title = $request->title;
         $product->category_id = $request->category_id;
-        $product->p_code = $request->p_code;
+        if($request->p_code){
+            $product->p_code = $request->p_code;
+        }
+        if($request->discount){
+            $product->discount = $request->discount;
+            }
         $product->price = $request->price;
         $product->description = $request->description;
         $product->status = $request->status;
@@ -126,6 +130,13 @@ class ProductController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate( [
+            'name' => 'required',
+            'title' => 'required',
+            'category_id' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+        ]);
         if($request->fields2){
             $p_atts2 = array_chunk($request->fields2, 3);
             foreach($p_atts2 as $p_att2){
@@ -146,14 +157,7 @@ class ProductController extends Controller
                     }            
                 }
                 }
-        $request->validate( [
-            'name' => 'required',
-            'title' => 'required',
-            'category_id' => 'required',
-            'p_code' => 'required',
-            'price' => 'required',
-            'description' => 'required',
-        ]);
+        
         $product = Product::findOrFail($request->id);
         if ($request->image){
             if($product->image != 'default.png'){
@@ -189,12 +193,14 @@ class ProductController extends Controller
             $product->name = $request->name,
             $product->title = $request->title,
             $product->category_id = $request->category_id,
-            $product->p_code = $request->p_code,
             $product->price = $request->price,
             $product->description = $request->description,
             $product->status = $request->status,
+            $product->p_code = $request->p_code,
+            $product->discount = $request->discount,
             $product->stock = $request->stock,
         ]);
+           
         //--------------------------update attribute value
         if($request->fields2){
             $p_atts2 = array_chunk($request->fields2, 3);

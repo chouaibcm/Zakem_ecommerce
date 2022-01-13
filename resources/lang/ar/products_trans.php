@@ -44,6 +44,8 @@ return [
     'add_update_attr'=>'إضافة و تعديل سمات المنتج',
     'delete_attr'=>'حذف سمة المنتج',
     'attr_list'=>'قائمة سمات المنتج',
+    'discount' => 'سعر الخصم',
+    'optional' => 'اختياري',
     
     'attr_name'=>'الاسم',
     'size'=>'الحجم',

@@ -177,7 +177,14 @@
                                     {{-- --------------------------------- --}}
                                 </div>
                             @endif
-                            <h3 class="mb-2" style="color: gray">{{ number_format($product->price, 2) }} DA</h3>
+                            @if ($product->discount)
+                            <div class="d-flex justify-content-inline">
+                            <h3 class="mb-2 me-2" style="color: gray"><del>{{ number_format($product->price, 2) }} {{ trans('products_trans.DA') }}</del></h3>
+                            <h3 class="mb-2" style="color: gray">{{ number_format($product->discount, 2) }} {{ trans('products_trans.DA') }}</h3>
+                        </div>
+                            @else
+                            <h3 class="mb-2" style="color: gray">{{ number_format($product->price, 2) }} {{ trans('products_trans.DA') }}</h3>
+                            @endif
                             <p class="mb-2">Availability :
                                 @if ($product->stock == 0)
                                     <span class="badge bg-success">{{ trans('products_trans.in_stock') }}</span>

@@ -13,10 +13,10 @@ class SocialmediaSeeder extends Seeder
     public function run()
     {
         $first= Socialmedia::create([            
-            'facebook'=> '',            
-            'instagram'=> '',            
+            'facebook'=> 'www.facebook.com',            
+            'instagram'=> 'www.instagram.com',            
             'google'=> '',            
-            'twitter'=> '',            
+            'twitter'=> 'www.twitter.com',            
             'pinterest'=> '',            
             'youtube'=> '',
         ]);

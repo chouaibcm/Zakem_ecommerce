@@ -43,6 +43,8 @@ return [
     'in_stock' => 'In Stock',
     'out_stock' => 'Out Of Stock',
     'add_albume' => 'Add Albume',
+    'discount' => 'Discount Price',
+    'optional'=>'Optional',
     'add_albume2' => 'Add Another picture to describe your product!',
 
     

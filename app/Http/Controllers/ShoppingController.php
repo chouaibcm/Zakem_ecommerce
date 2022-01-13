@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Cart;
+use Mail;
 use App\User;
 use App\Product;
 use App\Order;
@@ -23,22 +24,42 @@ class ShoppingController extends Controller
                 'p_att.*' => 'required|integer',
             ]);
         }
-        if ($request->p_att) {
-            $cart = Cart::add([
-                'id' => $product->id,
-                'name' => $product->name,
-                'qty' => $request->qty,
-                'price' => $product->price,
-                'options' =>['p_att' => $request->p_att],
-            ]);
+        if ($product->discount) {
+            if ($request->p_att) {
+                $cart = Cart::add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $request->qty,
+                    'price' => $product->discount,
+                    'options' =>['p_att' => $request->p_att],
+                ]);
+            } else {
+                $cart = Cart::add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $request->qty,
+                    'price' => $product->discount
+                ]);
+            }
         } else {
-            $cart = Cart::add([
-                'id' => $product->id,
-                'name' => $product->name,
-                'qty' => $request->qty,
-                'price' => $product->price
-            ]);
+            if ($request->p_att) {
+                $cart = Cart::add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $request->qty,
+                    'price' => $product->price,
+                    'options' =>['p_att' => $request->p_att],
+                ]);
+            } else {
+                $cart = Cart::add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $request->qty,
+                    'price' => $product->price
+                ]);
+            }
         }
+        
         
         
         Cart::associate($cart->rowId,'App\Product');
@@ -123,7 +144,7 @@ class ShoppingController extends Controller
             ]);
         }
         $client->update([
-            'address' => $request->address,
+                'address' => $request->address,
                 'state'=> $request->state,
                 'country'=> $request->country,
                 'mobile'=> $request->mobile,
@@ -131,8 +152,11 @@ class ShoppingController extends Controller
         ]);
          //delete cart orders
          Cart::destroy();
+
          Session::forget('new_total_price');
          Session::forget('coupon_code');
+         // mail sender
+        //  Mail::to($client->email)->send(new Orderfacturemail());
          toastr()->success(trans('messages.add_order'));
          return redirect()->route('home');
     }

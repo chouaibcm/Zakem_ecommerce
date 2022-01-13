@@ -61,7 +61,7 @@
                                     <label class="control-label">{{ trans('categories_trans.Name') }} :</label>
                                     <select class="form-select" name="category_id" id=""
                                         aria-label="Default select example">
-                                        <option value="0" selected> {{ trans('products_trans.all_categories') }}
+                                        <option value=""> {{ trans('products_trans.all_categories') }}
                                             @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
                                             {{ $product->category_id == $category->id ? 'selected' : '' }}>
@@ -100,10 +100,29 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <label class="mr-sm-2">{{ trans('products_trans.p_code') }}
+                                    <label class="mr-sm-2">{{ trans('products_trans.p_code') }} ( {{ trans('products_trans.optional') }} ) 
                                         :</label>
                                     <input type="text" name="p_code" value="{{ $product->p_code }}"
                                         class="form-control">
+                                </div>
+                            </div>
+                            {{-- stock --}}
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <label class="control-label">{{ trans('products_trans.discount') }} ( {{ trans('products_trans.optional') }} ) :</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">{{ trans('products_trans.DA') }}</span>
+                                        <input type="number" name="discount" class="form-control"
+                                            value="{{$product->discount}}" aria-label="Username"
+                                            aria-describedby="basic-addon1" min="1">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label class="control-label">{{ trans('products_trans.stock') }} :</label>
+                                    <select class="form-select" name="stock" id="" aria-label="Default select example">
+                                        <option value="0" {{$product->stock==0 ? 'selected':''}}> {{ trans('products_trans.in_stock') }}
+                                        <option value="1" {{$product->stock==1 ? 'selected':''}}> {{ trans('products_trans.out_stock') }}
+                                    </select>
                                 </div>
                             </div>
                             <!-- product description-->
@@ -146,7 +165,7 @@
                                     <div class="alert alert-secondary mt-2">
                                         {{ trans('products_trans.add_albume2') }}
                                     </div>
-                                    <label for="formFile" class="form-label">{{ trans('products_trans.add_albume') }}:</label>
+                                    <label for="formFile" class="form-label">{{ trans('products_trans.add_albume') }}  ( {{ trans('products_trans.optional') }} ) :</label>
                                     <input class="form-control mb-2" name="albume[]" type="file" accept="image/*" multiple>
                                     <p>Number of picture in albume: {{$product->product_images->count()}}</p>
                                     @foreach ($product->product_images as $image)
@@ -155,20 +174,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            {{-- stock --}}
-                            <div class="row mb-2">
-                                <div class="col">
-                                    <div class="text-muted small fx-bold text-uppercase px-3">
-                                        {{ trans('products_trans.stock') }}
-                                    </div>
-                                    <hr class="dropdown-divider mb-2" />
-                                    <label class="control-label mb-2">{{ trans('products_trans.stock') }} :</label>
-                                    <select class="form-select" name="stock" id="" aria-label="Default select example">
-                                        <option value="0" selected> {{ trans('products_trans.in_stock') }}
-                                        <option value="1"> {{ trans('products_trans.out_stock') }}
-                                    </select>
-                                </div>
-                            </div>
+                            
                             {{-- end image and stock --}}
                             {{-- les attributes ila kaynin naffichiwham hna --}}
                             @if ($product->attr_values->count() > 0)

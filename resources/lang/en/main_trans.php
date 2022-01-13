@@ -16,6 +16,7 @@ return [
     'users'=>'Admins',
     'List_admins'=>'Admins List',    
     'setting'=>'Settings',
+    'settings'=>'Settings',
     'clients'=>'Customers',
     'main_page'=>'Main Page',
     'royalties_month'=>'Royalties Of This Month',

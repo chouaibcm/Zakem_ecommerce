@@ -61,7 +61,7 @@
                                         <label class="control-label">{{ trans('categories_trans.Name') }} :</label>
                                         <select class="form-select" name="category_id"
                                             aria-label="Default select example">
-                                            <option value="0" selected> {{ trans('products_trans.all_categories') }}
+                                            <option value="" selected> {{ trans('products_trans.all_categories') }}
                                                 @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
@@ -97,9 +97,28 @@
                         </div>
                     </div>
                     <div class="col">
-                        <label class="mr-sm-2">{{ trans('products_trans.p_code') }}
+                        <label class="mr-sm-2">{{ trans('products_trans.p_code') }} ( {{ trans('products_trans.optional') }} )
                             :</label>
                         <input type="text" name="p_code" class="form-control">
+                    </div>
+                </div>
+                {{-- stock and discount--}}
+                <div class="row mb-2">
+                    <div class="col">
+                        <label class="control-label">{{ trans('products_trans.discount') }}  ( {{ trans('products_trans.optional') }} ) :</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">{{ trans('products_trans.DA') }}</span>
+                            <input type="number" name="discount" class="form-control"
+                                placeholder="{{ trans('products_trans.discount') }}" aria-label="Username"
+                                aria-describedby="basic-addon1" min="1">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label class="control-label">{{ trans('products_trans.stock') }} :</label>
+                        <select class="form-select" name="stock" id="" aria-label="Default select example">
+                            <option value="0" selected> {{ trans('products_trans.in_stock') }}
+                            <option value="1"> {{ trans('products_trans.out_stock') }}
+                        </select>
                     </div>
                 </div>
                 <!-- product description-->
@@ -142,26 +161,13 @@
 
                     <div class="col-md-6">
                         <div class="alert alert-secondary mt-2">
-                            {{ trans('products_trans.add_albume2') }}
+                            {{ trans('products_trans.add_albume2') }} 
                         </div>
-                        <label for="formFile" class="form-label">{{ trans('products_trans.add_albume') }}:</label>
+                        <label for="formFile" class="form-label">{{ trans('products_trans.add_albume') }}  ( {{ trans('products_trans.optional') }} ):</label>
                         <input class="form-control" name="albume[]" type="file" accept="image/*" multiple>
                     </div>
                 </div>
-                {{-- stock --}}
-                <div class="row mb-2">
-                    <div class="col">
-                        <div class="text-muted small fx-bold text-uppercase px-3">
-                            {{ trans('products_trans.stock') }}
-                        </div>
-                        <hr class="dropdown-divider mb-2" />
-                        <label class="control-label mb-2">{{ trans('products_trans.stock') }} :</label>
-                        <select class="form-select" name="stock" id="" aria-label="Default select example">
-                            <option value="0" selected> {{ trans('products_trans.in_stock') }}
-                            <option value="1"> {{ trans('products_trans.out_stock') }}
-                        </select>
-                    </div>
-                </div>
+                
                 {{-- products attribute li tat3awad --}}
                 <div id="accordion">
                     <div class="d-flex justify-content-between">

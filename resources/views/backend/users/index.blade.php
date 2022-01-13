@@ -105,7 +105,7 @@
                                         <!--Edit Category-->
                                         <div class="modal fade" id="edit{{ $user->id }}" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
+                                            <div class="modal-dialog modal-xl">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">
@@ -176,7 +176,7 @@
                                                                     </label>
                                                                     <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                                                         @php
-                                                                            $models = ['users', 'categories', 'dashboards', 'products', 'orders','clients','coupons'];
+                                                                            $models = ['users', 'categories', 'dashboards', 'products', 'orders','clients','coupons','settings'];
                                                                             $maps = ['create', 'read', 'update', 'delete'];
                                                                         @endphp
                                                                         @foreach ($models as $index => $model)
@@ -271,7 +271,7 @@
     </div>
     <!--add user-->
     <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{ trans('users_trans.add_user') }}</h5>
@@ -339,7 +339,7 @@
                                 <label class="mr-sm-2">{{ trans('users_trans.permissions') }}: </label>
                                 <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                     @php
-                                        $models2 = ['users', 'categories', 'dashboards', 'products', 'orders','clients','coupons'];
+                                        $models2 = ['users', 'categories', 'dashboards', 'products', 'orders','clients','coupons','settings'];
                                     @endphp
                                     @foreach ($models2 as $index => $mode)
                                         <li class="nav-item" role="presentation">

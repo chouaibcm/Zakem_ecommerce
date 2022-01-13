@@ -13,6 +13,7 @@ return [
     'orders'=>'الطلبات',
     'coupons'=>'كوبونات',
     'setting'=>'الإعدادات',
+    'settings'=>'الإعدادات',
     'admins'=>'المشرفين', 
     'users'=>'المشرفين', 
     'List_admins'=>'قائمة المشرفين', 

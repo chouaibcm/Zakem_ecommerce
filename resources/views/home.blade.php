@@ -112,9 +112,19 @@
                                 <a href="{{ route('product_detail', $product->id) }}">
                                     <p class="card-text fw-bold">{{ $product->title }}</p>
                                 </a>
-                                <p class="fw-bold text-uppercase price" style="color: rgb(89, 153, 250)">
-                                    {{ $product->price }}
+                                @if ($product->discount)
+                                <div class="d-flex justify-content-inline">
+                                <p class="fw-bold text-uppercase me-2" style="color: rgb(99, 99, 99)"><del>{{number_format($product->price,2)}}{{ trans('products_trans.DA') }}</del></p>
+                                <p class="fw-bold text-uppercase" style="color: rgb(89, 153, 250)">
+                                    {{ number_format($product->discount,2) }}
                                     {{ trans('products_trans.DA') }}</p>
+                                </div>
+                                @else
+                                    
+                                <p class="fw-bold text-uppercase" style="color: rgb(89, 153, 250)">
+                                    {{number_format($product->price,2)}}
+                                    {{ trans('products_trans.DA') }}</p>
+                                @endif
                             </div>
                             <div class="card-footer d-flex justify-content-center" style="background: white">
                                 <a href="{{ route('product_detail', $product->id) }}" id="btn-hover" class="btn btn-dark text-white"

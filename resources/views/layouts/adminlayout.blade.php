@@ -96,6 +96,7 @@
         <div class="offcanvas-body p-0">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
+                    @if (auth()->user()->hasPermission('read_categories'))
                     <li>
                         <div class="text-muted small fx-bold text-uppercase px-3">{{ trans('main_trans.Dashboard') }}
                         </div>
@@ -110,6 +111,7 @@
                             <span>{{ trans('main_trans.Dashboard_page') }}</span>
                         </a>
                     </li>
+                    @endif
                     <li class="my-2">
                         <hr class="dropdown-divider" />
                     </li>
@@ -130,6 +132,7 @@
                         </li>
                     @endif
                     <!-- Products -->
+                    @if (auth()->user()->hasPermission('read_products'))
                     <li>
                         <a class="nav-link px-3 sidebar-link  {{ $main_sidebar == 3 ? 'active' : '' }}" data-bs-toggle="collapse" href="#collapseproduct" role="button"
                             aria-expanded="false" aria-controls="collapseproduct"> 
@@ -164,7 +167,9 @@
                              </div>
                         </div>
                     </li>
+                    @endif
                     <!-- Orders -->
+                    @if (auth()->user()->hasPermission('read_orders'))
                     <li>
                         <a class="nav-link px-3 sidebar-link {{ $main_sidebar == 4 ? 'active' : '' }}"
                            href="{{ route('orders.index') }}">
@@ -174,7 +179,9 @@
                             <span>{{ trans('main_trans.orders') }}</span>
                         </a>
                     </li>
+                    @endif
                     <!-- Clients -->
+                    @if (auth()->user()->hasPermission('read_clients'))
                     <li>
                         <a class="nav-link px-3 sidebar-link {{ $main_sidebar == 5 ? 'active' : '' }}"
                             href="{{ route('clients.index') }}">
@@ -184,7 +191,9 @@
                             <span>{{ trans('main_trans.clients') }}</span>
                         </a>
                     </li>
+                    @endif
                     <!-- Coupons -->
+                    @if (auth()->user()->hasPermission('read_coupons'))
                     <li>
                         <a class="nav-link px-3 sidebar-link {{ $main_sidebar == 6 ? 'active' : '' }}" 
                          href="{{ route('coupons.index') }}">
@@ -194,6 +203,7 @@
                             <span>{{ trans('main_trans.coupons') }}</span>
                         </a>
                     </li>
+                    @endif
                     <!-- admins-->
                     @if (auth()->user()->hasPermission('read_users'))
                         <li class="my-2">
@@ -215,6 +225,7 @@
                         </li>
                     @endif
                     <!-- Settings -->
+                    @if (auth()->user()->hasPermission('read_settings'))
                     <li class="my-2">
                         <hr class="dropdown-divider" />
                     </li>
@@ -222,7 +233,6 @@
                         <div class="text-muted small fx-bold text-uppercase px-3">{{ trans('main_trans.setting') }}
                         </div>
                     </li>
-                    
                     {{-- Settings --}}
                     <li>
                         <a class="nav-link px-3 sidebar-link {{ $main_sidebar == 8 ? 'active' : '' }}" data-bs-toggle="collapse" href="#collapsesetting" role="button"
@@ -258,6 +268,7 @@
                              </div>
                         </div>
                     </li>
+                    @endif
                     {{--  --}}
                 </ul>
             </nav>

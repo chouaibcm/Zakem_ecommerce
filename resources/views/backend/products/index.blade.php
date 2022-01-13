@@ -90,9 +90,6 @@
                                 <tbody>
                                     <?php $i = 0; ?>
                                     @foreach ($products as $product)
-                                        <?php
-                                        $category = App\Category::where('id', $product->category_id)->first();
-                                        ?>
                                         <tr>
                                             <?php $i++; ?>
                                             <td>{{ $i }}</td>
@@ -100,13 +97,7 @@
                                                     class="img-thumbnail" alt=""> </td>
                                             <td>{{ $product->p_code }}</td>
                                             <td>{{ $product->name }}</td>
-                                            <td>
-                                                @if (App::getLocale() == 'ar')
-                                                    {{ $category->getTranslation('name', 'ar') }}
-                                                @else
-                                                    {{ $category->getTranslation('name', 'en') }}
-                                                @endif
-                                            </td>
+                                            <td>{{$product->category->name}}</td>
                                             <td>{{ $product->price }} DA</td>
                                             @if ($product->status == 1)
                                                 <td><span
