@@ -78,7 +78,7 @@
                             $rating_moyen = $review_rating_global / $nb_review;
                         }
                     @endphp
-                    <div class="col-md-3  mb-2">
+                    <div class="col-md-3 col-sm-6 mb-2">
                         <div class="card product-card h-100">
                             <a href="{{ route('product_detail', $product->id) }}"><img class="img-fluid card-img-top"
                                     src="{{ $product->image_path }}" alt="Card image cap">

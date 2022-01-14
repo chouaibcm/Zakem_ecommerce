@@ -2,16 +2,19 @@
 
 @section('css')
     <style>
-        #shop .nav{
+        #shop .nav {
             border-top: 1px solid rgba(83, 83, 83, 0.678);
             border-bottom: 1px solid rgba(83, 83, 83, 0.678);
         }
-        #shop .nav .nav-link{
+
+        #shop .nav .nav-link {
             color: rgba(83, 83, 83, 0.938);
         }
-        #shop .nav .nav-link:hover{
+
+        #shop .nav .nav-link:hover {
             color: black;
         }
+
     </style>
 @endsection
 
@@ -32,19 +35,18 @@
     </section>
     <section id="shop" class="">
         <div class="container">
-                    <ul class="nav justify-content-center mb-2">
-                        @foreach ($categories as $category)
-                            <form action="{{ route('shop') }}" method="GET">
-                                {{-- onclick="this.form.submit()" --}}
-                                <input type="hidden" class="form-control" name="category_id"
-                                    value="{{ $category->id }}">
+            <ul class="nav justify-content-center mb-2">
+                @foreach ($categories as $category)
+                    <form action="{{ route('shop') }}" method="GET">
+                        {{-- onclick="this.form.submit()" --}}
+                        <input type="hidden" class="form-control" name="category_id" value="{{ $category->id }}">
 
-                                <li class="nav-item"><a href="" class="nav-link"
-                                        onclick="this.closest('form').submit();return false;">{{ $category->name }}</a>
-                                </li>
-                            </form>
-                        @endforeach
-                    </ul>
+                        <li class="nav-item"><a href="" class="nav-link"
+                                onclick="this.closest('form').submit();return false;">{{ $category->name }}</a>
+                        </li>
+                    </form>
+                @endforeach
+            </ul>
             <div class="row">
                 <div class="col">
                     <div class="d-flex justify-content-between">
@@ -80,7 +82,7 @@
                                         <a href="{{ route('product_detail', $product->id) }}"><img
                                                 class="img-fluid card-img-top" src="{{ $product->image_path }}"
                                                 alt="Card image cap">
-                                        </a> 
+                                        </a>
                                         <div class="card-body text-start pb-0">
                                             <a href="{{ route('product_detail', $product->id) }}">
                                                 <p class="text-muted mb-0">{{ $product->name }}</p>
@@ -110,9 +112,21 @@
                                             <a href="{{ route('product_detail', $product->id) }}">
                                                 <p class="card-text fw-bold">{{ $product->title }}</p>
                                             </a>
-                                            <p class="fw-bold text-uppercase price" style="color: rgb(89, 153, 250)">
-                                                {{ $product->price }}
-                                                {{ trans('products_trans.DA') }}</p>
+                                            @if ($product->discount)
+                                                <div class="d-flex justify-content-inline">
+                                                    <p class="fw-bold text-uppercase me-2" style="color: rgb(99, 99, 99)">
+                                                        <del>{{ number_format($product->price, 2) }}{{ trans('products_trans.DA') }}</del>
+                                                    </p>
+                                                    <p class="fw-bold text-uppercase" style="color: rgb(89, 153, 250)">
+                                                        {{ number_format($product->discount, 2) }}
+                                                        {{ trans('products_trans.DA') }}</p>
+                                                </div>
+                                            @else
+
+                                                <p class="fw-bold text-uppercase" style="color: rgb(89, 153, 250)">
+                                                    {{ number_format($product->price, 2) }}
+                                                    {{ trans('products_trans.DA') }}</p>
+                                            @endif
                                         </div>
                                         <div class="card-footer d-flex justify-content-center" style="background: white">
                                             <a href="{{ route('product_detail', $product->id) }}"
