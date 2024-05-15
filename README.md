@@ -1,8 +1,8 @@
 
-cp .env.example .env
-composer install
-php artisan key:generate
-php artisan migrate:fresh --seed
+cp .env.example .env <br>
+composer install <br>
+php artisan key:generate <br>
+php artisan migrate:fresh --seed <br>
 
 admin account to see the dashboard:
 
